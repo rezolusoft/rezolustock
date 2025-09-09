@@ -5,7 +5,7 @@ from extras.tools import invoice_code_generator
 from peewee import *
 
 
-class AkontaInvoice(AkontaObject):
+class Invoice(AkontaObject):
     """
         Represente le recu d'une operation de vente
     """

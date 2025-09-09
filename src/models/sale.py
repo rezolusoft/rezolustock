@@ -1,24 +1,24 @@
 from models.akonta import AkontaObject
-from models.product import AkontaProduct
+from models.product import Product
 from extras.tools import sale_code_generator, id_generator
-from models.user import AkontaUser
+from models.user import User
 from peewee import *
 
 
-class AkontaSale(AkontaObject):
+class Sale(AkontaObject):
     amount = DecimalField(decimal_places=2)
     sale_id = UUIDField(default=id_generator)
     code = CharField(default=sale_code_generator)
-    seller = ForeignKeyField(AkontaUser, backref="sales")
+    seller = ForeignKeyField(User, backref="sales")
 
     def __str__(self):
         return self.code
 
 
 
-class AkontaSaleItem(AkontaObject):
-    sale = ForeignKeyField(AkontaSale, backref='items')
-    product = ForeignKeyField(AkontaProduct)
+class SaleItem(AkontaObject):
+    sale = ForeignKeyField(Sale, backref='items')
+    product = ForeignKeyField(Product)
     quantity = IntegerField(default=1)
     price = DecimalField(decimal_places=2)
     comment = TextField(null=True)
