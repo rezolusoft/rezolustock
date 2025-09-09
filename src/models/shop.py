@@ -2,7 +2,7 @@ from peewee import *
 from models.akonta import AkontaObject
 
 
-class AkontaShop(AkontaObject):
+class Shop(AkontaObject):
     name = CharField(max_length=50)
     logo = CharField(max_length=500, null=True)
     email = CharField(max_length=50)

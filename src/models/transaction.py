@@ -4,7 +4,7 @@ from models.user import AkontaUser
 from extras.enums import TransactionTypeEnums
 from peewee import *
 
-class AkontaTransaction(AkontaObject):
+class Transaction(AkontaObject):
     title = CharField()
     transaction_id = UUIDField(default=id_generator)
     amount = DecimalField()

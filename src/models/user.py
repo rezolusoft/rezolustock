@@ -3,7 +3,7 @@ from extras.enums import AccountTypeEnums
 from peewee import *
 
 
-class AkontaUser(AkontaObject):
+class User(AkontaObject):
     """
         Represente un utilisateur du systeme
         Un utilisateur peut etre un admin ou un vendeur
@@ -11,7 +11,6 @@ class AkontaUser(AkontaObject):
     
     first_name = CharField(max_length=50)
     last_name = CharField(max_length=50)
-    username = CharField(max_length=20)
     email = CharField(max_length=50, null=True)
     phone = CharField(max_length=50)
     password = CharField(max_length=500)
