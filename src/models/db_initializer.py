@@ -11,6 +11,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 
 def db_initializer():
     logging.info("##### DB MIGRATIONS START #####")
-    router = Router(db, migrate_dir="src/migrations")
+    router = Router(db, migrate_dir="src/models/migrations")
     router.run() 
     logging.info("##### DB MIGRATIONS DONE #####")

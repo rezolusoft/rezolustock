@@ -28,6 +28,7 @@ from contextlib import suppress
 
 import peewee as pw
 from peewee_migrate import Migrator
+from decimal import *
 
 
 with suppress(ImportError):
