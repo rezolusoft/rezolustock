@@ -1,16 +1,16 @@
 from models.akonta import AkontaObject
 from extras.tools import id_generator
-from models.user import AkontaUser
+from models.user import User
 from extras.enums import TransactionTypeEnums
 from peewee import *
 
 class Transaction(AkontaObject):
     title = CharField()
     transaction_id = UUIDField(default=id_generator)
-    amount = DecimalField()
+    amount = DecimalField(decimal_places=2)
     type = CharField(choices=TransactionTypeEnums.items())
     description = TextField(null=True)
-    issuer = ForeignKeyField(AkontaUser, backref="transactions")
+    issuer = ForeignKeyField(User, backref="transactions")
 
     def __str__(self):
         return f"{self.title} -> {self.amount}"
