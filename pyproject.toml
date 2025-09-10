@@ -1,7 +1,7 @@
 [project]
 name = "Akonta"
 version = "0.1.0"
-description = "Inventory management software for small businesses and retail stores."
+description = "The inventory management system carefully designed and built to optimize your business."
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
@@ -26,6 +26,7 @@ path = "src"
 dev-dependencies = [
     "flet[all]==0.28.3",
     "peewee==3.18.2",
+    "peewee-migrate==1.13.0",
 ]
 
 [tool.poetry]
