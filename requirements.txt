@@ -1,2 +1,3 @@
 flet[all]
 peewee==3.18.2
+peewee-migrate==1.13.0
