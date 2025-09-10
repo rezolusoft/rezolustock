@@ -1,6 +1,6 @@
 from models.akonta import AkontaObject
-from models.customer import AkontaCustomer
-from models.sale import AkontaSale
+from models.customer import Customer
+from models.sale import Sale
 from extras.tools import invoice_code_generator
 from peewee import *
 
@@ -10,8 +10,8 @@ class Invoice(AkontaObject):
         Represente le recu d'une operation de vente
     """
     code = CharField(default=invoice_code_generator)
-    sale = ForeignKeyField(AkontaSale)
-    customer = ForeignKeyField(AkontaCustomer, backref="invoices")
+    sale = ForeignKeyField(Sale)
+    customer = ForeignKeyField(Customer, backref="invoices")
     comment = TextField(null=True)
 
     
