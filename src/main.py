@@ -3,12 +3,12 @@ from themes import light_theme, dark_theme
 from components import pager
 from extras.routes import routes
 from importlib import import_module
-from models import db_initializer
+from models.db_initializer import db_initializer
 
 
 def main(page: ft.Page):
 
-    db_initializer(page)
+    db_initializer()
 
     # Maximiser la fenetre
     page.window.maximized = True
