@@ -1,5 +1,7 @@
 import flet as ft
-from components.partial import top_bar_title, search_bar, settings_menu
+from .top_bar_title import top_bar_title
+from .search_bar import search_bar
+from .settings_menu import settings_menu
 
 
 def top_bar()->ft.Control:
