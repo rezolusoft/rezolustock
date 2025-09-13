@@ -1,5 +1,9 @@
 routes = [
+    # Pages
     '/dashboard',
     '/stock',
-    '/product'
+    '/product',
+
+    # Onboarding Pages
+    '/on_welcome'
 ]
