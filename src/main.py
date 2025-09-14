@@ -1,5 +1,5 @@
 import flet as ft
-from themes import light_theme, dark_theme
+from themes import light_theme, dark_theme, font_loader
 from components import pager, onboarder
 from extras.routes import routes
 from importlib import import_module
@@ -16,9 +16,13 @@ def main(page: ft.Page):
     # Definir Titre
     page.title = "Akonta"
 
+
+    # Charger les police personnalisé 
+    font_loader(page=page)
+
     # Charger le theme
-    page.theme_mode = ft.ThemeMode.LIGHT
     page.theme = light_theme
+    page.theme_mode = ft.ThemeMode.LIGHT
     page.dark_theme = dark_theme
     page.bgcolor = None
     page.padding = 0
@@ -51,9 +55,10 @@ def main(page: ft.Page):
             # de l'onboarding
             if onboarded:
                 content = import_module(f"pages.{route}")
+                content_container.content = getattr(content, route)()
             else:
                 content = import_module(f"pages.onboarding.{route}")
-            content_container.content = getattr(content, route)()
+                content_container.content = getattr(content, route)(page)
         else:
             content_container.content = ft.Text("Page introuvable")
         # reconstruire l'echaffaudage au changement de route 
@@ -62,7 +67,7 @@ def main(page: ft.Page):
         else:
             layout.content = onboarder(content=content_container, illustration=route.lstrip('/'))
         page.update()
-
+        
 
 
     # ajout de l'echaffaudage a la page
