@@ -15,6 +15,7 @@ light_theme = ft.Theme(
         on_surface="#033c59",
         on_error="#ffffff"
     ),
-
+    font_family="Poppins",
     use_material3=True,
+    
 )

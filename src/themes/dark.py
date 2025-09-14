@@ -15,6 +15,6 @@ dark_theme = ft.Theme(
         on_surface="#ffffff",
         on_error="#000000"
     ),
- 
+    font_family="Poppins",
     use_material3=True,
 )
