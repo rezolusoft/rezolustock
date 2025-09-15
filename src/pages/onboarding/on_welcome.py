@@ -1,30 +1,9 @@
 import flet as ft
+from components.onboarding import next
+
 
 
 def on_welcome(page) -> ft.Control:
-
-    next_button = ft.Button(
-                    content=ft.Row(
-                          [   
-                              ft.Text("Suivant"),
-                              ft.Icon(name=ft.Icons.ARROW_FORWARD_ROUNDED, color=ft.Colors.ON_SURFACE),
-                              
-                          ]
-                    ), 
-                      style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(10),
-                          padding=15,
-                          bgcolor=ft.Colors.SECONDARY,
-                          text_style=ft.TextStyle(
-                              font_family="PoppinsBold",
-                              size=22
-                          )
-                          ),
-                          color=ft.Colors.ON_SURFACE,
-                        
-                        on_click=lambda e:page.go("/on_product"),
-                        
-                    )
     
 
     on_welcome = ft.Container(ft.Column(
@@ -39,7 +18,7 @@ def on_welcome(page) -> ft.Control:
             ft.Container(margin=ft.margin.symmetric(vertical=8)),
             ft.Row(
                 controls=[
-                    next_button
+                    next(page=page, route='/on_product')
                 ]
             )
         ],

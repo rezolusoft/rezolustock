@@ -32,7 +32,7 @@ def on_shop_register(page) -> ft.Control:
     on_shop_register = ft.Container(ft.Column(
         expand=True,
         controls=[
-          
+            
             ft.Row(
                 controls=[
                     next_button

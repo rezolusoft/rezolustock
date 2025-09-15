@@ -1,54 +1,8 @@
 import flet as ft
+from components.onboarding import previous, next
 
 
 def on_sale(page) -> ft.Control:
-
-    previous_button = ft.Button(
-                      content=ft.Row(
-                          [
-                              ft.Icon(name=ft.Icons.ARROW_BACK_ROUNDED, color=ft.Colors.ON_SURFACE),
-                              ft.Text("Précédent")
-                          ]
-                      ), 
-                      style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(10),
-                          padding=15,
-                          bgcolor=ft.Colors.SECONDARY,
-                          text_style=ft.TextStyle(
-                              font_family="PoppinsBold",
-                              size=22
-                          )
-                          ),
-                          color=ft.Colors.ON_SURFACE,
-                        
-                        on_click=lambda e:page.go("/on_product"),
-                        
-                        
-                    )
-
-    next_button = ft.Button(
-                    content=ft.Row(
-                          [   
-                              ft.Text("Suivant"),
-                              ft.Icon(name=ft.Icons.ARROW_FORWARD_ROUNDED, color=ft.Colors.ON_SURFACE),
-                              
-                          ]
-                    ), 
-                      style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(10),
-                          padding=15,
-                          bgcolor=ft.Colors.SECONDARY,
-                          text_style=ft.TextStyle(
-                              font_family="PoppinsBold",
-                              size=22
-                          )
-                          ),
-                          color=ft.Colors.ON_SURFACE,
-                        
-                        on_click=lambda e:page.go("/on_stats"),
-                        
-                    )
-    
 
     on_sale = ft.Container(ft.Column(
         expand=True,
@@ -60,8 +14,8 @@ def on_sale(page) -> ft.Control:
             ft.Container(margin=ft.margin.symmetric(vertical=8)),
             ft.Row(
                 controls=[
-                    previous_button,
-                    next_button
+                    previous(page=page, route="/on_product"),
+                    next(page=page, route="/on_stats")
                 ],
             )
         ],
