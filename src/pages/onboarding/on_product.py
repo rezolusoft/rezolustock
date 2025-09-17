@@ -5,7 +5,7 @@ from components.onboarding import previous, next
 def on_product(page) -> ft.Control:
 
 
-    on_product = ft.Container(ft.Column(
+    product_container = ft.Container(ft.Column(
         expand=True,
         controls=[
             ft.Text("📦", size=40),
@@ -27,4 +27,4 @@ def on_product(page) -> ft.Control:
 
     )
 
-    return on_product
+    return product_container

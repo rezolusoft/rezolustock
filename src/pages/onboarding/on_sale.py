@@ -4,7 +4,7 @@ from components.onboarding import previous, next
 
 def on_sale(page) -> ft.Control:
 
-    on_sale = ft.Container(ft.Column(
+    sale_container = ft.Container(ft.Column(
         expand=True,
         controls=[
             ft.Text("💰", size=40),
@@ -25,4 +25,4 @@ def on_sale(page) -> ft.Control:
 
     )
 
-    return on_sale
+    return sale_container

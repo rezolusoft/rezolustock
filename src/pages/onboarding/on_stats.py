@@ -5,7 +5,7 @@ from components.onboarding import previous, next
 def on_stats(page) -> ft.Control:
 
 
-    on_stats = ft.Container(ft.Column(
+    stats_container = ft.Container(ft.Column(
         expand=True,
         controls=[
             ft.Text("📊", size=40),
@@ -26,4 +26,4 @@ def on_stats(page) -> ft.Control:
 
     )
 
-    return on_stats
+    return stats_container

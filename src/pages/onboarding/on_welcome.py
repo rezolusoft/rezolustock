@@ -6,7 +6,7 @@ from components.onboarding import next
 def on_welcome(page) -> ft.Control:
     
 
-    on_welcome = ft.Container(ft.Column(
+    welcome_container = ft.Container(ft.Column(
         expand=True,
         controls=[
             ft.Text("👋🏾", size=40),
@@ -28,4 +28,4 @@ def on_welcome(page) -> ft.Control:
 
     )
 
-    return on_welcome
+    return welcome_container

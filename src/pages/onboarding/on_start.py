@@ -5,7 +5,7 @@ from components.onboarding import next
 def on_start(page) -> ft.Control:
 
 
-    on_start = ft.Container(ft.Column(
+    start_container = ft.Container(ft.Column(
         expand=True,
         controls=[
             ft.Text("🚀", size=40),
@@ -27,4 +27,4 @@ def on_start(page) -> ft.Control:
 
     )
 
-    return on_start
+    return start_container
