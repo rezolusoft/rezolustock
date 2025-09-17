@@ -3,7 +3,7 @@ import flet as ft
 
 def previous(page, route, name="Précédent"):
     
-    return ft.Button(
+    return ft.ElevatedButton(
                       content=ft.Row(
                           [
                               ft.Icon(name=ft.Icons.ARROW_BACK_ROUNDED, color=ft.Colors.ON_SURFACE),

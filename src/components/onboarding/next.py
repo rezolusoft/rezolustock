@@ -3,7 +3,7 @@ import flet as ft
 
 def next(page, route, name="Suivant"):
     
-    return ft.Button(
+    return ft.ElevatedButton(
                     content=ft.Row(
                           [   
                               ft.Text(name),
