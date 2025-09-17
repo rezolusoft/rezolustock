@@ -81,7 +81,7 @@ def main(page: ft.Page):
         if onboarded:
             page.go('/dashboard')
         else:
-            page.go('/on_welcome')
+            page.go('/on_shop_register')
         
     else:
         page.go(page.route)
