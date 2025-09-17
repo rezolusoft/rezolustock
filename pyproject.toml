@@ -22,9 +22,12 @@ copyright = "Copyright (C) 2025 by Rezolusoft"
 [tool.flet.app]
 path = "src"
 
+[tool.flet.macos]
+entitlement."com.apple.security.files.user-selected.read-write" = true
+
 [tool.uv]
 dev-dependencies = [
-    "flet[all]==0.28.3",
+    "flet[all]==0.28.2",
     "peewee==3.18.2",
     "peewee-migrate==1.13.0",
 ]
@@ -33,4 +36,4 @@ dev-dependencies = [
 package-mode = false
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.28.3"}
+flet = {extras = ["all"], version = "0.28.2"}
