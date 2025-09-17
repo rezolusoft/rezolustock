@@ -1,4 +1,10 @@
 import uuid
+import re
+
+def is_valid_email(email: str) -> bool:
+    # Validateur d'email
+    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+    return re.match(pattern, email) is not None
 
 def id_generator()->uuid:
 
