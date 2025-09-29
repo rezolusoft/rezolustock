@@ -1,9 +1,9 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from extras.enums import AccountTypeEnums
 from peewee import *
 
 
-class User(AkontaObject):
+class User(RstockObject):
     """
         Represente un utilisateur du systeme
         Un utilisateur peut etre un admin ou un vendeur

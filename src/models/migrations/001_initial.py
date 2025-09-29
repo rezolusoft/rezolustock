@@ -39,14 +39,14 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
     """Write your migrations here."""
     
     @migrator.create_model
-    class AkontaObject(pw.Model):
+    class RstockObject(pw.Model):
         id = pw.AutoField()
         created_at = pw.DateTimeField()
         updated_at = pw.DateTimeField(null=True)
         deleted = pw.BooleanField(default=False)
 
         class Meta:
-            table_name = "akontaobject"
+            table_name = "rstockobject"
 
     @migrator.create_model
     class Category(pw.Model):
@@ -212,4 +212,4 @@ def rollback(migrator: Migrator, database: pw.Database, *, fake=False):
 
     migrator.remove_model('category')
 
-    migrator.remove_model('akontaobject')
+    migrator.remove_model('rstockobject')

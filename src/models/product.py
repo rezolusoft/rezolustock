@@ -1,10 +1,10 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from models.category import Category
 from extras.tools import product_code_generator
 from peewee import *
 
 
-class Product(AkontaObject):
+class Product(RstockObject):
     """
         Represente un produit
     """

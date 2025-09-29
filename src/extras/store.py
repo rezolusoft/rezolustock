@@ -1,4 +1,4 @@
-class AkontaStore():
+class RStockStore():
     """
     Store
     Classe permettant de gerer le stockage de données utilisateur
@@ -8,7 +8,7 @@ class AkontaStore():
     db_init -> permet de stocker l'etat de la bd
 
     """
-    prefix = "akonta"
+    prefix = "rstock"
 
     def __init__(self, page):
         self.page = page

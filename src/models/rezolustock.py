@@ -3,13 +3,13 @@ from datetime import datetime
 from peewee import *
 
 
-db_path = Path(__file__).parent.parent.joinpath('db/akonta.db')
+db_path = Path(__file__).parent.parent.joinpath('db/rstock.db')
 db = SqliteDatabase(db_path)
 
 
-class AkontaObject(Model):
+class RstockObject(Model):
     """
-        Objet Akonta est le model de base dont heritera tous les models
+        Objet RezoluStock est le model de base dont heritera tous les models
         de la base de données. Il porte comme attribut les attributs communs
         à tous nos objets.
     """

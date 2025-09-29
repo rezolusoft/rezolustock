@@ -1,11 +1,11 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from models.product import Product
 from extras.tools import sale_code_generator, id_generator
 from models.user import User
 from peewee import *
 
 
-class Sale(AkontaObject):
+class Sale(RstockObject):
     amount = DecimalField(decimal_places=2)
     sale_id = UUIDField(default=id_generator)
     code = CharField(default=sale_code_generator)
@@ -16,7 +16,7 @@ class Sale(AkontaObject):
 
 
 
-class SaleItem(AkontaObject):
+class SaleItem(RstockObject):
     sale = ForeignKeyField(Sale, backref='items')
     product = ForeignKeyField(Product)
     quantity = IntegerField(default=1)

@@ -4,7 +4,7 @@ from components import pager, onboarder
 from extras.routes import routes
 from importlib import import_module
 from models.db_initializer import db_initializer
-from extras.store import AkontaStore
+from extras.store import RStockStore
 
 
 def main(page: ft.Page):
@@ -30,7 +30,7 @@ def main(page: ft.Page):
 
 
     # Initialiser une instance du store
-    store = AkontaStore(page)
+    store = RStockStore(page)
     # Récupérer les données du store lier a l'oboarding
     onboarded = store.get("onboarded")
     onboarding_step = store.get("onboarding_step")

@@ -1,8 +1,8 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from extras.tools import category_code_generator
 from peewee import *
 
-class Category(AkontaObject):
+class Category(RstockObject):
     """
         Represente la categorie d'un produit
     """
