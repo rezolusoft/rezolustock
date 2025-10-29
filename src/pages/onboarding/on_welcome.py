@@ -10,11 +10,11 @@ def on_welcome(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("👋🏾", size=40),
-            ft.Text("Bienvenu sur Akonta", size=40, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Bienvenue sur RezoluStock", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
                 "La solution simple et efficace pensé" \
                 " et conçu pour gérer vos stocks, vos " \
-                "ventes et optimiser vos activités.", size=22, font_family="PoppinsMedium", color=ft.Colors.ON_SURFACE),
+                "ventes et optimiser vos activités.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
             ft.Container(margin=ft.margin.symmetric(vertical=8)),
             ft.Row(
                 controls=[
