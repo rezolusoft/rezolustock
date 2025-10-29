@@ -16,8 +16,8 @@ def next(page, route, name="Suivant"):
                           padding=15,
                           bgcolor=ft.Colors.SECONDARY,
                           text_style=ft.TextStyle(
-                              font_family="PoppinsBold",
-                              size=22
+                              font_family="PoppinsMedium",
+                              size=18
                           )
                           ),
                           color=ft.Colors.ON_SURFACE,
