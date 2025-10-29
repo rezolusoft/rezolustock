@@ -15,17 +15,20 @@ def onboarder(content, illustration=None) -> ft.Control:
                         controls=[
                             ft.Container(
                                 bgcolor="#FFF5E5",
-                                border_radius=ft.border_radius.all(10)
+                                border_radius=ft.border_radius.all(10),
+                                
                             ),
                             ft.Container(
                                 content=ft.Image(
                                 f"illustration/{illustration}.png"),
-                                padding=50
+                                padding=50,
+                               
                             )
                         ],
 
 
                         expand=True,
+                       
                     )
                 ]
             ),
@@ -47,7 +50,7 @@ def onboarder(content, illustration=None) -> ft.Control:
         expand=True,
         margin=ft.margin.all(0),
         border_radius=ft.border_radius.all(10),
-        padding=ft.padding.symmetric(horizontal=200, vertical=100)
+        padding=ft.padding.symmetric(horizontal=200, vertical=50)
 
     )
     return onborder
