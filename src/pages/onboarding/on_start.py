@@ -9,11 +9,11 @@ def on_start(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("🚀", size=40),
-            ft.Text("Démarrer maintenant !", size=40, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Démarrer maintenant !", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
                 "Configurer votre boutique et Ajoutez " \
                 "vos premiers produits puis découvrez " \
-                "tout ce que Akonta peut faire pour vous.", size=22, font_family="PoppinsMedium", color=ft.Colors.ON_SURFACE),
+                "tout ce que RezoluStock peut faire pour vous.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
             ft.Container(margin=ft.margin.symmetric(vertical=8)),
             ft.Row(
                 controls=[
