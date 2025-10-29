@@ -9,9 +9,9 @@ def on_stats(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("📊", size=40),
-            ft.Text("Analysez vos performances", size=40, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Analysez vos performances", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
-                "Prenez de meilleures décisions grâce à des rapports clairs et précis.", size=22, font_family="PoppinsMedium", color=ft.Colors.ON_SURFACE),
+                "Prenez de meilleures décisions grâce à des rapports clairs et précis.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
             ft.Container(margin=ft.margin.symmetric(vertical=8)),
             ft.Row(
                 controls=[
