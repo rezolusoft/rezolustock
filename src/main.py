@@ -14,7 +14,7 @@ def main(page: ft.Page):
     # Maximiser la fenetre
     page.window.maximized = True
     # Definir Titre
-    page.title = "Akonta"
+    page.title = "RezoluStock"
 
 
     # Charger les police personnalisé 
