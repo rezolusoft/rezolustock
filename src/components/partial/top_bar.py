@@ -10,7 +10,7 @@ def top_bar()->ft.Control:
 
     content=ft.Row(controls=[
         
-        top_bar_title('Dashboard', 'Bon retour sur Akonta'),
+        top_bar_title('Dashboard', 'Bon retour sur RezoluStock'),
         
         search_bar(), 
 
