@@ -1,5 +1,5 @@
 [project]
-name = "Akonta"
+name = "RezoluStock"
 version = "0.1.0"
 description = "The inventory management system carefully designed and built to optimize your business."
 readme = "README.md"
@@ -10,14 +10,14 @@ authors = [
 
 ]
 dependencies = [
-  "flet==0.28.3",
+  "flet==0.28.2",
 ]
 
 [tool.flet]
 org = "com.rezolusoft"
-product = "Akonta"
+product = "RezoluStock"
 company = "Rezolusoft"
-copyright = "Copyright (C) 2025 by Rezolusoft"
+copyright = "Copyright (C) 2025 Proudly made with ❤️ by Rezolusoft, Ajdarra, Benin"
 
 [tool.flet.app]
 path = "src"
