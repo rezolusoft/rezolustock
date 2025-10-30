@@ -1,5 +1,9 @@
 import flet as ft
 from extras.tools import is_valid_email
+from pathlib import Path
+
+
+
 
 def on_shop_register(page) -> ft.Control:
 
@@ -25,14 +29,23 @@ def on_shop_register(page) -> ft.Control:
     
 
     # FONCTION DE GESTION D'AJOUT DE FICHIER
+    
+
+    logo_file_state = {
+        "file" : None,
+        "error" : ft.Text("", color=ft.Colors.ERROR, size=12 )
+    }
 
     def on_logo_selected(e: ft.FilePickerResultEvent):
         if e.files:
             select_logo.text = f"logo sélectionné : {e.files[0].name}"
+            logo_file_state["file"] = e.files[0]
             page.update()
+            
         else:
             select_logo.text = "Ajouter votre logo / Aucun fichier sélectionné"
             page.update()
+        
 
     # SELECTEUR DE FICHIER
     select_logo_dialog = ft.FilePicker(on_result=on_logo_selected)
@@ -48,7 +61,7 @@ def on_shop_register(page) -> ft.Control:
             shape=ft.RoundedRectangleBorder(10)
         ),
 
-        on_click=lambda _: select_logo_dialog.pick_files(allow_multiple=False, file_type=ft.FilePickerFileType.IMAGE)
+        on_click=lambda _: select_logo_dialog.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE)
       )
     
     # AJOUT DU SELECTEUR DE FICHIER A LA PAGE
@@ -73,44 +86,51 @@ def on_shop_register(page) -> ft.Control:
 
         # Validation du nom de boutique
         if not shop["name"].value.strip():
-            shop["name"].error_text = "Erreur ! Veuillez renseigner le nom de votre boutique/commerce"
+            shop["name"].error_text = "Veuillez renseigner le nom de votre boutique/commerce"
         else:
             shop["name"].error_text = None
 
         # Validation de l'email de boutique
         if not shop["email"].value.strip():
-            shop["email"].error_text = "Erreur ! Veuillez renseigner une adresse email valide"
+            shop["email"].error_text = "Veuillez renseigner une adresse email valide"
         else:
             shop["email"].error_text = None
 
         if is_valid_email(shop["email"].value.strip()):
             shop["email"].error_text = None
         else:
-            shop["email"].error_text = "Erreur ! Veuillez renseigner une adresse email valide"
+            shop["email"].error_text = "Veuillez renseigner une adresse email valide"
         
         # Validation du numéro de téléphone de boutique
         if not shop["phone"].value.strip():
-            shop["phone"].error_text = "Erreur ! Veuillez renseigner un numéro de téléphone"
+            shop["phone"].error_text = "Veuillez renseigner un numéro de téléphone"
         else:
             shop["phone"].error_text = None
         
         # Validation du l'adresse de la boutique
         if not shop["adress"].value.strip():
-            shop["adress"].error_text = "Erreur ! Veuillez renseigner l'adresse de la boutique"
+            shop["adress"].error_text = "Veuillez renseigner l'adresse de la boutique"
         else:
             shop["adress"].error_text = None
         
         # Validation du prénom du gérant de la boutique
         if not shop["first_name"].value.strip():
-            shop["first_name"].error_text = "Erreur! Veuillez renseigner votre Prénom"
+            shop["first_name"].error_text = "Veuillez renseigner votre Prénom"
         else:
             shop["first_name"].error_text = None
         
         # Validation du nom du gérant de la boutique
         if not shop["last_name"].value.strip():
-            shop["last_name"].error_text = "Erreur ! Veuillez renseigner votre Nom"
+            shop["last_name"].error_text = "Veuillez renseigner votre Nom"
         else:
             shop["last_name"].error_text = None
+
+        if not logo_file_state["file"]:
+            logo_file_state["error"].value = "Vous devez ajouter un logo"
+        else:
+            logo_file_state["error"].value = None
+        
+        
 
         page.update()
     
@@ -121,8 +141,8 @@ def on_shop_register(page) -> ft.Control:
             padding=15,
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
-                font_family="PoppinsBold",
-                size=22
+                font_family="PoppinsSemiBold",
+                size=20
             )
         ),
         color=ft.Colors.ON_SURFACE, 
@@ -133,13 +153,14 @@ def on_shop_register(page) -> ft.Control:
     shop_register_container = ft.Container(ft.Column(
         expand=True,
         controls=[
-            ft.Text("Enregistrer votre boutique", size=40, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Enregistrer votre boutique", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             shop_name_field,
             ft.Row([email_field, phone_field]),
             adress_field,
             ft.Row([rccm_field, ifu_field]),
             ft.Row([owner_lastname_field, owner_firstname_field]),
             ft.Row([select_logo]),
+            ft.Row([ft.Container(logo_file_state["error"], margin=ft.margin.only(top=-20, left=15, bottom=5))]),
             ft.Row([save_shop_info])
         ],
         alignment=ft.MainAxisAlignment.CENTER,
