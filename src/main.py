@@ -29,15 +29,16 @@ def main(page: ft.Page):
     page.spacing = 0
 
 
+
     # Initialiser une instance du store
     store = RStockStore(page)
     # Récupérer les données du store lier a l'oboarding
-    onboarded = store.get("onboarded")
+    onboarded = store.check("onboarded")
     onboarding_step = store.get("onboarding_step")
 
 
     # Recuperer les infos de l'onboarding
-    
+
     # initialiser le contenu a vide
     content_container = ft.Container(expand=True)
 
@@ -81,7 +82,10 @@ def main(page: ft.Page):
         if onboarded:
             page.go('/dashboard')
         else:
-            page.go('/on_shop_register')
+            if onboarding_step:
+                page.go(f"/{onboarding_step}")
+            else:
+                page.go('/on_welcome')
         
     else:
         page.go(page.route)
