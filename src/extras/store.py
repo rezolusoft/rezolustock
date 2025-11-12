@@ -20,3 +20,12 @@ class RStockStore():
     def get(self, key):
         key = f"{self.prefix}_{key}"
         return self.page.client_storage.get(key)
+    
+    def check(self, key):
+        key = f"{self.prefix}_{key}"
+        return self.page.client_storage.contains_key(key)
+    
+    def destroy(self, key):
+        key = f"{self.prefix}_{key}"
+        self.page.client_storage.remove(key)
+        return not self.page.client_storage.contains_key(key)
