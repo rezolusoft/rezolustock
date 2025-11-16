@@ -10,14 +10,17 @@ authors = [
 
 ]
 dependencies = [
-  "flet==0.28.2",
+  "flet[all]==0.28.2",
+  "peewee==3.18.2",
+  "peewee-migrate==1.13.0",
+  "argon2-cffi==25.1.0",
 ]
 
 [tool.flet]
 org = "com.rezolusoft"
 product = "RezoluStock"
 company = "Rezolusoft"
-copyright = "Copyright (C) 2025 Proudly made with ❤️ by Rezolusoft, Ajdarra, Benin"
+copyright = "Copyright (C) 2025 Proudly made with ❤️ by Rezolusoft - Ajdarra, Benin"
 
 [tool.flet.app]
 path = "src"
@@ -30,6 +33,7 @@ dev-dependencies = [
     "flet[all]==0.28.2",
     "peewee==3.18.2",
     "peewee-migrate==1.13.0",
+    "argon2-cffi==25.1.0",
 ]
 
 [tool.poetry]
