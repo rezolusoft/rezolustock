@@ -1,9 +1,11 @@
+import os
+import time
+import shutil
 import flet as ft
 from extras.tools import is_valid_email, id_generator
+from components.rstocknotif import rstocknotif
 from pathlib import Path
 from extras.store import RStockStore
-import os
-import shutil   
 
 
 
@@ -86,9 +88,8 @@ def on_shop_register(page) -> ft.Control:
 
 
     # FONCTION DE TRAITEMENT DE FORMULAIRE
-    def form_handler(e):
 
-        # RECUPERATION DES DONNEES ENTRER PAR L'UTILISATEUR
+    def form_is_valid():
         shop = {
             "name" : shop_name_field,
             "email" : email_field,
@@ -101,52 +102,62 @@ def on_shop_register(page) -> ft.Control:
         }
 
         # Validation du nom de boutique
+        valid = True
         if not shop["name"].value.strip():
             shop["name"].error_text = "Veuillez renseigner le nom de votre boutique/commerce"
+            valid=False
         else:
             shop["name"].error_text = None
             shop["name"].border_color = ft.Colors.GREEN_400
+            valid = True
 
         # Validation de l'email de boutique
         if not shop["email"].value.strip():
             shop["email"].error_text = "Veuillez renseigner une adresse email valide"
-        
+            valid=False
         elif not is_valid_email(shop["email"].value.strip()):
             shop["email"].error_text = "Veuillez renseigner une adresse email valide"
+            valid=False
         else:
             shop["email"].error_text = None
             shop["email"].border_color = ft.Colors.GREEN_400
+            valid = True
 
-        
-            
-        
         # Validation du numéro de téléphone de boutique
         if not shop["phone"].value.strip():
             shop["phone"].error_text = "Veuillez renseigner un numéro de téléphone"
+            valid=False
         else:
             shop["phone"].error_text = None
             shop["phone"].border_color = ft.Colors.GREEN_400
+            valid = True
         
         # Validation du l'adresse de la boutique
         if not shop["adress"].value.strip():
             shop["adress"].error_text = "Veuillez renseigner l'adresse de la boutique"
+            valid=False
         else:
             shop["adress"].error_text = None
             shop["adress"].border_color = ft.Colors.GREEN_400
+            valid = True
         
         # Validation du prénom du gérant de la boutique
         if not shop["first_name"].value.strip():
             shop["first_name"].error_text = "Veuillez renseigner votre Prénom"
+            valid=False
         else:
             shop["first_name"].error_text = None
             shop["first_name"].border_color = ft.Colors.GREEN_400
+            valid = True
         
         # Validation du nom du gérant de la boutique
         if not shop["last_name"].value.strip():
             shop["last_name"].error_text = "Veuillez renseigner votre Nom"
+            valid=False
         else:
             shop["last_name"].error_text = None
             shop["last_name"].border_color = ft.Colors.GREEN_400
+            valid=True
 
         if not logo_file_state["file"]:
             select_logo.text = "Vous devez ajouter un logo !"
@@ -156,12 +167,19 @@ def on_shop_register(page) -> ft.Control:
                 bgcolor=ft.Colors.PRIMARY,
                 shape=ft.RoundedRectangleBorder(10),
             )
+            valid=False
         else:
             logo_file_state["error"].value = None
-         
-        page.update()
+            valid = True
 
-        try:
+        return valid
+
+
+    def form_handler(e):
+
+        # RECUPERATION DES DONNEES ENTRER PAR L'UTILISATEUR
+
+        if form_is_valid() :
             # RECUPERER LOGO
             media_dir = os.path.join(os.getcwd(), 'media')
             os.makedirs(media_dir, exist_ok=True)
@@ -203,12 +221,15 @@ def on_shop_register(page) -> ft.Control:
             else:    
                 store.set("onboarding_step", "on_add_password")
 
+            notif = rstocknotif("Opération réussie ✅", "Les informations de la boutique ont été ajoutées avec succès.", [])
+            page.open(notif)
+            time.sleep(3.5)
+            page.close(notif)
             page.go("/on_add_password")
-        except Exception as e:
-            print(e)
+        
+        else:
             page.update()
         
-        page.update()
 
 
     
@@ -232,7 +253,7 @@ def on_shop_register(page) -> ft.Control:
     shop_register_container = ft.Container(ft.Column(
         expand=True,
         controls=[
-            ft.Row([ft.Text("CRÉER VOTRE BOUTIQUE", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE, )], alignment=ft.MainAxisAlignment.CENTER),
+            ft.Row([ft.Text("Enregistrer Votre Boutique", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE, )]),
             shop_name_field,
             ft.Row([email_field, phone_field]),
             adress_field,
@@ -245,7 +266,7 @@ def on_shop_register(page) -> ft.Control:
         alignment=ft.MainAxisAlignment.CENTER,
         spacing=15,
     ),
-    padding=ft.padding.only(right=20)
+    padding=ft.padding.only(right=18)
 
     )
 
