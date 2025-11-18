@@ -10,9 +10,13 @@ def on_add_category(page) -> ft.Control:
 
     store = RStockStore(page=page)
 
+    category_name_field = ft.TextField(hint_text="*Nom Catégorie", border_radius=10)
+    category_description_field = ft.TextField(hint_text="*Description Catégorie", multiline=True, min_lines=4, max_lines=4, border_radius=10)
+
+
     
     save_shop_info = ft.ElevatedButton(
-        "Enregistrer Mot de Passe",
+        "Enregistrer Category",
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(10),
             padding=ft.padding.symmetric(vertical=15),
@@ -34,7 +38,8 @@ def on_add_category(page) -> ft.Control:
                     controls=[
                         
                             ft.Row([ft.Text("Ajouter Une Catégorie Produit", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE)]),
-                           
+                            category_name_field,
+                            category_description_field,
                             ft.Row(controls=[save_shop_info], expand=True)
 
                     ],
