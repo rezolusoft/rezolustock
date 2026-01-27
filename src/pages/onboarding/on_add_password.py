@@ -40,7 +40,9 @@ def on_add_password(page) -> ft.Control:
             rccm=shop_rccm, 
             manager=f"{shop_first_name} {shop_last_name}"
             )
+        
         new_shop.save()
+
         hasher = PasswordHasher()
         password=hasher.hash(password)
         admin_user = User(
@@ -52,14 +54,14 @@ def on_add_password(page) -> ft.Control:
             account_type=AccountTypeEnums.OWNER.value)
         admin_user.save()
         
-        notif = rstocknotif("Opération réussie ✅", "Votre compte administrateur à été crée avec succès.", [])
+        notif = rstocknotif("Opération réussie ✅", "Votre compte administrateur à été crée avec succès !", [])
 
         store.destroy("shop_infos")
         store.destroy("onboarding_step")
         store.set("onboarding_step", "on_add_category")
         
         page.open(notif)
-        time.sleep(3.5)
+        time.sleep(4)
         page.close(notif)
         page.go("/on_add_category")
         
