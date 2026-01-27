@@ -1,8 +1,6 @@
-import os
 import time
-import shutil
 import flet as ft
-from extras.tools import is_valid_email, id_generator
+from extras.tools import is_valid_email, id_generator, local_file_uploader
 from components.rstocknotif import rstocknotif
 from pathlib import Path
 from extras.store import RStockStore
@@ -13,7 +11,6 @@ from extras.store import RStockStore
 def on_shop_register(page) -> ft.Control:
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
-
     shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=10)
 
     email_field = ft.TextField(hint_text="*Email", border_radius=10, expand=1)
@@ -105,7 +102,7 @@ def on_shop_register(page) -> ft.Control:
         valid = True
         if not shop["name"].value.strip():
             shop["name"].error_text = "Veuillez renseigner le nom de votre boutique/commerce"
-            valid=False
+            valid = False
         else:
             shop["name"].error_text = None
             shop["name"].border_color = ft.Colors.GREEN_400
@@ -181,16 +178,7 @@ def on_shop_register(page) -> ft.Control:
 
         if form_is_valid() :
             # RECUPERER LOGO
-            media_dir = os.path.join(os.getcwd(), 'media')
-            os.makedirs(media_dir, exist_ok=True)
-            file = logo_file_state["file"].path
-            name = logo_file_state["file"].name
-            name = name.split(".")
-            name = f"{name[0]}_{id_generator().hex[:5]}.{name[1]}"
-            dest = os.path.join(media_dir, 'img')
-            os.makedirs(dest, exist_ok=True)
-            dest = os.path.join(dest, name)
-            shutil.copy(file, dest)
+            logo_dest = local_file_uploader(logo_file_state["file"])
             
             # Recuperer les infos de la boutique
             shop = {
@@ -202,7 +190,7 @@ def on_shop_register(page) -> ft.Control:
                 "rccm": rccm_field.value.strip(),
                 "first_name": owner_firstname_field.value.strip(),
                 "last_name": owner_lastname_field.value.strip(),
-                "logo": dest
+                "logo": logo_dest
                 }
 
             # ENREGISTRER INFOS BOUTIQUE ET ETAT
