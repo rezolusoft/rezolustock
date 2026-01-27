@@ -9,6 +9,7 @@ class Category(RstockObject):
     code = CharField(default=category_code_generator, unique=True, index=True)
     name = CharField(max_length=150)
     description = TextField(null=True)
+    image = CharField(max_length=500, null=True)
     parent = ForeignKeyField("self", null=True, backref="subcategories")
 
 
