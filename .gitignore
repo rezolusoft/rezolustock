@@ -164,4 +164,6 @@ storage/
 
 .DS_Store
 
+media/*
+
 *.db

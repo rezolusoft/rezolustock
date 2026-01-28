@@ -28,6 +28,7 @@ class CurrencyTypeEnums(BaseEnum):
 
 
 class AccountTypeEnums(BaseEnum):
+    OWNER = "owner"
     ADMIN = "admin"
     SELLER = "seller"
 

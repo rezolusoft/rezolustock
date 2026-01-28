@@ -1,4 +1,4 @@
-# Akonta Inventory 📦  
+# RezoluStock Inventory 📦  
 **Le système de gestion de stock pensé et conçu pour optimiser vos activités.**  
 
 

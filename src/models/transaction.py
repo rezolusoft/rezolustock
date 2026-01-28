@@ -1,10 +1,10 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from extras.tools import id_generator
 from models.user import User
 from extras.enums import TransactionTypeEnums
 from peewee import *
 
-class Transaction(AkontaObject):
+class Transaction(RstockObject):
     title = CharField()
     transaction_id = UUIDField(default=id_generator)
     amount = DecimalField(decimal_places=2)

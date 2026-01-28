@@ -1,8 +1,8 @@
-from models.akonta import AkontaObject
+from models.rezolustock import RstockObject
 from peewee import *
 
 
-class Customer(AkontaObject):
+class Customer(RstockObject):
     first_name = CharField(max_length=50)
     last_name = CharField(max_length=50)
     company_name = CharField(max_length=100, null=True)

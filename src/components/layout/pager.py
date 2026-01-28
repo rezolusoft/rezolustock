@@ -1,5 +1,5 @@
 import flet as ft
-from components.layout import side_menu, top_bar
+from components.partial import side_menu, top_bar
 
 
 def pager(page, content)->ft.Control:
