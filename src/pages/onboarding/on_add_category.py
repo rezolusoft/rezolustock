@@ -86,7 +86,7 @@ def on_add_category(page) -> ft.Control:
             
             new_category = Category(
                 name = category_name_field.value.strip(),
-                description = category_description_field.value.strip,
+                description = category_description_field.value.strip(),
                 image = image_dest
             )
             new_category.save()
