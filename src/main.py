@@ -49,6 +49,7 @@ def main(page: ft.Page):
         # charger dynamiquement le contenu
         # adequat en fonction de la route
         route = page.route
+        onboarded = store.check("onboarded")
 
         if route in routes:
             route = route.lstrip("/")
@@ -86,7 +87,7 @@ def main(page: ft.Page):
                 page.go(f"/{onboarding_step}")
             else:
                 page.go('/on_welcome')
-        
+
     else:
         page.go(page.route)
 
