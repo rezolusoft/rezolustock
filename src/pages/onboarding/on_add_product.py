@@ -1,6 +1,7 @@
 import flet as ft
 import time
 from models.product import Product
+from models.category import Category
 from pathlib import Path
 from extras.store import RStockStore
 from extras.tools import local_file_uploader
@@ -8,13 +9,17 @@ from components.rstocknotif import rstocknotif
 
 
 
+def dropdown_categories():
+    categories = Category.select()
+    categories_option = [ft.DropdownOption(key=category.id, text=category.name) for category in categories]
+    return categories_option
 
 def on_add_product(page) -> ft.Control:
     product_name_field = ft.TextField(hint_text="*Nom Produit", border_radius=10)
 
     product_description_field = ft.TextField(hint_text="*Description Produit", multiline=True, min_lines=3, max_lines=3, border_radius=10)
 
-    product_category_dropdown = ft.Dropdown(hint_text="Sélectionner une catégorie", expand=True, border_radius=10)
+    product_category_dropdown = ft.Dropdown(hint_text="Sélectionner une catégorie", options=dropdown_categories(), expand=True, border_radius=10)
 
     product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1)
     
