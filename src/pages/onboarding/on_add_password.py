@@ -61,7 +61,7 @@ def on_add_password(page) -> ft.Control:
         store.set("onboarding_step", "on_add_category")
         
         page.open(notif)
-        time.sleep(4)
+        time.sleep(3)
         page.close(notif)
         page.go("/on_add_category")
         
