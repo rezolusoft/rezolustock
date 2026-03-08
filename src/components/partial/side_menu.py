@@ -27,7 +27,7 @@ def side_menu(page)->ft.Control:
         controls=[
             logo,
             menu_title('Menu Principal'),
-            side_menu_button(title="Dashboard", icon="DASHBOARD_ROUNDED", destination="/dashboard", page=page),
+            side_menu_button(title="Tableau de bord", icon="DASHBOARD_ROUNDED", destination="/dashboard", page=page),
             side_menu_button(title="Mon Stock", icon="WAREHOUSE_ROUNDED", destination="/stock", page=page),
             side_menu_button(title="Mes Produits", icon="INVENTORY_ROUNDED", destination="/product", page=page),
             side_menu_button(title="Ma Caisse", icon="WALLET_ROUNDED", destination="/cashier", page=page),
