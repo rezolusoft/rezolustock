@@ -93,7 +93,7 @@ def on_add_password(page) -> ft.Control:
         
         page.update()
 
-    save_shop_info = ft.ElevatedButton(
+    save_user_info = ft.ElevatedButton(
         "Enregistrer Mot de Passe",
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(10),
@@ -105,7 +105,7 @@ def on_add_password(page) -> ft.Control:
             )
         ),
         icon=ft.Icons.LOCK_OUTLINED,
-        color=ft.Colors.ON_SURFACE, 
+        color=ft.Colors.WHITE, 
         expand=1,
         on_click=form_handler
         )
@@ -120,7 +120,7 @@ def on_add_password(page) -> ft.Control:
                             ft.Text("Veuillez définir un mot de passe lié à votre compte administrateur.", size=16, font_family="Poppins", color=ft.Colors.ON_SURFACE),
                             password_field,
                             password_confirm_field,
-                            ft.Row(controls=[save_shop_info], expand=True)
+                            ft.Row(controls=[save_user_info], expand=True)
 
                     ],
                     spacing=20,
