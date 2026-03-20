@@ -112,11 +112,10 @@ def on_add_category(page) -> ft.Control:
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
-                size=16
             )
         ),
         icon=ft.Icons.FOLDER_OUTLINED,
-        color=ft.Colors.ON_SURFACE, 
+        color=ft.Colors.WHITE, 
         expand=1,
         on_click=form_handler
         
