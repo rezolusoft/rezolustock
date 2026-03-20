@@ -11,21 +11,21 @@ from extras.store import RStockStore
 def on_shop_register(page) -> ft.Control:
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
-    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=10)
+    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5)
 
-    email_field = ft.TextField(hint_text="*Email", border_radius=10, expand=1)
+    email_field = ft.TextField(hint_text="*Email", border_radius=5, expand=1)
 
-    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=10, expand=1)
+    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=5, expand=1)
 
-    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=10)
+    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5)
 
-    rccm_field = ft.TextField(hint_text="RCCM", border_radius=10, expand=1)
+    rccm_field = ft.TextField(hint_text="RCCM", border_radius=5, expand=1)
 
-    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=10, expand=1)
+    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=5, expand=1)
 
-    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire",border_radius=10, expand=1)
+    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire",border_radius=5, expand=1)
 
-    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=10, expand=1)
+    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=5, expand=1)
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
     
@@ -35,7 +35,7 @@ def on_shop_register(page) -> ft.Control:
 
     logo_file_state = {
         "file" : None,
-        "error" : ft.Text("", color=ft.Colors.ERROR, size=12 )
+        "error" : ft.Text("", color=ft.Colors.WHITE, size=12 )
     }
 
     def on_logo_selected(e: ft.FilePickerResultEvent):
@@ -49,10 +49,11 @@ def on_shop_register(page) -> ft.Control:
                 shape=ft.RoundedRectangleBorder(10),
             )
             page.update()
-            
+
+
         else:
             select_logo.text = "Vous devez ajouter un logo !"
-            select_logo.color = ft.Colors.RED_500
+            select_logo.color = ft.Colors.WHITE
             select_logo.style = ft.ButtonStyle(
                 padding=ft.padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.RED_600,
@@ -74,7 +75,7 @@ def on_shop_register(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
         ),
         on_click=lambda _: select_logo_dialog.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
       )
@@ -229,11 +230,11 @@ def on_shop_register(page) -> ft.Control:
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
-                size=16
+                size=15,
             )
         ),
         icon=ft.Icons.SAVE_AS_OUTLINED,
-        color=ft.Colors.ON_SURFACE, 
+        color=ft.Colors.WHITE,
         expand=1,
         on_click=form_handler
         )
