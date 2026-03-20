@@ -9,11 +9,11 @@ def on_product(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("📦", size=40),
-            ft.Text("Ajoutez vos produits en un clic", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Ajoutez vos produits en un clic", size=20, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
                 "Centralisez toutes vos références et " \
-                "suivez vos quantités en temps réel.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=8)),
+                "suivez vos quantités en temps réel.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
+            ft.Container(margin=ft.margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     previous(page=page, route="/on_welcome"),
