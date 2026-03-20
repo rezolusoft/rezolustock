@@ -8,10 +8,10 @@ def on_sale(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("💰", size=40),
-            ft.Text("Gardez le contrôle sur vos transactions", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Gardez le contrôle sur vos transactions", size=20, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
-                "Enregistrez vos ventes, suivez vos marges et vos bénéfices.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=8)),
+                "Enregistrez vos ventes, suivez vos marges et vos bénéfices.", size=16, font_family="Poppins", color=ft.Colors.ON_SURFACE),
+            ft.Container(margin=ft.margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     previous(page=page, route="/on_product"),

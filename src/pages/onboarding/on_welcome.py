@@ -10,12 +10,12 @@ def on_welcome(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Text("👋🏾", size=40),
-            ft.Text("Bienvenue sur RezoluStock", size=25, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Bienvenue sur RezoluStock", size=20, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text(
                 "La solution simple et efficace pensé" \
                 " et conçu pour gérer vos stocks, vos " \
-                "ventes et optimiser vos activités.", size=20, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=8)),
+                "ventes et optimiser vos activités.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
+            ft.Container(margin=ft.margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     next(page=page, route='/on_product')
