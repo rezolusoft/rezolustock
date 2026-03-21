@@ -22,7 +22,7 @@ def side_menu_button(title, icon, page=None, destination=None)->ft.Control:
                     ],
                   expand=True,  
                 ),
-                padding=ft.padding.all(10),
+                padding=ft.padding.all(5),
                 bgcolor=bg_color,
                 on_click= lambda e : page.go(destination),
                 border_radius=ft.border_radius.all(5),
