@@ -1,4 +1,5 @@
 import flet as ft
+from extras.routes import push
 
 def side_menu_button(title, icon, page=None, destination=None)->ft.Control:
 
@@ -16,16 +17,17 @@ def side_menu_button(title, icon, page=None, destination=None)->ft.Control:
     button = ft.Container(
                 ft.Row(
                     controls=[
-                        ft.Icon(name=icon, color=ft.Colors.PRIMARY),
-                        ft.Text(title),
+                        ft.Icon(icon=getattr(ft.Icons, icon), color=ft.Colors.PRIMARY, size=20),
+                        ft.Text(title, color=ft.Colors.ON_SURFACE),
                     
                     ],
                   expand=True,  
                 ),
-                padding=ft.padding.all(5),
+                padding=ft.Padding.all(3),
+                margin=ft.Margin.only(left=7),
                 bgcolor=bg_color,
-                on_click= lambda e : page.go(destination),
-                border_radius=ft.border_radius.all(5),
+                on_click= lambda e : e.page.run_task(push, e.page, destination),
+                border_radius=ft.BorderRadius.all(5),
 
                 
             )
