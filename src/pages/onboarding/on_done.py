@@ -5,11 +5,11 @@ from extras.store import RStockStore
 
 def on_done(page) -> ft.Control:
     
-    def start(e):
+    async def start(e):
         store = RStockStore(page)
         store.destroy("onboarded")
         store.set("onboarded", True)
-        page.go("/dashboard")
+        await page.push_route("/dashboard")
 
     welcome_container = ft.Container(ft.Column(
         expand=True,
@@ -17,7 +17,7 @@ def on_done(page) -> ft.Control:
             ft.Text("🎉", size=40),
             ft.Text("Bravo ! Vous êtes prêt à tirer le meilleur de RezoluStock", size=20, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
             ft.Text("Votre espace est maintenant prêt. Il ne vous reste plus qu’à explorer et profiter des fonctionnalités.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=3)),
+            ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     ft.ElevatedButton(
@@ -42,7 +42,7 @@ def on_done(page) -> ft.Control:
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
-    padding=ft.padding.only(right=20)
+    padding=ft.Padding.only(right=20)
 
     )
 

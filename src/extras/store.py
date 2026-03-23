@@ -1,3 +1,6 @@
+import flet as ft
+
+
 class RStockStore():
     """
     Store
@@ -10,22 +13,23 @@ class RStockStore():
     """
     prefix = "rstock"
 
-    def __init__(self, page):
-        self.page = page
     
-    def set(self, key, data):
+    async def set(self, key, data):
         key = f"{self.prefix}_{key}"
-        self.page.client_storage.set(key, data)
+        set = await ft.SharedPreferences().set(key, data)
+        return set
 
-    def get(self, key):
+    async def get(self, key):
         key = f"{self.prefix}_{key}"
-        return self.page.client_storage.get(key)
+        get = await ft.SharedPreferences().get(key)
+        return get
     
-    def check(self, key):
+    async def check(self, key):
         key = f"{self.prefix}_{key}"
-        return self.page.client_storage.contains_key(key)
+        check = await ft.SharedPreferences().contains_key(key)
+        return check
     
-    def destroy(self, key):
+    async def destroy(self, key):
         key = f"{self.prefix}_{key}"
-        self.page.client_storage.remove(key)
-        return not self.page.client_storage.contains_key(key)
+        await ft.SharedPreferences().remove(key)
+        

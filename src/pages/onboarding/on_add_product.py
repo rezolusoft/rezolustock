@@ -44,7 +44,7 @@ def on_add_product(page) -> ft.Control:
             product_image_state["file"] = e.files[0]
             product_image.color = ft.Colors.SURFACE
             product_image.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
                 shape=ft.RoundedRectangleBorder(10),
             )
@@ -60,7 +60,7 @@ def on_add_product(page) -> ft.Control:
         color=ft.Colors.SURFACE,
         expand=1,
         style=ft.ButtonStyle(
-            padding=ft.padding.symmetric(vertical=15),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
             shape=ft.RoundedRectangleBorder(10),
         ),
@@ -125,7 +125,7 @@ def on_add_product(page) -> ft.Control:
             product_image.text = "Vous devez ajouter un logo !"
             product_image.color = ft.Colors.RED_500
             product_image.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
                 shape=ft.RoundedRectangleBorder(10),
             )
@@ -137,7 +137,7 @@ def on_add_product(page) -> ft.Control:
         return valid
     
 
-    def form_handler(e):
+    async def form_handler(e):
 
         if form_is_valid():
             img_dest = local_file_uploader(product_image_state["file"])
@@ -164,7 +164,7 @@ def on_add_product(page) -> ft.Control:
 
             page.close(notif)
 
-            page.go("/on_done")
+            await page.push_route("/on_done")
         
         else:
             page.update()
@@ -175,7 +175,7 @@ def on_add_product(page) -> ft.Control:
         "Enregistrer Produit",
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(10),
-            padding=ft.padding.symmetric(vertical=15),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
@@ -209,7 +209,7 @@ def on_add_product(page) -> ft.Control:
                     ],
                     spacing=20,
                 ),
-                padding=ft.padding.only(right=18)
+                padding=ft.Padding.only(right=18)
             )
         ],
         alignment=ft.MainAxisAlignment.CENTER

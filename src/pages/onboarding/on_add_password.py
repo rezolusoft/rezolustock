@@ -17,7 +17,7 @@ def on_add_password(page) -> ft.Control:
     password_field = ft.TextField(hint_text="*Entrer votre mot de passe", border_radius=10, password=True, can_reveal_password=True)
     password_confirm_field = ft.TextField(hint_text="*Confirmer votre mot de passe", border_radius=10, password=True, can_reveal_password=True)
 
-    def set_shop_user(password):
+    async def set_shop_user(password):
         shop = store.get("shop_infos")
         shop_name = shop["name"]
         shop_email = shop["email"]
@@ -63,7 +63,7 @@ def on_add_password(page) -> ft.Control:
         page.open(notif)
         time.sleep(3)
         page.close(notif)
-        page.go("/on_add_category")
+        await page.push_route("/on_add_category")
         
     
     def form_handler(e):
@@ -97,7 +97,7 @@ def on_add_password(page) -> ft.Control:
         "Enregistrer Mot de Passe",
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(10),
-            padding=ft.padding.symmetric(vertical=15),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
@@ -125,7 +125,7 @@ def on_add_password(page) -> ft.Control:
                     ],
                     spacing=20,
                 ),
-                padding=ft.padding.only(right=18)
+                padding=ft.Padding.only(right=18)
             )
         ],
         alignment=ft.MainAxisAlignment.CENTER

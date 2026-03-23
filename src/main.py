@@ -1,13 +1,13 @@
 import flet as ft
 from themes import light_theme, dark_theme, font_loader
-from components import pager, onboarder
+from layout import pager, onboarder
 from extras.routes import routes
 from importlib import import_module
 from models.db_initializer import db_initializer
 from extras.store import RStockStore
 
 
-def main(page: ft.Page):
+async def main(page: ft.Page):
 
     db_initializer()
 
@@ -31,10 +31,10 @@ def main(page: ft.Page):
 
 
     # Initialiser une instance du store
-    store = RStockStore(page)
+    store = RStockStore()
     # Récupérer les données du store lier a l'oboarding
-    onboarded = store.check("onboarded")
-    onboarding_step = store.get("onboarding_step")
+    onboarded = await store.check("onboarded")
+    onboarding_step = await store.get("onboarding_step")
 
 
     # Recuperer les infos de l'onboarding
@@ -45,11 +45,11 @@ def main(page: ft.Page):
     # initialisation de l'echaffaudage
     layout = pager(page=page, content=content_container)
 
-    def router(e: ft.RouteChangeEvent):
+    async def router(e: ft.RouteChangeEvent):
         # charger dynamiquement le contenu
         # adequat en fonction de la route
         route = page.route
-        onboarded = store.check("onboarded")
+        onboarded = await store.check("onboarded")
 
         if route in routes:
             route = route.lstrip("/")
@@ -81,15 +81,15 @@ def main(page: ft.Page):
     # redirection conditionnel vers la page initiale 
     if page.route == "/":
         if onboarded:
-            page.go('/dashboard')
+            await page.push_route('/dashboard')
         else:
             if onboarding_step:
-                page.go(f"/{onboarding_step}")
+                await page.push_route(f"/{onboarding_step}")
             else:
-                page.go('/on_welcome')
+                await page.push_route('/on_welcome')
 
     else:
-        page.go(page.route)
+        await page.push_route(page.route)
 
 
-ft.app(main)
+ft.run(main)

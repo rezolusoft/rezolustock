@@ -1,5 +1,5 @@
 import flet as ft
-from components.onboarding import next
+from layout.components.onboarder import next
 
 
 def on_start(page) -> ft.Control:
@@ -14,7 +14,7 @@ def on_start(page) -> ft.Control:
                 "Configurer votre boutique et Ajoutez " \
                 "vos premiers produits puis découvrez " \
                 "tout ce que RezoluStock peut faire pour vous.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=3)),
+            ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     next(page=page, route="/on_shop_register", name="Commencer")
@@ -23,7 +23,7 @@ def on_start(page) -> ft.Control:
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
-    padding=ft.padding.only(right=20)
+    padding=ft.Padding.only(right=20)
 
     )
 
