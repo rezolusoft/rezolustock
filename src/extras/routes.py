@@ -16,3 +16,6 @@ routes = [
     '/on_add_product',
     '/on_done',
 ]
+
+async def push(page, destination):
+    await page.push_route(destination)
