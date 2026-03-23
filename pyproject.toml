@@ -3,17 +3,17 @@ name = "RezoluStock"
 version = "0.1.0"
 description = "The inventory management system carefully designed and built to optimize your business."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10,<4.0"
 authors = [
     { name = "Rezolusoft HQ", email = "info@rezolusoft.com" },
     { name = "Abiodoun Paraiso", email = "contact@abiodoun.dev" }
 
 ]
 dependencies = [
-  "flet[all]==0.28.2",
+  "flet[all]==0.82.2",
   "peewee==3.18.2",
   "peewee-migrate==1.13.0",
-  "argon2-cffi==25.1.0",
+  "argon2-cffi>=25.1.0",
 ]
 
 [tool.flet]
@@ -28,16 +28,5 @@ path = "src"
 [tool.flet.macos]
 entitlement."com.apple.security.files.user-selected.read-write" = true
 
-[tool.uv]
-dev-dependencies = [
-    "flet[all]==0.28.2",
-    "peewee==3.18.2",
-    "peewee-migrate==1.13.0",
-    "argon2-cffi==25.1.0",
-]
-
 [tool.poetry]
 package-mode = false
-
-[tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.28.2"}
