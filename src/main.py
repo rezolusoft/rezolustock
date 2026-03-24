@@ -11,8 +11,7 @@ async def main(page: ft.Page):
 
     db_initializer()
 
-    # Maximiser la fenetre
-    page.window.maximized = True
+    
     # Definir Titre
     page.title = "RezoluStock"
 
@@ -36,6 +35,8 @@ async def main(page: ft.Page):
     onboarded = await store.check("onboarded")
     onboarding_step = await store.get("onboarding_step")
 
+    # Maximiser la fenetre
+    page.window.maximized = True
 
     # Recuperer les infos de l'onboarding
 
