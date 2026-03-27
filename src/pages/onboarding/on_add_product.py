@@ -46,7 +46,7 @@ def on_add_product(page) -> ft.Control:
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
 
             page.update()
@@ -62,7 +62,7 @@ def on_add_product(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
         ),
         on_click=lambda _: product_image_picker.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
       )
@@ -127,7 +127,7 @@ def on_add_product(page) -> ft.Control:
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             valid=False
         else:
@@ -174,7 +174,7 @@ def on_add_product(page) -> ft.Control:
     save_product = ft.ElevatedButton(
         "Enregistrer Produit",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

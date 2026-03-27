@@ -30,7 +30,7 @@ def on_add_category(page) -> ft.Control:
             category_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             page.update()
              
@@ -47,7 +47,7 @@ def on_add_category(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
         ),
         on_click=lambda _: category_image_dialog.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
     )
@@ -107,7 +107,7 @@ def on_add_category(page) -> ft.Control:
     save_category = ft.ElevatedButton(
         "Enregistrer Category",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

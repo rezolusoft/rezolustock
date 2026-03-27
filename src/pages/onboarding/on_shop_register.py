@@ -46,7 +46,7 @@ def on_shop_register(page) -> ft.Control:
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             page.update()
 
@@ -57,7 +57,7 @@ def on_shop_register(page) -> ft.Control:
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.RED_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             page.update()
         
@@ -163,7 +163,7 @@ def on_shop_register(page) -> ft.Control:
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             valid=False
         else:
@@ -225,7 +225,7 @@ def on_shop_register(page) -> ft.Control:
     save_shop_info = ft.ElevatedButton(
         "Enregistrer boutique",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

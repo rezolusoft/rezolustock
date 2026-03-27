@@ -96,7 +96,7 @@ def on_add_password(page) -> ft.Control:
     save_user_info = ft.ElevatedButton(
         "Enregistrer Mot de Passe",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
