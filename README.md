@@ -8,7 +8,7 @@
 
 RezoluStock est une application desktop de gestion d'inventaire complète et intuitive. Elle permet aux entrepreneurs et aux petites entreprises de gérer efficacement leurs stocks, produits, clients et ventes en un seul endroit.
 
-**Développé par:** [Rezolusoft](https://rezolusoft.com) | 🇧🇯 Ajdarra, Bénin
+**Développé  par** [Rezolusoft](https://rezolusoft.com) ❤️ Ajdarra, Bénin 🇧🇯
 
 ---
 
@@ -27,14 +27,16 @@ git clone https://github.com/rezolusoft/akonta.git
 cd akonta
 ```
 
-2. **Installez les dépendances** :
+2. **Préparez votre environnement et installez les dépendances** :
 ```bash
+virtualenv venv -p3
+source venv/bin/actvivate
 pip install -r requirements.txt
 ```
 
 3. **Lancez l'application** :
 ```bash
-python src/main.py
+flet run
 ```
 
 ---
@@ -151,7 +153,7 @@ L'application suit une architecture **modulaire et basée sur les composants** :
 
 Les contributions sont bienvenues ! Pour contribuer :
 
-1. Créez une branche pour votre fonctionnalité
+1. Créez une branche pour votre fonctionnalité à partir d'un issue qui détails vos modifications
 2. Commitez vos changements
 3. Ouvrez une Pull Request
 
