@@ -1,7 +1,8 @@
 import flet as ft
+from extras.routes import push
 
 
-def next(page, route, name="Suivant"):
+def next(route, name="Suivant"):
     
     return ft.ElevatedButton(
                     content=ft.Row(
@@ -22,6 +23,6 @@ def next(page, route, name="Suivant"):
                           ),
                           color=ft.Colors.WHITE,
                         
-                        on_click=lambda e:page.go(route),
+                        on_click=lambda e:e.page.run_task(push, e.page, route),
                         
                     )

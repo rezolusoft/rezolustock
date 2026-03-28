@@ -1,5 +1,5 @@
 import flet as ft
-from components.onboarding import next
+from layout.components.onboarder import next
 
 
 
@@ -15,7 +15,7 @@ def on_welcome(page) -> ft.Control:
                 "La solution simple et efficace pensé" \
                 " et conçu pour gérer vos stocks, vos " \
                 "ventes et optimiser vos activités.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
-            ft.Container(margin=ft.margin.symmetric(vertical=3)),
+            ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
                     next(page=page, route='/on_product')
@@ -24,7 +24,7 @@ def on_welcome(page) -> ft.Control:
         ],
         alignment=ft.MainAxisAlignment.CENTER
     ),
-    padding=ft.padding.only(right=20)
+    padding=ft.Padding.only(right=20)
 
     )
 

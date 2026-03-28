@@ -44,9 +44,9 @@ def on_add_product(page) -> ft.Control:
             product_image_state["file"] = e.files[0]
             product_image.color = ft.Colors.SURFACE
             product_image.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
 
             page.update()
@@ -60,9 +60,9 @@ def on_add_product(page) -> ft.Control:
         color=ft.Colors.SURFACE,
         expand=1,
         style=ft.ButtonStyle(
-            padding=ft.padding.symmetric(vertical=15),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(10),
+            shape=ft.RoundedRectangleBorder(5),
         ),
         on_click=lambda _: product_image_picker.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
       )
@@ -125,9 +125,9 @@ def on_add_product(page) -> ft.Control:
             product_image.text = "Vous devez ajouter un logo !"
             product_image.color = ft.Colors.RED_500
             product_image.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             valid=False
         else:
@@ -137,7 +137,7 @@ def on_add_product(page) -> ft.Control:
         return valid
     
 
-    def form_handler(e):
+    async def form_handler(e):
 
         if form_is_valid():
             img_dest = local_file_uploader(product_image_state["file"])
@@ -164,7 +164,7 @@ def on_add_product(page) -> ft.Control:
 
             page.close(notif)
 
-            page.go("/on_done")
+            await page.push_route("/on_done")
         
         else:
             page.update()
@@ -174,8 +174,8 @@ def on_add_product(page) -> ft.Control:
     save_product = ft.ElevatedButton(
         "Enregistrer Produit",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
-            padding=ft.padding.symmetric(vertical=15),
+            shape=ft.RoundedRectangleBorder(5),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
@@ -209,7 +209,7 @@ def on_add_product(page) -> ft.Control:
                     ],
                     spacing=20,
                 ),
-                padding=ft.padding.only(right=18)
+                padding=ft.Padding.only(right=18)
             )
         ],
         alignment=ft.MainAxisAlignment.CENTER

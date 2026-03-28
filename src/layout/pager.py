@@ -1,5 +1,5 @@
 import flet as ft
-from components.partial import side_menu, top_bar
+from .components import side_menu, top_bar
 
 
 def pager(page, content)->ft.Control:
@@ -8,8 +8,10 @@ def pager(page, content)->ft.Control:
     pager = ft.Container(
                 content=ft.Column(
                     expand=True,
+                    
                     controls=[
                         ft.Row(expand=True,
+                               vertical_alignment=ft.CrossAxisAlignment.STRETCH,
                             controls=[
                             
                             side_menu(page=page),
@@ -26,8 +28,8 @@ def pager(page, content)->ft.Control:
                 ),
                 # image=ft.DecorationImage("img/3.jpg", fit=ft.ImageFit.COVER),
                 expand=True,
-                border_radius=ft.border_radius.all(5),
-                padding=ft.padding.all(5),
+                border_radius=ft.BorderRadius.all(5),
+                padding=ft.Padding.all(5),
                 # bgcolor=page.theme.color_scheme.background
             )
     return pager

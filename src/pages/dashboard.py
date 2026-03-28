@@ -9,5 +9,5 @@ def dashboard()->ft.Control:
     ),
     bgcolor=ft.Colors.SURFACE,
     )
-    dashboard.border_radius = ft.border_radius.all(5)
+    dashboard.border_radius = ft.BorderRadius.all(5)
     return dashboard

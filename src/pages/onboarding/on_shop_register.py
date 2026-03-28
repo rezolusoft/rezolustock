@@ -44,9 +44,9 @@ def on_shop_register(page) -> ft.Control:
             logo_file_state["file"] = e.files[0]
             select_logo.color = ft.Colors.SURFACE
             select_logo.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             page.update()
 
@@ -55,9 +55,9 @@ def on_shop_register(page) -> ft.Control:
             select_logo.text = "Vous devez ajouter un logo !"
             select_logo.color = ft.Colors.WHITE
             select_logo.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.RED_600,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             page.update()
         
@@ -73,7 +73,7 @@ def on_shop_register(page) -> ft.Control:
         color=ft.Colors.SURFACE,
         expand=1,
         style=ft.ButtonStyle(
-            padding=ft.padding.symmetric(vertical=15),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
             shape=ft.RoundedRectangleBorder(5),
         ),
@@ -161,9 +161,9 @@ def on_shop_register(page) -> ft.Control:
             select_logo.text = "Vous devez ajouter un logo !"
             select_logo.color = ft.Colors.RED_500
             select_logo.style = ft.ButtonStyle(
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(10),
+                shape=ft.RoundedRectangleBorder(5),
             )
             valid=False
         else:
@@ -173,7 +173,7 @@ def on_shop_register(page) -> ft.Control:
         return valid
 
 
-    def form_handler(e):
+    async def form_handler(e):
 
         # RECUPERATION DES DONNEES ENTRER PAR L'UTILISATEUR
 
@@ -214,7 +214,7 @@ def on_shop_register(page) -> ft.Control:
             page.open(notif)
             time.sleep(3.5)
             page.close(notif)
-            page.go("/on_add_password")
+            await page.push_route("/on_add_password")
         
         else:
             page.update()
@@ -225,8 +225,8 @@ def on_shop_register(page) -> ft.Control:
     save_shop_info = ft.ElevatedButton(
         "Enregistrer boutique",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(10),
-            padding=ft.padding.symmetric(vertical=15),
+            shape=ft.RoundedRectangleBorder(5),
+            padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
                 font_family="PoppinsMedium",
@@ -249,13 +249,13 @@ def on_shop_register(page) -> ft.Control:
             ft.Row([rccm_field, ifu_field]),
             ft.Row([owner_lastname_field, owner_firstname_field]),
             ft.Row([select_logo]),
-            # ft.Row([ft.Container(logo_file_state["error"], margin=ft.margin.only(top=-16, left=15, bottom=-20))]),
+            # ft.Row([ft.Container(logo_file_state["error"], margin=ft.Margin.only(top=-16, left=15, bottom=-20))]),
             ft.Row([save_shop_info])
         ],
         alignment=ft.MainAxisAlignment.CENTER,
         spacing=15,
     ),
-    padding=ft.padding.only(right=18)
+    padding=ft.Padding.only(right=18)
 
     )
 
