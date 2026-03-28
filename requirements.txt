@@ -1,1 +1,4 @@
-flet[all]
+flet[all]==0.82.2
+peewee==3.18.2
+peewee-migrate==1.13.0
+argon2-cffi

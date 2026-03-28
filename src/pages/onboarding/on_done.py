@@ -1,0 +1,49 @@
+import flet as ft
+from extras.store import RStockStore
+
+
+
+def on_done(page) -> ft.Control:
+    
+    async def start(e):
+        store = RStockStore(page)
+        store.destroy("onboarded")
+        store.set("onboarded", True)
+        await page.push_route("/dashboard")
+
+    welcome_container = ft.Container(ft.Column(
+        expand=True,
+        controls=[
+            ft.Text("🎉", size=40),
+            ft.Text("Bravo ! Vous êtes prêt à tirer le meilleur de RezoluStock", size=20, font_family="PoppinsBold", color=ft.Colors.ON_SURFACE),
+            ft.Text("Votre espace est maintenant prêt. Il ne vous reste plus qu’à explorer et profiter des fonctionnalités.", size=15, font_family="Poppins", color=ft.Colors.ON_SURFACE),
+            ft.Container(margin=ft.Margin.symmetric(vertical=3)),
+            ft.Row(
+                controls=[
+                    ft.ElevatedButton(
+                    content = ft.Text("Démarrer"),                              
+            
+                      style=ft.ButtonStyle(
+                          shape=ft.RoundedRectangleBorder(5),
+                          padding=10,
+                          bgcolor=ft.Colors.SECONDARY,
+                          text_style=ft.TextStyle(
+                              font_family="PoppinsMedium",
+                              size=15
+                          )
+                          ),
+                          color=ft.Colors.WHITE,
+                        
+                        on_click=start,
+                        
+                    )
+                ]
+            )
+        ],
+        alignment=ft.MainAxisAlignment.CENTER
+    ),
+    padding=ft.Padding.only(right=20)
+
+    )
+
+    return welcome_container

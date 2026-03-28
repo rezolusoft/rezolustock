@@ -1,6 +1,0 @@
-routes = [
-    '/dashboard',
-    '/stock',
-    '/product',
-
-]
