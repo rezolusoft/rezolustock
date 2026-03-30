@@ -4,24 +4,28 @@ from extras.routes import push
 
 def next(route, name="Suivant"):
     
-    return ft.ElevatedButton(
+    return ft.Button(
                     content=ft.Row(
-                          [   
-                              ft.Text(name),
-                              ft.Icon(name=ft.Icons.ARROW_FORWARD_ROUNDED, color=ft.Colors.WHITE),
-                              
-                          ]
-                    ), 
+            controls=[
+                ft.Text(name),
+                    ft.Icon(ft.Icons.ARROW_FORWARD_ROUNDED, color=ft.Colors.WHITE,),
+                ],
+                alignment=ft.MainAxisAlignment.CENTER,
+                
+            ),
+                    
+                    bgcolor=ft.Colors.SECONDARY,
                       style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(5),
+                          shape=ft.RoundedRectangleBorder(radius=5),
                           padding=10,
-                          bgcolor=ft.Colors.SECONDARY,
+                          color=ft.Colors.WHITE,
+                          
                           text_style=ft.TextStyle(
                               font_family="PoppinsMedium",
-                              size=15
-                          )
+                              size=15,)
                           ),
-                          color=ft.Colors.WHITE,
+
+                
                         
                         on_click=lambda e:e.page.run_task(push, e.page, route),
                         

@@ -16,5 +16,10 @@ class Product(RstockObject):
     price = DecimalField(decimal_places=2, null=True)
     cost = DecimalField(decimal_places=2, null=True)
 
+    quantity = IntegerField(default=5)
+    quantity_alert = IntegerField(default=3)
+
+    unit = CharField(null=True)
+    
     def __str__(self):
         return f"{self.code} -> {self.name}"
