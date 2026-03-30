@@ -6,9 +6,8 @@ from extras.store import RStockStore
 def on_done(page) -> ft.Control:
     
     async def start(e):
-        store = RStockStore(page)
-        store.destroy("onboarded")
-        store.set("onboarded", True)
+        store = RStockStore()
+        await store.set_onboarding_step("completed")
         await page.push_route("/dashboard")
 
     welcome_container = ft.Container(ft.Column(
@@ -20,11 +19,11 @@ def on_done(page) -> ft.Control:
             ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
-                    ft.ElevatedButton(
+                    ft.Button(
                     content = ft.Text("Démarrer"),                              
             
                       style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(5),
+                          shape=ft.RoundedRectangleBorder(radius=5),
                           padding=10,
                           bgcolor=ft.Colors.SECONDARY,
                           text_style=ft.TextStyle(
