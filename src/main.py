@@ -9,6 +9,12 @@ from extras.store import RStockStore
 
 async def main(page: ft.Page):
 
+    
+    # Initialiser une instance du store
+    store = RStockStore()
+    # Récupérer les données du store lier a l'oboarding
+    onboarding_step = await store.get_onboarding_step()
+
     db_initializer()
 
     
@@ -29,11 +35,6 @@ async def main(page: ft.Page):
 
 
 
-    # Initialiser une instance du store
-    store = RStockStore()
-    # Récupérer les données du store lier a l'oboarding
-    onboarded = await store.check("onboarded")
-    onboarding_step = await store.get("onboarding_step")
 
     # Maximiser la fenetre
     page.window.maximized = True
@@ -50,25 +51,27 @@ async def main(page: ft.Page):
         # charger dynamiquement le contenu
         # adequat en fonction de la route
         route = page.route
-        onboarded = await store.check("onboarded")
+        onboarding_step = await store.get_onboarding_step()
 
         if route in routes:
             route = route.lstrip("/")
             # recuperation conditionnel des pages en fonction des routes et 
             # de l'onboarding
-            if onboarded:
+            if onboarding_step=="completed":
                 content = import_module(f"pages.{route}")
                 content_container.content = getattr(content, route)()
+
+                # reconstruction de l'echaffaudage au changement de route 
+                layout.content = pager(page=page, content=content_container)
             else:
                 content = import_module(f"pages.onboarding.{route}")
                 content_container.content = getattr(content, route)(page)
+
+                # reconstruction de l'echaffaudage au changement de route 
+                layout.content = onboarder(content=content_container, illustration=route.lstrip('/'))
         else:
             content_container.content = ft.Text("Page introuvable")
-        # reconstruire l'echaffaudage au changement de route 
-        if onboarded:
-            layout.content = pager(page=page, content=content_container)
-        else:
-            layout.content = onboarder(content=content_container, illustration=route.lstrip('/'))
+        
         page.update()
         
 
@@ -81,7 +84,7 @@ async def main(page: ft.Page):
     # Controle de la page par défaut
     # redirection conditionnel vers la page initiale 
     if page.route == "/":
-        if onboarded:
+        if onboarding_step=="completed":
             await page.push_route('/dashboard')
         else:
             if onboarding_step:
