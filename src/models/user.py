@@ -8,7 +8,7 @@ class User(RstockObject):
         Represente un utilisateur du systeme
         Un utilisateur peut etre un admin ou un vendeur
     """
-    
+    avatar = CharField(max_length=500, null=True)
     first_name = CharField(max_length=50)
     last_name = CharField(max_length=50)
     email = CharField(max_length=100, null=False, unique=True, index=True)
