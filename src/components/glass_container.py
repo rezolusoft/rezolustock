@@ -5,8 +5,8 @@ class GlassContainer(ft.Container):
         super().__init__(
             content=content,
             gradient=ft.LinearGradient(
-                begin=ft.alignment.top_left,
-                end=ft.alignment.bottom_right,
+                begin=ft.Alignment.TOP_LEFT,
+                end=ft.Alignment.BOTTOM_RIGHT,
                 colors=["#26FFFFFF", "#0DFFFFFF"],
             ),
             blur=ft.Blur(50, 50, ft.BlurTileMode.MIRROR),
