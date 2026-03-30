@@ -14,8 +14,8 @@ def on_sale(page) -> ft.Control:
             ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
-                    previous(page=page, route="/on_product"),
-                    next(page=page, route="/on_stats")
+                    previous(route="/on_product"),
+                    next(route="/on_stats")
                 ],
             )
         ],
