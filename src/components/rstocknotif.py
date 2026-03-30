@@ -7,5 +7,4 @@ def rstocknotif(title:str, content:str, actions:list):
         modal=True, title=ft.Text(title),
         content=ft.Text(content),
         actions=actions,
-        actions_alignment=ft.MainAxisAlignment.END
     )
