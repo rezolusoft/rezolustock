@@ -2,6 +2,7 @@ import flet as ft
 import time
 from models.category import Category
 from pathlib import Path
+import asyncio
 from extras.store import RStockStore
 from extras.tools import local_file_uploader
 from components.rstocknotif import rstocknotif
@@ -9,37 +10,36 @@ from components.rstocknotif import rstocknotif
 
 
 
+
 def on_add_category(page) -> ft.Control:
 
-    store = RStockStore(page=page)
+    store = RStockStore()
 
-    category_name_field = ft.TextField(hint_text="*Nom Catégorie", border_radius=10)
-    category_description_field = ft.TextField(hint_text="*Description Catégorie", multiline=True, min_lines=3, max_lines=3, border_radius=10)
+    category_name_field = ft.TextField(hint_text="*Nom Catégorie", border_radius=10, expand=1)
+    category_description_field = ft.TextField(hint_text="*Description Catégorie", multiline=True, min_lines=3, max_lines=3, border_radius=10, expand=1)
     
     category_image_state = {
         "file" : None,
         "error" : ft.Text("", color=ft.Colors.ERROR, size=12)
     }
 
-    def on_category_image_selected(e: ft.FilePickerResultEvent):
+    async def on_category_image_selected(e: ft.Event[ft.Button]):
         
-        if e.files:
-            category_image.text = f"Image Catégorie -> {e.files[0].name}"
-            category_image_state["file"] = e.files[0]
+        files = await ft.FilePicker().pick_files(allow_multiple=False, initial_directory=f"{Path.home()/"Pictures"}", file_type=ft.FilePickerFileType.IMAGE)
+        if files:
+            category_image.content = f"Image Catégorie -> {files[0].name}"
+            category_image_state["file"] = files[0]
             category_image.color = ft.Colors.SURFACE
             category_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
             page.update()
              
     
-    category_image_dialog = ft.FilePicker(on_result = on_category_image_selected)
 
-
-
-    category_image = ft.ElevatedButton(
+    category_image = ft.Button(
         "Ajouter une image descriptive",
         icon = ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
         color = ft.Colors.SURFACE,
@@ -47,12 +47,11 @@ def on_add_category(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
         ),
-        on_click=lambda _: category_image_dialog.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
+        on_click= on_category_image_selected
     )
 
-    page.overlay.append(category_image_dialog)
     page.update()
 
     def form_is_valid():
@@ -63,18 +62,18 @@ def on_add_category(page) -> ft.Control:
 
         valid = True
         if not category["name"].value.strip():
-            category["name"].error_text = "Veuillez renseigner le nom de votre catégorie produit"
+            category["name"].error = "Veuillez renseigner le nom de votre catégorie produit"
             valid = False
         else:
-            category["name"].error_text = None
+            category["name"].error = None
             category["name"].border_color = ft.Colors.GREEN_400
             valid = True
         
         if not category["description"].value.strip():
-            category["description"].error_text = "Veuillez renseigner le nom de votre catégorie produit"
+            category["description"].error = "Veuillez renseigner le nom de votre catégorie produit"
             valid = False
         else:
-            category["description"].error_text = None
+            category["description"].error = None
             valid = True
         
         
@@ -93,21 +92,21 @@ def on_add_category(page) -> ft.Control:
 
             notif = rstocknotif("Opération réussie ✅", "Votre première catégorie produit à été ajoutée avec succès ! ", [])
 
-            store.destroy("onboarding_step")
-            store.set("onboarding_step", "on_add_product")
+          
+            await store.set_onboarding_step("on_add_product")
 
-            page.open(notif)
-            time.sleep(3)
-            page.close(notif)
+            page.show_dialog(notif)
+            await asyncio.sleep(3.5)
+            page.pop_dialog()
             await page.push_route("/on_add_product")
         
         else:
             page.update()
     
-    save_category = ft.ElevatedButton(
+    save_category = ft.Button(
         "Enregistrer Category",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

@@ -3,6 +3,7 @@ import time
 from models.product import Product
 from models.category import Category
 from pathlib import Path
+import asyncio
 from extras.store import RStockStore
 from extras.tools import local_file_uploader
 from components.rstocknotif import rstocknotif
@@ -21,40 +22,44 @@ def on_category_select(e):
 
 def on_add_product(page) -> ft.Control:
 
-    store = RStockStore(page=page)
+    store = RStockStore()
 
-    product_name_field = ft.TextField(hint_text="*Nom Produit", border_radius=10)
+    product_name_field = ft.TextField(hint_text="*Nom Produit", border_radius=10, expand=1)
 
-    product_description_field = ft.TextField(hint_text="*Description Produit", multiline=True, min_lines=3, max_lines=3, border_radius=10)
+    product_description_field = ft.TextField(hint_text="*Description Produit", multiline=True, min_lines=3, max_lines=3, border_radius=10, expand=1)
 
-    product_category_dropdown = ft.Dropdown(hint_text="Sélectionner une catégorie", options=dropdown_categories(), on_change=on_category_select, expand=True, border_radius=10)
+    product_category_dropdown = ft.Dropdown(hint_text="Sélectionner une catégorie", options=dropdown_categories(), on_select=on_category_select, expand=True, border_radius=10)
 
     product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1,)
     
     product_cost_field = ft.TextField(hint_text="*Prix de revient", border_radius=10, expand=1)
 
+    product_quantity_field = ft.TextField(hint_text="*Quantité", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]"))
+    product_quantity_alert_field = ft.TextField(hint_text="*Seuil Critique stock", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]"))
+
+
     product_image_state = {
         "file" : None,
         "error" : ft.Text("", color=ft.Colors.ERROR, size=12)
     }
-    def on_product_image_selected(e: ft.FilePickerResultEvent):
+    async def on_product_image_selected(e: ft.Event[ft.Button]):
 
-        if e.files:
-            product_image.text = f"Image Produit -> {e.files[0].name}"
-            product_image_state["file"] = e.files[0]
+        files = await ft.FilePicker().pick_files(allow_multiple=False, initial_directory=f"{Path.home()/"Pictures"}", file_type=ft.FilePickerFileType.IMAGE)
+        if files:
+            product_image.content = f"Image Produit -> {files[0].name}"
+            product_image_state["file"] = files[0]
             product_image.color = ft.Colors.SURFACE
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
 
             page.update()
 
 
-    product_image_picker = ft.FilePicker(on_result=on_product_image_selected)
 
-    product_image = ft.ElevatedButton(
+    product_image = ft.Button(
         "Ajouter image produit",
         icon=ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
         color=ft.Colors.SURFACE,
@@ -62,12 +67,12 @@ def on_add_product(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
         ),
-        on_click=lambda _: product_image_picker.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
+        on_click= on_product_image_selected
       )
     
-    page.overlay.append(product_image_picker)
+ 
     page.update()
 
 
@@ -78,56 +83,76 @@ def on_add_product(page) -> ft.Control:
             "category" : product_category_dropdown,
             "price" : product_price_field,
             "cost" : product_cost_field,
+            "quantity" : product_quantity_field,
+            "quantity_alert" : product_quantity_alert_field
         }
 
         valid = True
 
         if not product["name"].value.strip():
-            product["name"].error_text = "Veuillez renseigner un nom pour votre produit"
+            product["name"].error = "Veuillez renseigner un nom pour votre produit"
             valid = False
         else:
-            product["name"].error_text = None
+            product["name"].error = None
             product["name"].border_color = ft.Colors.GREEN_400
             valid = True
         if not product["category"].value:
-            product["category"].error_text = "Veuillez choisir une catégorie pour votre produit"
+            product["category"].error = "Veuillez choisir une catégorie pour votre produit"
             valid = False
         else:
-            product["category"].error_text = None
+            product["category"].error = None
             product["category"].border_color = ft.Colors.GREEN_400
             valid = True
         
         if not product["description"].value.strip():
-            product["description"].error_text = "Veuillez renseigner une description pour votre produit"
+            product["description"].error = "Veuillez renseigner une description pour votre produit"
             valid = False
         else:
-            product["description"].error_text = None
+            product["description"].error = None
             product["description"].border_color = ft.Colors.GREEN_400
             valid = True
         
         if not product["price"].value.strip():
-            product["price"].error_text = "Veuillez renseigner un prix pour votre produit"
+            product["price"].error = "Veuillez renseigner un prix pour votre produit"
             valid = False
         else:
-            product["price"].error_text = None
+            product["price"].error = None
             product["price"].border_color = ft.Colors.GREEN_400
             valid = True
         
+        
         if not product["cost"].value.strip():
-            product["cost"].error_text = "Veuillez renseigner un prix de revient pour votre produit"
+            product["cost"].error = "Veuillez renseigner un prix de revient pour votre produit"
             valid = False
         else:
-            product["cost"].error_text = None
+            product["cost"].error = None
             product["cost"].border_color = ft.Colors.GREEN_400
             valid = True
         
+        if not product["quantity"].value.strip():
+            product["quantity"].error = "Veuillez rensiegner une quantité de produit"
+            valid=False
+        else:
+            product["quantity"].error = None
+            product["quantity"].border_color = ft.Colors.GREEN_400
+            valid = True
+        
+
+        if not product["quantity_alert"].value.strip():
+            product["quantity_alert"].error = "Veuillez rensiegner une seuil de stock"
+            valid=False
+        else:
+            product["quantity_alert"].error = None
+            product["quantity_alert"].border_color = ft.Colors.GREEN_400
+            valid = True
+    
         if not product_image_state["file"]:
-            product_image.text = "Vous devez ajouter un logo !"
+            product_image.content = "Vous devez ajouter un logo !"
             product_image.color = ft.Colors.RED_500
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
             valid=False
         else:
@@ -148,21 +173,22 @@ def on_add_product(page) -> ft.Control:
                 category = product_category_dropdown.value.strip(),
                 price = product_price_field.value.strip(),
                 cost = product_cost_field.value.strip(),
-                image = img_dest
+                image = img_dest,
+                quantity = product_quantity_field.value.strip(),
+                quantity_alert = product_quantity_alert_field.value.strip()
             )
 
             new_product.save()
 
             notif = rstocknotif("Opération réussie ✅", "Votre premier produit produit à été ajoutée avec succès ! ", [])
 
-            store.destroy("onboarding_step")
-            store.set("onboarding_step", "on_done")
+            await store.set_onboarding_step("on_done")
 
-            page.open(notif)
+            page.show_dialog(notif)
 
-            time.sleep(3)
+            await asyncio.sleep(3.5)
 
-            page.close(notif)
+            page.pop_dialog()
 
             await page.push_route("/on_done")
         
@@ -171,10 +197,10 @@ def on_add_product(page) -> ft.Control:
 
 
     
-    save_product = ft.ElevatedButton(
+    save_product = ft.Button(
         "Enregistrer Produit",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
@@ -203,6 +229,7 @@ def on_add_product(page) -> ft.Control:
                             product_category_dropdown,
                             product_description_field,
                             ft.Row([product_cost_field, product_price_field]),
+                            ft.Row([product_quantity_field, product_quantity_alert_field]),
                             ft.Row([product_image]),
                             ft.Row([save_product])
 

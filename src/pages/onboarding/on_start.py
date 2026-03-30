@@ -17,7 +17,7 @@ def on_start(page) -> ft.Control:
             ft.Container(margin=ft.Margin.symmetric(vertical=3)),
             ft.Row(
                 controls=[
-                    next(page=page, route="/on_shop_register", name="Commencer")
+                    next(route="/on_shop_register", name="Commencer")
                 ],
             )
         ],

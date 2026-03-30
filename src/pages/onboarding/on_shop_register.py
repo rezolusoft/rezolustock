@@ -2,6 +2,7 @@ import time
 import flet as ft
 from extras.tools import is_valid_email, id_generator, local_file_uploader
 from components.rstocknotif import rstocknotif
+import asyncio
 from pathlib import Path
 from extras.store import RStockStore
 
@@ -11,13 +12,13 @@ from extras.store import RStockStore
 def on_shop_register(page) -> ft.Control:
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
-    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5)
+    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5, expand=1)
 
     email_field = ft.TextField(hint_text="*Email", border_radius=5, expand=1)
 
     phone_field = ft.TextField(hint_text="*Téléphone", border_radius=5, expand=1)
 
-    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5)
+    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5, expand=1)
 
     rccm_field = ft.TextField(hint_text="RCCM", border_radius=5, expand=1)
 
@@ -38,36 +39,37 @@ def on_shop_register(page) -> ft.Control:
         "error" : ft.Text("", color=ft.Colors.WHITE, size=12 )
     }
 
-    def on_logo_selected(e: ft.FilePickerResultEvent):
-        if e.files:
-            select_logo.text = f"Logo -> {e.files[0].name}"
-            logo_file_state["file"] = e.files[0]
+    async def on_logo_selected(e: ft.Event[ft.Button]):
+
+        files = await ft.FilePicker().pick_files(allow_multiple=False, initial_directory=f"{Path.home()/"Pictures"}", file_type=ft.FilePickerFileType.IMAGE)
+        if files:
+            select_logo.content = f"Logo -> {files[0].name}"
+            logo_file_state["file"] = files[0]
             select_logo.color = ft.Colors.SURFACE
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
             page.update()
 
 
         else:
-            select_logo.text = "Vous devez ajouter un logo !"
+            select_logo.content = "Vous devez ajouter un logo !"
             select_logo.color = ft.Colors.WHITE
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.RED_600,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
             page.update()
         
 
     # SELECTEUR DE FICHIER
-    select_logo_dialog = ft.FilePicker(on_result=on_logo_selected)
     
     
     # BOUTON DECLENCHEUR DU SELECTEUR DE FICHIER
-    select_logo = ft.ElevatedButton(
+    select_logo = ft.Button(
         "Ajouter votre logo",
         icon=ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
         color=ft.Colors.SURFACE,
@@ -75,15 +77,12 @@ def on_shop_register(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
         ),
-        on_click=lambda _: select_logo_dialog.pick_files(allow_multiple=False, initial_directory=Path.home()/"Pictures", file_type=ft.FilePickerFileType.IMAGE),
+        on_click=on_logo_selected,
       )
     
-    # AJOUT DU SELECTEUR DE FICHIER A LA PAGE
-    page.overlay.append(select_logo_dialog)
-    page.update()
-
+ 
 
     # FONCTION DE TRAITEMENT DE FORMULAIRE
 
@@ -102,83 +101,86 @@ def on_shop_register(page) -> ft.Control:
         # Validation du nom de boutique
         valid = True
         if not shop["name"].value.strip():
-            shop["name"].error_text = "Veuillez renseigner le nom de votre boutique/commerce"
+            shop["name"].error = "Veuillez renseigner le nom de votre boutique/commerce"
             valid = False
         else:
-            shop["name"].error_text = None
+            shop["name"].error = None
             shop["name"].border_color = ft.Colors.GREEN_400
             valid = True
 
         # Validation de l'email de boutique
         if not shop["email"].value.strip():
-            shop["email"].error_text = "Veuillez renseigner une adresse email valide"
+            shop["email"].error = "Veuillez renseigner une adresse email valide"
             valid=False
         elif not is_valid_email(shop["email"].value.strip()):
-            shop["email"].error_text = "Veuillez renseigner une adresse email valide"
+            shop["email"].error = "Veuillez renseigner une adresse email valide"
             valid=False
         else:
-            shop["email"].error_text = None
+            shop["email"].error = None
             shop["email"].border_color = ft.Colors.GREEN_400
             valid = True
 
         # Validation du numéro de téléphone de boutique
         if not shop["phone"].value.strip():
-            shop["phone"].error_text = "Veuillez renseigner un numéro de téléphone"
+            shop["phone"].error = "Veuillez renseigner un numéro de téléphone"
             valid=False
         else:
-            shop["phone"].error_text = None
+            shop["phone"].error = None
             shop["phone"].border_color = ft.Colors.GREEN_400
             valid = True
         
         # Validation du l'adresse de la boutique
         if not shop["adress"].value.strip():
-            shop["adress"].error_text = "Veuillez renseigner l'adresse de la boutique"
+            shop["adress"].error = "Veuillez renseigner l'adresse de la boutique"
             valid=False
         else:
-            shop["adress"].error_text = None
+            shop["adress"].error = None
             shop["adress"].border_color = ft.Colors.GREEN_400
             valid = True
         
         # Validation du prénom du gérant de la boutique
         if not shop["first_name"].value.strip():
-            shop["first_name"].error_text = "Veuillez renseigner votre Prénom"
+            shop["first_name"].error = "Veuillez renseigner votre Prénom"
             valid=False
         else:
-            shop["first_name"].error_text = None
+            shop["first_name"].error = None
             shop["first_name"].border_color = ft.Colors.GREEN_400
             valid = True
         
         # Validation du nom du gérant de la boutique
         if not shop["last_name"].value.strip():
-            shop["last_name"].error_text = "Veuillez renseigner votre Nom"
+            shop["last_name"].error = "Veuillez renseigner votre Nom"
             valid=False
         else:
-            shop["last_name"].error_text = None
+            shop["last_name"].error = None
             shop["last_name"].border_color = ft.Colors.GREEN_400
             valid=True
 
         if not logo_file_state["file"]:
-            select_logo.text = "Vous devez ajouter un logo !"
+            select_logo.content = "Vous devez ajouter un logo !"
             select_logo.color = ft.Colors.RED_500
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(5),
+                shape=ft.RoundedRectangleBorder(radius=5),
             )
             valid=False
+
         else:
             logo_file_state["error"].value = None
             valid = True
+        
 
         return valid
 
 
-    async def form_handler(e):
+    async def form_handler():
 
         # RECUPERATION DES DONNEES ENTRER PAR L'UTILISATEUR
 
         if form_is_valid() :
-            # RECUPERER LOGO
+
+            # RECUPERER ET UPLOADER LOGO
             logo_dest = local_file_uploader(logo_file_state["file"])
             
             # Recuperer les infos de la boutique
@@ -195,25 +197,14 @@ def on_shop_register(page) -> ft.Control:
                 }
 
             # ENREGISTRER INFOS BOUTIQUE ET ETAT
-            store = RStockStore(page=page)
-            shop_infos = store.check("shop_infos")
-            if shop_infos:
-                store.destroy("shop_infos")
-                store.set("shop_infos", shop)
-            else:
-                store.set("shop_infos", shop)
-            
-            onboarding_step = store.check("onboarding_step")
-            if onboarding_step:
-                store.destroy("onboarding_step")
-                store.set("onboarding_step", "on_add_password")
-            else:    
-                store.set("onboarding_step", "on_add_password")
+            store = RStockStore()
+            await store.set_shop(shop)
+            await store.set_onboarding_step("on_add_password")
 
             notif = rstocknotif("Opération réussie ✅", "Les informations de la boutique ont été ajoutées avec succès.", [])
-            page.open(notif)
-            time.sleep(3.5)
-            page.close(notif)
+            page.show_dialog(notif)
+            await asyncio.sleep(3.5)
+            page.pop_dialog()
             await page.push_route("/on_add_password")
         
         else:
@@ -222,10 +213,10 @@ def on_shop_register(page) -> ft.Control:
 
 
     
-    save_shop_info = ft.ElevatedButton(
+    save_shop_info = ft.Button(
         "Enregistrer boutique",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(5),
+            shape=ft.RoundedRectangleBorder(radius=5),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
@@ -243,9 +234,9 @@ def on_shop_register(page) -> ft.Control:
         expand=True,
         controls=[
             ft.Row([ft.Text("Enregistrer Votre Boutique", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE, )]),
-            shop_name_field,
+            ft.Row([shop_name_field]),
             ft.Row([email_field, phone_field]),
-            adress_field,
+            ft.Row([adress_field]),
             ft.Row([rccm_field, ifu_field]),
             ft.Row([owner_lastname_field, owner_firstname_field]),
             ft.Row([select_logo]),
