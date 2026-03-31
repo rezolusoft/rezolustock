@@ -1,10 +1,10 @@
 import time
 import flet as ft
-from extras.tools import is_valid_email, id_generator, local_file_uploader
+from utils.tools import is_valid_email, id_generator, local_file_uploader
 from components.rstocknotif import rstocknotif
 import asyncio
 from pathlib import Path
-from extras.store import RStockStore
+from core.store import RStockStore
 
 
 

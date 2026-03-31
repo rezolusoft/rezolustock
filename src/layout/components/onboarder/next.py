@@ -1,5 +1,5 @@
 import flet as ft
-from extras.routes import push
+from core.routes import push
 
 
 def next(route, name="Suivant"):

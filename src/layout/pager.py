@@ -1,8 +1,10 @@
 import flet as ft
 from .components import side_menu, top_bar
+from core.store import RStockStore
 
 
-def pager(page, content)->ft.Control:
+
+def pager(page, content, user)->ft.Control:
 
 
     pager = ft.Container(
@@ -17,7 +19,7 @@ def pager(page, content)->ft.Control:
                             side_menu(page=page),
                             ft.Column(
                                 controls=[
-                                    top_bar(),
+                                    top_bar(user),
                                     ft.Container(content=content, expand=True)
                                 ],
                                 expand=True

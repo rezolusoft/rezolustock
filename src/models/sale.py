@@ -1,6 +1,6 @@
 from models.rezolustock import RstockObject
 from models.product import Product
-from extras.tools import sale_code_generator, id_generator
+from utils.tools import sale_code_generator, id_generator
 from models.user import User
 from peewee import *
 

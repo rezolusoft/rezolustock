@@ -1,5 +1,5 @@
 from models.rezolustock import RstockObject
-from extras.tools import category_code_generator
+from utils.tools import category_code_generator
 from peewee import *
 
 class Category(RstockObject):

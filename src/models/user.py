@@ -1,5 +1,5 @@
 from models.rezolustock import RstockObject
-from extras.enums import AccountTypeEnums
+from utils.enums import AccountTypeEnums
 from peewee import *
 
 

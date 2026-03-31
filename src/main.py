@@ -1,10 +1,10 @@
 import flet as ft
 from themes import light_theme, dark_theme, font_loader
 from layout import pager, onboarder
-from extras.routes import routes
+from core.routes import routes
 from importlib import import_module
 from models.db_initializer import db_initializer
-from extras.store import RStockStore
+from core.store import RStockStore
 
 
 async def main(page: ft.Page):
@@ -14,6 +14,11 @@ async def main(page: ft.Page):
     store = RStockStore()
     # Récupérer les données du store lier a l'oboarding
     onboarding_step = await store.get_onboarding_step()
+
+    # fetch connected user at the top level to avoid coroutine error
+    # TODO: Move from store(sharedpreferences) to Session Storage
+
+    user = await store.user_is_authenticated()
 
     db_initializer()
 
@@ -45,7 +50,7 @@ async def main(page: ft.Page):
     content_container = ft.Container(expand=True)
 
     # initialisation de l'echaffaudage
-    layout = pager(page=page, content=content_container)
+    layout = pager(page=page, content=content_container, user=user)
 
     async def router(e: ft.RouteChangeEvent):
         # charger dynamiquement le contenu
@@ -62,7 +67,7 @@ async def main(page: ft.Page):
                 content_container.content = getattr(content, route)()
 
                 # reconstruction de l'echaffaudage au changement de route 
-                layout.content = pager(page=page, content=content_container)
+                layout.content = pager(page=page, content=content_container, user=user)
             else:
                 content = import_module(f"pages.onboarding.{route}")
                 content_container.content = getattr(content, route)(page)

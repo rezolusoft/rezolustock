@@ -1,7 +1,7 @@
 from models.rezolustock import RstockObject
-from extras.tools import id_generator
+from utils.tools import id_generator
 from models.user import User
-from extras.enums import TransactionTypeEnums
+from utils.enums import TransactionTypeEnums
 from peewee import *
 
 class Transaction(RstockObject):
