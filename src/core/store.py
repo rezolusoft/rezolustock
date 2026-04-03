@@ -1,64 +1,64 @@
 import flet as ft
-from extras.types import Shop, User
+from utils.types import ShopType, UserType
 import json
-from extras.serializers import rstore_serializer
+from core.serializers import rstore_serializer
 
 
 
 
 class RStockStore():
-
+    """
+    
     ##################################################################
     ############################## STORE #############################
     ##################################################################
     #                                                                #
-    # Classe centralisant et gérant l’état global de l’application,  #
-    # incluant sa persistance et les règles de modification          #
+    #     Couche de persistance responsable du stockage et de la     #
+    #      récupération des données locales (SharedPreferences).     #
     #                                                                #
     ##################################################################
     ############################## CORE ##############################
     ##################################################################
+    """
+    prefix = "rstore"
 
-    prefix = "rstock"
+    def _get_key(self, key):
+        return f"{self.prefix}_{key}"
+    
 
-    # STATE SETTER
     async def _set(self, key, data):
-        key = f"{self.prefix}_{key}"
-
-        # Add logic to parse dict and list
+        key = self._get_key(key)
         if isinstance(data, (dict, list)):
             data = json.dumps(data, default=rstore_serializer)
         set = await ft.SharedPreferences().set(key, data)
         return set
-    
-    # STATE GETTER
-    async def _get(self, key):
-        key = f"{self.prefix}_{key}"
-        data = await ft.SharedPreferences().get(key)
 
-        # Add auto parsing for dict and list
+    
+    async def _get(self, key):
+        key = self._get_key(key)
+        data = await ft.SharedPreferences().get(key)
         try:
             return json.loads(data)
         except:
             return data
         
-    # STATE DESTROYER
+
     async def _destroy(self, key):
-        key = f"{self.prefix}_{key}"
+        key = self._get_key(key)
         await ft.SharedPreferences().remove(key)
         return False
 
 
     ##################################################################
-    ############################# STATE ##############################
+    ############################# STORE ##############################
     ##################################################################
 
-    # SHOP
+    ##### SHOP #####
     
-    async def set_shop(self, shop: Shop):
+    async def set_shop(self, shop: ShopType):
         await self._set("shop", shop)
     
-    async def get_shop(self) -> Shop | None:
+    async def get_shop(self) -> ShopType | None:
         return await self._get("shop")
     
     async def clear_shop(self):
@@ -66,7 +66,7 @@ class RStockStore():
     
 
 
-    # ONBOARDING
+    ##### ONBOARDING #####
 
     async def set_onboarding_step(self, step):
         await self._set("o_step", step)
@@ -79,9 +79,9 @@ class RStockStore():
     
 
 
-    # USER
+    ##### USER #####
 
-    async def user_is_authenticated(self) -> User | None:
+    async def user_is_authenticated(self) -> UserType | None:
         return await self._get("user")
     
     async def set_user_data(self, user):
@@ -91,7 +91,7 @@ class RStockStore():
         await self._destroy("user")
 
 
-    # GENERAL
+    ##### GENERAL #####
 
     async def clear_all_data(self):
         print("### EREASE STORE ###")

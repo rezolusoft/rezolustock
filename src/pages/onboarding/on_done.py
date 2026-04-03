@@ -1,5 +1,5 @@
 import flet as ft
-from extras.store import RStockStore
+from core.store import RStockStore
 
 
 

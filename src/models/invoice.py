@@ -1,7 +1,7 @@
 from models.rezolustock import RstockObject
 from models.customer import Customer
 from models.sale import Sale
-from extras.tools import invoice_code_generator
+from utils.tools import invoice_code_generator
 from peewee import *
 
 
