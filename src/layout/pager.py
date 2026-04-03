@@ -4,7 +4,7 @@ from core.store import RStockStore
 
 
 
-def pager(page, content, user)->ft.Control:
+def pager(page, content)->ft.Control:
 
 
     pager = ft.Container(
@@ -19,7 +19,7 @@ def pager(page, content, user)->ft.Control:
                             side_menu(page=page),
                             ft.Column(
                                 controls=[
-                                    top_bar(user),
+                                    top_bar(page),
                                     ft.Container(content=content, expand=True)
                                 ],
                                 expand=True
