@@ -4,6 +4,9 @@ routes = [
     '/stock',
     '/product',
 
+    # Auth
+    '/login',
+
     # Onboarding Pages
     '/on_welcome',
     '/on_product',

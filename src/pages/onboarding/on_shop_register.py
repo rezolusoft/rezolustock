@@ -1,10 +1,11 @@
 import time
 import flet as ft
-from extras.tools import is_valid_email, id_generator, local_file_uploader
-from components.rstocknotif import rstocknotif
+from utils.tools import id_generator, local_file_uploader
+from utils.validators import is_valid_email
+from components.notification import rstocknotif
 import asyncio
 from pathlib import Path
-from extras.store import RStockStore
+from core.store import RStockStore
 
 
 
@@ -12,21 +13,21 @@ from extras.store import RStockStore
 def on_shop_register(page) -> ft.Control:
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
-    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5, expand=1)
+    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    email_field = ft.TextField(hint_text="*Email", border_radius=5, expand=1)
+    email_field = ft.TextField(hint_text="*Email", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=5, expand=1)
+    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5, expand=1)
+    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    rccm_field = ft.TextField(hint_text="RCCM", border_radius=5, expand=1)
+    rccm_field = ft.TextField(hint_text="RCCM", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=5, expand=1)
+    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire",border_radius=5, expand=1)
+    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
-    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=5, expand=1)
+    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=5, color=ft.Colors.PRIMARY, expand=1)
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
     

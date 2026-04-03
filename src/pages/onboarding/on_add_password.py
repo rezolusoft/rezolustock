@@ -1,23 +1,26 @@
 import flet as ft
 import time
-from extras.store import RStockStore
-from components.rstocknotif import rstocknotif
-from extras.tools import validate_password
+from core.store import RStockStore
+from core.state import RstockState
+from core.auth import RstockAuthentication
+from components.notification import rstocknotif
+from utils.validators import validate_password
 from argon2 import PasswordHasher
 from datetime import datetime
 import asyncio
 from models.shop import Shop
 from models.user import User
-from extras.enums import AccountTypeEnums
+from utils.enums import AccountTypeEnums
 
 
 
 def on_add_password(page) -> ft.Control:
 
     store = RStockStore()
+    state = RstockState(page)
 
-    password_field = ft.TextField(hint_text="*Entrer votre mot de passe", border_radius=10, password=True, can_reveal_password=True, expand=1)
-    password_confirm_field = ft.TextField(hint_text="*Confirmer votre mot de passe", border_radius=10, password=True, can_reveal_password=True, expand=1)
+    password_field = ft.TextField(hint_text="*Entrer votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
+    password_confirm_field = ft.TextField(hint_text="*Confirmer votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
 
     async def set_shop_user(password):
         shop = await store.get_shop()
@@ -44,46 +47,25 @@ def on_add_password(page) -> ft.Control:
             )
         
         new_shop.save()
+        auth = RstockAuthentication(state=state, store=store)
 
-        hasher = PasswordHasher()
-        password=hasher.hash(password)
-        admin_user = User(
-            first_name=shop_first_name, 
-            last_name=shop_last_name, 
-            email=shop_email, 
-            phone=shop_phone, 
-            password=password, 
-            account_type=AccountTypeEnums.OWNER.value)
-        admin_user.save()
+        # create_user
+        user = auth.create_user(first_name=shop_first_name,
+                         last_name=shop_last_name,
+                         email=shop_email,
+                         phone=shop_phone,
+                         password=password,
+                         account_type=AccountTypeEnums.OWNER.value
+                         )
+        
+
+        await store.set_onboarding_step("on_add_category")
+
+        #login
+        user = await auth.login(shop_email, password)
+        await store.set_onboarding_step("on_add_category")
         
         notif = rstocknotif("Opération réussie ✅", "Votre compte administrateur à été crée avec succès !", [])
-
-        await store.set_onboarding_step("on_add_category")
-
-        #login process
-        # TODO : Centralize this logic in a complet authentication class including registration + base_user_creation + permissions
-        user = User.get(User.email == shop_email)
-        user.last_seen=datetime.now()
-        user.save()
-        user=user.__data__.copy()
-
-        shop_data = Shop.get(Shop.email==shop_email).__data__.copy()
-
-        # quick fix for login
-        user.pop("password", None)
-        user.pop("created_at", None)
-        user.pop("updated_at", None)
-        user.pop("deleted", None)
-
-        shop_data.pop("created_at", None)
-        shop_data.pop("updated_at", None)
-        shop_data.pop("deleted", None)
-
-        user["shop"] = shop_data
-        await store.set_user_data(user)
-        await store.clear_shop()
-        await store.set_onboarding_step("on_add_category")
-        
         page.show_dialog(notif)
         await asyncio.sleep(3.5)
         page.pop_dialog()

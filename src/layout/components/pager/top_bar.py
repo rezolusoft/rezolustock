@@ -1,4 +1,5 @@
 import flet as ft
+from core.state import RstockState
 
 def search_bar() -> ft.Control:
 
@@ -94,19 +95,21 @@ def settings_button() -> ft.Control:
 
 
 
-def profile_button() -> ft.Control:
-
+def profile_button(page) -> ft.Control:
+    state = RstockState(page)
+    user = state.get_user()
+    shop = user["shop"]
     profile_button = ft.Container(
-                content=ft.Image(""),
+                content=ft.Row([ft.Image(f"{shop["logo"]}", width=22), ft.Text(user["first_name"])]),
                 bgcolor=ft.Colors.GREY_300,
                 padding=5,
                 border_radius=5,
             )
-
+    
     return profile_button
 
 
-def top_bar()->ft.Control:
+def top_bar(page)->ft.Control:
     top_bar = ft.Container(
     bgcolor=ft.Colors.SURFACE,
 
@@ -123,7 +126,8 @@ def top_bar()->ft.Control:
                 fulscreen_button(),
                 cashier_button(),
                 daily_sales_button(),
-                settings_button()
+                settings_button(),
+                profile_button(page)
             ]
         )
 

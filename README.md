@@ -8,7 +8,7 @@
 
 RezoluStock est une application desktop de gestion d'inventaire complète et intuitive. Elle permet aux entrepreneurs et aux petites entreprises de gérer efficacement leurs stocks, produits, clients et ventes en un seul endroit.
 
-**Développé  par** [Rezolusoft](https://rezolusoft.com) ❤️ Ajdarra, Bénin 🇧🇯
+**Développé par** [Rezolusoft](https://rezolusoft.com) ❤️ Ajdarra, Bénin 🇧🇯
 
 ---
 
@@ -16,25 +16,32 @@ RezoluStock est une application desktop de gestion d'inventaire complète et int
 
 ### Prérequis
 
-- **Python** 3.10 ou supérieur
-- **pip** (gestionnaire de paquets Python)
+* **Python** 3.10 ou supérieur
+* **pip** (gestionnaire de paquets Python)
+
+---
 
 ### Installation
 
 1. **Clonez le repository** :
+
 ```bash
 git clone https://github.com/rezolusoft/akonta.git
 cd akonta
 ```
 
 2. **Préparez votre environnement et installez les dépendances** :
+
 ```bash
-virtualenv venv -p3
-source venv/bin/actvivate
+python -m venv venv
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate     # Windows
+
 pip install -r requirements.txt
 ```
 
 3. **Lancez l'application** :
+
 ```bash
 flet run
 ```
@@ -43,10 +50,10 @@ flet run
 
 ## 📦 Dépendances
 
-- **flet** 0.82.2 - Framework UI multiplateforme
-- **peewee** 3.18.2 - ORM léger pour base de données SQLite
-- **peewee-migrate** 1.13.0 - Système de migration pour Peewee
-- **argon2-cffi** ≥ 25.1.0 - Chiffrement sécurisé des mots de passe
+* **flet** 0.82.2 — Framework UI multiplateforme
+* **peewee** 3.18.2 — ORM léger pour SQLite
+* **peewee-migrate** 1.13.0 — Gestion des migrations
+* **argon2-cffi** ≥ 25.1.0 — Hash sécurisé des mots de passe
 
 ---
 
@@ -56,121 +63,141 @@ flet run
 akonta/
 ├── src/
 │   ├── main.py                 # Point d'entrée de l'application
-│   ├── components/             # Composants réutilisables (UI)
-│   ├── layout/                 # Mise en page principale (pager, onboarder)
+│   ├── components/             # Composants UI réutilisables
+│   ├── layout/                 # Layouts (pager, onboarder)
 │   ├── pages/                  # Pages de l'application
-│   ├── models/                 # Modèles de données
-│   ├── themes/                 # Thèmes de l'application
-│   ├── extras/                 # Utilitaires et configurations
+│   ├── models/                 # Modèles ORM (Peewee)
+│   ├── themes/                 # Thèmes (dark/light)
+│   ├── core/                   # Logique centrale de l'application
+│   ├── utils/                  # Utilitaires et helpers
 │   ├── assets/                 # Ressources (images, polices)
-│   └── db/                     # Schéma et fichiers de base de données
-├── storage/                    # Stockage des données locales
+│   └── db/                     # Base de données & schéma
+├── storage/                    # Stockage local (fichiers, uploads)
 ├── pyproject.toml              # Configuration du projet
 ├── requirements.txt            # Dépendances Python
-└── README.md                   # Ce fichier
+└── README.md                   # Documentation
 ```
 
-### Détail des répertoires
+---
 
-#### `/src/components` - Composants personnalisés
-Contient tous les contrôles UI réutilisables de l'application.
-- `glass_container.py` - Conteneurs avec effet de verre
-- `rstocknotif.py` - Système de notifications
+## 🧩 Détail des répertoires
 
-#### `/src/layout` - Mise en page principale
-Gère la structure générale de l'application :
-- **Pager** - Structure de base avec `side_menu` et `top_bar`
-- **Onboarder** - Expérience d'accueil du nouveau utilisateur (du bienvenue à la création du premier produit)
+### `/src/core` — Cœur de l’application
 
-#### `/src/pages` - Pages de l'application
-Chaque page correspond à une route dans `src/extras/routes.py`. Chaque fichier contient une fonction du même nom qui retourne un objet `flet.Control`.
+Contient toute la logique métier et les mécanismes globaux :
 
-**Exemple de structure** :
+* **`auth.py`** — Gestion de l’authentification (login, logout, auto-login)
+* **`state.py`** — Gestion de l’état runtime (session utilisateur)
+* **`store.py`** — Persistance locale (SharedPreferences)
+* **`routes.py`** — Définition des routes de navigation
+* **`serializer.py`** — Sérialisation des données (JSON, Peewee → dict)
+
+---
+
+### `/src/utils` — Utilitaires
+
+Fonctions et structures réutilisables :
+
+* **`tools.py`** — Helpers (validation, upload, etc.)
+* **`enums.py`** — Énumérations (roles, types, statuts)
+* **`types.py`** — Types personnalisés (TypedDict, etc.)
+
+---
+
+### `/src/components` — Composants UI
+
+Contient les éléments réutilisables de l’interface :
+
+* `glass_container.py` — Effets visuels
+* `rstocknotif.py` — Système de notifications
+
+---
+
+### `/src/layout` — Layouts
+
+Structure globale de l’application :
+
+* **Pager** — Interface principale (menu + top bar)
+* **Onboarder** — Flux d’accueil utilisateur
+
+---
+
+### `/src/pages` — Pages
+
+Chaque page correspond à une route définie dans `core/routes.py`.
+
+**Exemple :**
+
 ```python
-# src/extras/routes.py
-routes = [..., 'dashboard', ...]
+# core/routes.py
+routes = [..., "dashboard"]
 
-# src/pages/dashboard.py
-def dashboard() -> flet.Control:
-    """Retourne le contenu de la page tableau de bord"""
-    return flet.Container(...)
+# pages/dashboard.py
+def dashboard() -> ft.Control:
+    return ft.Container(...)
 ```
 
-**Pages actuelles** :
-- `dashboard.py` - Tableau de bord principal
-- `product.py` - Gestion des produits
-- `stock.py` - Gestion du stock
+---
 
-#### `/src/extras` - Utilitaires et configurations
-- **`enums.py`** - Collections d'énumérations (paires clé-valeur)
-- **`routes.py`** - Définition de toutes les routes de l'application
-- **`store.py`** - Gestion du localStorage pour les préférences utilisateur
-- **`tools.py`** - Fonctions utilitaires réutilisables
+### `/src/models` — Modèles de données
 
-#### `/src/models` - Modèles de données
-- Modèles ORM Peewee pour la base de données
-- Fichiers de migration pour versionner le schéma
-- `db_initializer.py` - Initialisation de la base de données
+Modèles Peewee + migrations :
 
-Modèles principaux :
-- `user.py` - Utilisateurs
-- `shop.py` - Magasins
-- `product.py` - Produits
-- `category.py` - Catégories de produits
-- `stock.py` - Inventaire
-- `sale.py` - Ventes
-- `invoice.py` - Factures
-- `customer.py` - Clients
-
-#### `/src/themes` - Thèmes
-- `dark.py` - Thème sombre
-- `light.py` - Thème clair
-- `fonts.py` - Configurations typographiques
-
-#### `/src/assets` - Ressources
-- `img/` - Images de l'application
-- `fonts/` - Polices de caractères
-- `illustration/` - Illustrations
-
-#### `/src/db` - Base de données
-- `rstock.db.schema` - Schéma de la base de données
+* `user.py` — Utilisateurs
+* `shop.py` — Boutiques
+* `product.py` — Produits
+* `category.py` — Catégories
+* `stock.py` — Inventaire
+* `sale.py` — Ventes
+* `invoice.py` — Factures
+* `customer.py` — Clients
 
 ---
 
-## 🏗️ Architecture
+### `/src/themes` — Thèmes
 
-L'application suit une architecture **modulaire et basée sur les composants** :
-
-1. **Pages** (`/pages`) - Écrans principaux liées aux routes
-2. **Layout** (`/layout`) - Structure de mise en page (navigation, accueil)
-3. **Components** (`/components`) - Composants réutilisables
-4. **Models** (`/models`) - Couche données (ORM Peewee)
-5. **Extras** (`/extras`) - Logique métier et utilitaires
+* `dark.py` — Mode sombre
+* `light.py` — Mode clair
+* `fonts.py` — Typographie
 
 ---
+
+### `/src/assets` — Ressources
+
+* `img/` — Images
+* `fonts/` — Polices
+* `illustration/` — Illustrations
+
+---
+
+### `/src/db` — Base de données
+
+* `rstock.db.schema` — Schéma de la base
+
+---
+
 
 ## 🤝 Contribution
 
-Les contributions sont bienvenues ! Pour contribuer :
+Les contributions sont les bienvenues !
 
-1. Créez une branche pour votre fonctionnalité à partir d'un issue qui détails vos modifications
+1. Créez une branche depuis un issue
 2. Commitez vos changements
 3. Ouvrez une Pull Request
 
 ---
 
-## 📄 Licence
-
-© 2025 Rezolusoft - Tous droits réservés
-
----
 
 ## 📧 Contact
 
-- **Email** : info@rezolusoft.com
-- **Auteurs** : Rezolusoft HQ, Abiodoun Paraiso
+* **Email** : [info@rezolusoft.com](mailto:info@rezolusoft.com)
+* **Auteurs** : Rezolusoft HQ, Abiodoun Paraiso
+
+---
 
 
+## 📄 Licence
 
+© 2025 Rezolusoft — Tous droits réservés
 
-
+---

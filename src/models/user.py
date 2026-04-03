@@ -1,5 +1,5 @@
 from models.rezolustock import RstockObject
-from extras.enums import AccountTypeEnums
+from utils.enums import AccountTypeEnums
 from peewee import *
 
 
@@ -21,6 +21,8 @@ class User(RstockObject):
     def __str__(self):
         
         return f"{self.first_name} {self.last_name}"
+    
+    
     
     
 
