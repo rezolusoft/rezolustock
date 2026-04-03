@@ -5,7 +5,7 @@ from pathlib import Path
 import asyncio
 from core.store import RStockStore
 from utils.tools import local_file_uploader
-from components.rstocknotif import rstocknotif
+from components.notification import rstocknotif
 
 
 
