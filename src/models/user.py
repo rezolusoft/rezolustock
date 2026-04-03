@@ -23,6 +23,8 @@ class User(RstockObject):
         return f"{self.first_name} {self.last_name}"
     
     
+    
+    
 
 
 
