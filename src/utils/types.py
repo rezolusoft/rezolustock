@@ -1,6 +1,9 @@
 from typing import TypedDict, NotRequired
+from datetime import datetime
 
-class Shop(TypedDict):
+
+
+class ShopType(TypedDict):
     id: int
     name : str
     email: str
@@ -14,7 +17,9 @@ class Shop(TypedDict):
     manager : NotRequired[str]
     logo: str
 
-class User(TypedDict):
+
+
+class UserType(TypedDict):
     id: int
     avatar : NotRequired[str]
     first_name : str
@@ -22,5 +27,5 @@ class User(TypedDict):
     email : str
     phone : str
     account_type : str
-    shop : Shop
-    last_seen : str
+    last_seen : datetime | None
+    shop : NotRequired[ShopType] 
