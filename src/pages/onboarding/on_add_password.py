@@ -50,7 +50,7 @@ def on_add_password(page) -> ft.Control:
         auth = RstockAuthentication(state=state, store=store)
 
         # create_user
-        user = auth.create_user(first_name=shop_first_name,
+        auth.create_user(first_name=shop_first_name,
                          last_name=shop_last_name,
                          email=shop_email,
                          phone=shop_phone,
@@ -62,7 +62,8 @@ def on_add_password(page) -> ft.Control:
         await store.set_onboarding_step("on_add_category")
 
         #login
-        user = await auth.login(shop_email, password)
+        
+        await auth.login(shop_email, password)
         await store.set_onboarding_step("on_add_category")
         
         notif = rstocknotif("Opération réussie ✅", "Votre compte administrateur à été crée avec succès !", [])
