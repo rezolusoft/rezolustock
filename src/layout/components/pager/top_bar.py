@@ -10,34 +10,45 @@ def search_bar() -> ft.Control:
 
 
 def new_button() -> ft.Control:
-
+    
     new_button = ft.TextButton(content="Nouveau", 
+                               
                                style=ft.ButtonStyle(bgcolor=ft.Colors.SECONDARY,
                                                     color=ft.Colors.WHITE,
-                                                    shape=ft.RoundedRectangleBorder(radius=5)
+                                                    shape=ft.RoundedRectangleBorder(radius=5),
+                                                    text_style=ft.TextStyle(font_family="PoppinsSemiBold")
                                                     ),
                                 icon=ft.Icons.ADD_CIRCLE_OUTLINE_OUTLINED
                             )
 
     return new_button
 
-def pos_button() -> ft.Control:
-
-    pos_button = ft.TextButton(content="Boutique", 
-                               style=ft.ButtonStyle(bgcolor=ft.Colors.PRIMARY,
-                                                    color=ft.Colors.WHITE,
-                                                    shape=ft.RoundedRectangleBorder(radius=5)
-                                                    ),
-                                icon=ft.Icons.SHOPPING_BASKET_OUTLINED
-                            )
+def pos_button(page) -> ft.Control:
+    state = RstockState(page)
+    user = state.get_user()
+    shop = user["shop"]
+    pos_button = ft.Container(
+    content=ft.Row([
+        ft.Container(
+            content=ft.Image(f"{shop['logo']}", width=16, height=16),
+            bgcolor=ft.Colors.WHITE,
+            padding=2,
+            border_radius=5,
+        ),
+        ft.Text(shop["name"], color=ft.Colors.WHITE, font_family="PoppinsSemiBold")
+    ]),
+    bgcolor=ft.Colors.PRIMARY,
+    padding=5,
+    border_radius=5,
+    )
 
     return pos_button
 
 def calc_button() -> ft.Control:
 
     calc_button = ft.Container(
-                content=ft.Icon(ft.Icons.CALCULATE_OUTLINED, size=22, color="white"),
-                bgcolor=ft.Colors.SECONDARY,
+                content=ft.Icon(ft.Icons.CALCULATE_OUTLINED, size=22, color=ft.Colors.PRIMARY),
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -49,7 +60,7 @@ def fulscreen_button() -> ft.Control:
 
     fulscreen_button = ft.Container(
                 content=ft.Icon(ft.Icons.FULLSCREEN_OUTLINED, size=22, color=ft.Colors.PRIMARY),
-                bgcolor=ft.Colors.GREY_300,
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -61,7 +72,7 @@ def cashier_button() -> ft.Control:
 
     cashier_button = ft.Container(
                 content=ft.Icon(ft.Icons.POINT_OF_SALE_OUTLINED, size=22, color=ft.Colors.PRIMARY),
-                bgcolor=ft.Colors.GREY_300,
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -73,7 +84,7 @@ def daily_sales_button() -> ft.Control:
 
     daily_sales_button = ft.Container(
                 content=ft.Icon(ft.Icons.MONETIZATION_ON, size=22, color=ft.Colors.PRIMARY),
-                bgcolor=ft.Colors.GREY_300,
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -86,7 +97,7 @@ def settings_button() -> ft.Control:
 
     settings_button = ft.Container(
                 content=ft.Icon(ft.Icons.SETTINGS_OUTLINED, size=22, color=ft.Colors.PRIMARY),
-                bgcolor=ft.Colors.GREY_300,
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -98,10 +109,13 @@ def settings_button() -> ft.Control:
 def profile_button(page) -> ft.Control:
     state = RstockState(page)
     user = state.get_user()
-    shop = user["shop"]
+    avatar = user["avatar"]
+
+    if avatar is None:
+        avatar = "/img/user.png"
     profile_button = ft.Container(
-                content=ft.Row([ft.Image(f"{shop["logo"]}", width=22), ft.Text(user["first_name"])]),
-                bgcolor=ft.Colors.GREY_300,
+                content=ft.Row([ft.Image(f"{avatar}", width=22)]),
+                bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
             )
@@ -120,8 +134,8 @@ def top_bar(page)->ft.Control:
         
         ft.Row(
             controls=[
+                pos_button(page),
                 new_button(),
-                pos_button(),
                 calc_button(),
                 fulscreen_button(),
                 cashier_button(),
