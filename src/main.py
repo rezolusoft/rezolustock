@@ -11,7 +11,7 @@ from core.state import RstockState
 
 async def main(page: ft.Page):
 
-    
+  
     # Initialiser une instance du store
     store = RStockStore()
     # Initialiser une instance du state
@@ -98,7 +98,14 @@ async def main(page: ft.Page):
             if state.is_authenticated():
                 await page.push_route('/dashboard')
             else:
-                await page.push_route('/login')
+                saved_session = await store.remember_me()
+                if saved_session:
+                    from core.auth import RstockAuthentication
+                    auth = RstockAuthentication(state, store)
+                    await auth.auto_login()
+                    await page.push_route('/dashboard')
+                else:
+                    await page.push_route('/login')
         else:
             if onboarding_step:
                 await page.push_route(f"/{onboarding_step}")
