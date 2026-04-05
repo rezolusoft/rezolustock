@@ -17,19 +17,21 @@ async def login(page) -> ft.Control:
     email_field = ft.TextField(hint_text="Email de connexion", border_radius=5, expand=1, color=ft.Colors.PRIMARY)
     password_field = ft.TextField(hint_text="Votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1, color=ft.Colors.PRIMARY)
 
+    persist_session = ft.Checkbox(label="Se souvenir de moi", value=False, label_style=ft.TextStyle(color=ft.Colors.PRIMARY))
 
     async def form_handler():
         
         email = email_field.value.strip()
         password = password_field.value.strip()
+        persist = persist_session.value
         
         if is_valid_email(email):
             auth = RstockAuthentication(state, store)
-            user = await auth.login(email, password)
+            user = await auth.login(email, password, persist)
             if user:
                 notif = rstocknotif("Succès ✅", "Accès autorisé. Chargement de votre espace…", [])
                 page.show_dialog(notif)
-                await asyncio.sleep(3.5)
+                await asyncio.sleep(1.7)
                 page.pop_dialog()
                 await page.push_route("/dashboard")
             
@@ -70,6 +72,7 @@ async def login(page) -> ft.Control:
                             ft.Text("Connectez-vous pour continuer à gérer efficacement votre stock et suivre vos performances.", size=16, font_family="Poppins", color=ft.Colors.ON_SURFACE),
                             email_field,
                             password_field,
+                            persist_session,
                             ft.Row(controls=[login_button], expand=True)
                     ],
                     spacing=20,
