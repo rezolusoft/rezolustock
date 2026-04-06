@@ -79,7 +79,7 @@ async def main(page: ft.Page):
                 # reconstruction de l'echaffaudage au changement de route 
                 layout.content = onboarder(content=content_container, illustration=route.lstrip('/'))
         else:
-            layout.content = ft.Text("Page introuvable")
+            layout.content = pager(page=page, content=ft.Text("Page introuvable"))
         
         page.update()
         
