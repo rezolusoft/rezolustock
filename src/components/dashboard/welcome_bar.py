@@ -81,6 +81,5 @@ def welcome_bar():
         bgcolor=ft.Colors.SURFACE,
         border_radius=5,
         padding=10,
-        margin=ft.Margin.symmetric(vertical=10)
         
     )
