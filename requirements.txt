@@ -1,5 +1,6 @@
 # CORE
 flet[all]==0.84.0
+flet_datatable2==0.84.0
 
 # DATABASE AND ORM
 peewee==3.18.2
