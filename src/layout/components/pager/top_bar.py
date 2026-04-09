@@ -27,6 +27,10 @@ def pos_button(page) -> ft.Control:
     state = RstockState(page)
     user = state.get_user()
     shop = user["shop"]
+
+    async def push(e):
+        await e.page.push_route('/dashboard')
+
     pos_button = ft.Container(
     content=ft.Row([
         ft.Container(
@@ -40,6 +44,7 @@ def pos_button(page) -> ft.Control:
     bgcolor=ft.Colors.PRIMARY,
     padding=5,
     border_radius=5,
+    on_click= push
     )
 
     return pos_button
