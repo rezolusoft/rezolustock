@@ -3,6 +3,8 @@ from argon2 import PasswordHasher
 from models.user import User
 from utils.types import UserType
 from datetime import datetime
+from components.notification import rstocknotif
+
 
 
 class RstockAuthentication():
@@ -27,37 +29,53 @@ class RstockAuthentication():
         return PasswordHasher().verify(hash, password)
     
 
-
-    def create_user(self, first_name:str|None, last_name:str|None, email:str, phone:str, password:str, account_type:str, avatar:str|None=None,):
-        # create and return a new user
-        password = self._make_password(password)
-        try:
-            user = User(
-                avatar = avatar,
-                first_name = first_name,
-                last_name = last_name,
-                email = email,
-                phone = phone,
-                password = password,
-                account_type = account_type
-            )
-            user.save()
-
-        except Exception as e:
-            print(e)
-        
-        return user
-
-
-    async def login(self, login, password) -> bool:
+    
+    def _user_exist(self, email):
         
         try:
-            user = User.get(User.email==login)
+            user = User.get(User.email==email)
+            
+            return user
         
         except Exception as e:
 
             print("Utilisateur introuvable")
             return False
+
+
+
+    def create_user(self, first_name:str|None, last_name:str|None, email:str, phone:str, password:str, account_type:str, avatar:str|None=None,):
+        # create and return a new user
+
+        if self._user_exist(email):
+
+            return False
+        
+        else :
+
+            password = self._make_password(password)
+            try:
+                user = User(
+                    avatar = avatar,
+                    first_name = first_name,
+                    last_name = last_name,
+                    email = email,
+                    phone = phone,
+                    password = password,
+                    account_type = account_type
+                )
+                user.save()
+
+            except Exception as e:
+                print(e)
+                return False
+            
+            return user
+
+
+    async def login(self, login, password, persist=False) -> bool:
+        
+        user = self._user_exist(login)
 
         try:
             
@@ -80,6 +98,11 @@ class RstockAuthentication():
                 }
 
                 self.state.set_user(user_data)
+
+                if persist:
+                    await self.store.set_user(user_data)
+
+                
                 
                 return True
 
@@ -94,7 +117,8 @@ class RstockAuthentication():
 
 
     async def auto_login(self):
-        pass
+        saved_user = await self.store.get_user()
+        self.state.set_user(saved_user)
 
 
     async def refresh(self):
@@ -102,6 +126,7 @@ class RstockAuthentication():
 
 
     async def logout(self):
-        pass
-    
+        self.state.clear_user()
+        await self.store.clear_user()
+
     

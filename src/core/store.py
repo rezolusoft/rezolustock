@@ -34,12 +34,16 @@ class RStockStore():
         return set
 
     
-    async def _get(self, key):
+    async def _get(self, key, default=None):
         key = self._get_key(key)
         data = await ft.SharedPreferences().get(key)
+
+        if data is None:
+            return default
+
         try:
             return json.loads(data)
-        except:
+        except Exception:
             return data
         
 
@@ -81,11 +85,14 @@ class RStockStore():
 
     ##### USER #####
 
-    async def user_is_authenticated(self) -> UserType | None:
+    async def get_user(self) -> UserType | None:
         return await self._get("user")
     
-    async def set_user_data(self, user):
+    async def set_user(self, user:UserType):
         await self._set("user", user)
+    
+    async def remember_me(self):
+        return await self.get_user() is not None
     
     async def clear_user(self):
         await self._destroy("user")
