@@ -8,36 +8,36 @@ class RouterEngine():
         self.store = store
         self.state = state
 
-        async def resolve(self, path: str)->dict:
-            route = routes.get(path)
-            
+    async def resolve(self, path: str)->dict:
+        route = routes.get(path)
+        
 
 
-            if not route:
-                return {"tyoe":"error", "content": "Page introuvable"}
-            
+        if not route:
+            return {"type":"error", "content": "Page introuvable"}
+        
 
-            # S'assurer du fait que l'utilisateur a fait le onboarding
-            onbaording_step = await self.store.get_onboarding_step()
+        # S'assurer du fait que l'utilisateur a fait le onboarding
+        onbaording_step = await self.store.get_onboarding_step()
 
-            if onbaording_step != "completed" and route.layout != "onboarding":
-                return {"redirect":f"/{onbaording_step or "on_welcom"}"}
-            
-            
-            # Verifier l'authentification
-            if route.requires_auth and not self.state.is_authenticated():
-                return {"redirect": "/login"}
-            
-            
-            
-            # Chargement de la view...
-            view = route.get_view()
-            content = await view()
+        if onbaording_step != "completed" and route.layout != "onboarding":
+            return {"redirect":f"/{onbaording_step or "on_welcome"}"}
+        
+        
+        # Verifier l'authentification
+        if route.requires_auth and not self.state.is_authenticated():
+            return {"redirect": "/login"}
+        
+        
+        
+        # Chargement de la view...
+        view = route.get_view()
+        content = view()
 
-            
-            return {
-                "type" : "view",
-                "layout" : route.layout,
-                "content" : content
-            }
+        
+        return {
+            "type" : "view",
+            "layout" : route.layout,
+            "content" : content
+        }
 
