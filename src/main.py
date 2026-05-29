@@ -7,6 +7,8 @@ from importlib import import_module
 from models.db_initializer import db_initializer
 from core.store import RStockStore
 from core.state import RstockState
+from core.router.engine import RouterEngine
+from core.layout import build_layout
 
 
 async def main(page: ft.Page):
@@ -16,11 +18,10 @@ async def main(page: ft.Page):
     store = RStockStore()
     # Initialiser une instance du state
     state = RstockState(page)
-    # Récupérer les données du store lier a l'oboarding
+    # Initialiser une instance du routeur
     onboarding_step = await store.get_onboarding_step()
+    router_engine = RouterEngine(page, store, state)
 
-
-    # fetch connected user at the top level to avoid coroutine error
 
 
     db_initializer()
@@ -37,9 +38,9 @@ async def main(page: ft.Page):
     page.theme = light_theme
     page.theme_mode = ft.ThemeMode.LIGHT
     page.dark_theme = dark_theme
-    page.bgcolor = None
-    page.padding = 0
-    page.spacing = 0
+    # page.bgcolor = None
+    # page.padding = 0
+    # page.spacing = 0
 
 
 
@@ -49,38 +50,18 @@ async def main(page: ft.Page):
 
     # Recuperer les infos de l'onboarding
 
-    # initialiser le contenu a vide
-    content_container = ft.Container(expand=True)
-    # initialisation de l'echaffaudage
+    # initialiser le contenu et de l'echaffaudage
     layout = ft.Container(expand=True)
+    content_container = ft.Container(expand=True)
 
     async def router(e: ft.RouteChangeEvent):
-        # charger dynamiquement le contenu
-        # adequat en fonction de la route
         route = page.route
-        onboarding_step = await store.get_onboarding_step()
+        result = await router_engine.resolve(route)
 
-        if route in routes:
-            route = route.lstrip("/")
-            # recuperation conditionnel des pages en fonction des routes et 
-            # de l'onboarding
-            if onboarding_step=="completed":
-                if route=="login":
-                    layout.content = await login(page)
-                else:
-                    content = import_module(f"pages.{route}")
-                    content_container.content = getattr(content, route)()
-                    # reconstruction de l'echaffaudage au changement de route 
-                    layout.content = pager(page=page, content=content_container)
-            else:
-                content = import_module(f"pages.onboarding.{route}")
-                content_container.content = getattr(content, route)(page)
-
-                # reconstruction de l'echaffaudage au changement de route 
-                layout.content = onboarder(content=content_container, illustration=route.lstrip('/'))
-        else:
-            layout.content = pager(page=page, content=ft.Text("Page introuvable"))
-        
+        if "redirect" in result:
+            await page.push_route(result["redirect"])
+            return
+        layout.content = build_layout(page, result, content_container)
         page.update()
         
 
