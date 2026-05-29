@@ -30,7 +30,7 @@ class Route:
         Returns:
         flet.Control : La vue a charger
         """
-        if self._view_func is None:
+        if self._view is None:
             module = import_module(self.module)
             self._view = getattr(module, self.view)
         
