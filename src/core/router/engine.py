@@ -11,8 +11,6 @@ class RouterEngine():
     async def resolve(self, path: str)->dict:
         route = routes.get(path)
         
-
-
         if not route:
             return {"type":"error", "content": "Page introuvable"}
         
@@ -27,17 +25,20 @@ class RouterEngine():
         # Verifier l'authentification
         if route.requires_auth and not self.state.is_authenticated():
             return {"redirect": "/login"}
-        
-        
-        
-        # Chargement de la view...
-        view = route.get_view()
-        content = view()
+            
+        if route :
+            # Chargement de la view...
+            view = route.get_view()
+
+            content = view()
+
+            if route.requires_page:
+                content = view(page=self.page)
 
         
-        return {
-            "type" : "view",
-            "layout" : route.layout,
-            "content" : content
-        }
+            return {
+                "type" : "view",
+                "layout" : route.layout,
+                "content" : content
+            }
 
