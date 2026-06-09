@@ -20,6 +20,7 @@ class Route:
     view: str
     layout: str = "main"
     requires_auth: bool = False
+    requires_root: bool = False
     _view = None
 
 
