@@ -3,7 +3,7 @@ from layout.components.onboarder import next
 
 
 
-def on_welcome(page) -> ft.Control:
+def on_welcome() -> ft.Control:
     
 
     welcome_container = ft.Container(ft.Column(
