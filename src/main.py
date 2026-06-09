@@ -51,7 +51,6 @@ async def main(page: ft.Page):
 
     async def router(e: ft.RouteChangeEvent):
         route = page.route
-        router_engine = RouterEngine(page, store, state)
         result = await router_engine.resolve(route)
 
         if "redirect" in result:

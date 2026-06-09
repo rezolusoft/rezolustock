@@ -17,6 +17,7 @@ class RouterEngine():
 
         # S'assurer du fait que l'utilisateur a fait le onboarding
         onbaording_step = await self.store.get_onboarding_step()
+        
 
         if onbaording_step != "completed" and route.layout != "onboarding":
             return {"redirect":f"/{onbaording_step or "on_welcome"}"}
