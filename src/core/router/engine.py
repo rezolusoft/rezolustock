@@ -27,19 +27,22 @@ class RouterEngine():
         if route.requires_auth and not self.state.is_authenticated():
             return {"redirect": "/login"}
             
-        if route :
-            # Chargement de la view...
-            view = route.get_view()
 
-            content = view()
-
-            if route.requires_page:
-                content = view(page=self.page)
+        # Chargement de la view...
+        view = route.get_view()
 
         
-            return {
-                "type" : "view",
-                "layout" : route.layout,
-                "content" : content
-            }
+
+        if route.requires_page:
+            content = view(page=self.page)
+
+        else:
+            content = view()
+
+
+        return {
+            "type" : "view",
+            "layout" : route.layout,
+            "content" : content
+        }
 
