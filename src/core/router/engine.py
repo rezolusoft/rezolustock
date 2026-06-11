@@ -34,11 +34,16 @@ class RouterEngine():
         
 
         if route.requires_page:
-            content = view(page=self.page)
+            if route.is_async:
+                content = await view(page=self.page)
+            else:
+                content = view(page=self.page)
 
         else:
-            content = view()
-
+            if route.is_async:
+                content = await view()
+            else:
+                content = view()
 
         return {
             "type" : "view",
