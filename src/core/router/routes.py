@@ -4,7 +4,7 @@ from .base import Route
 routes = {
 
     # Auth
-    "/login": Route(path="/login", module="pages.auth.login", view="login", layout="auth"),
+    "/login": Route(path="/login", module="pages.auth.login", view="login", layout="auth", requires_page=True, is_async=True),
 
     # Main
     "/dashboard": Route(path="/dashboard", module="pages.dashboard", view="dashboard", layout="main"),
@@ -21,6 +21,6 @@ routes = {
     "/on_add_password": Route(path="/on_add_password", module="pages.onboarding.on_add_password", view="on_add_password", requires_page=True,  layout="onboarding"),
     "/on_add_category": Route(path="/on_add_category", module="pages.onboarding.on_add_category", view="on_add_category", requires_page=True,  layout="onboarding"),
     "/on_add_product": Route(path="/on_add_product", module="pages.onboarding.on_add_product", view="on_add_product", requires_page=True,  layout="onboarding"),
-    "/on_done": Route(path="/on_done", module="pages.onboarding.on_done", view="on_done",  layout="onboarding"),
+    "/on_done": Route(path="/on_done", module="pages.onboarding.on_done", view="on_done", requires_page=True,  layout="onboarding"),
 
 }
