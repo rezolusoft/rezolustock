@@ -19,8 +19,8 @@ def on_add_password(page) -> ft.Control:
     store = RStockStore()
     state = RstockState(page)
 
-    password_field = ft.TextField(hint_text="*Entrer votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
-    password_confirm_field = ft.TextField(hint_text="*Confirmer votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
+    password_field = ft.TextField(hint_text="*Entrez votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
+    password_confirm_field = ft.TextField(hint_text="*Confirmez votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1)
 
     async def set_shop_user(password):
         shop = await store.get_shop()
