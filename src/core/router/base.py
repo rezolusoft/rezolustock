@@ -20,6 +20,8 @@ class Route:
     view: str
     layout: str = "main"
     requires_auth: bool = False
+    requires_page: bool = False
+    is_async : bool = False
     _view = None
 
 

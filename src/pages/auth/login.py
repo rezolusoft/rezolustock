@@ -67,7 +67,7 @@ async def login(page) -> ft.Control:
                 ft.Column(
             
                     controls=[
-                            ft.Image(f"{shop.get('logo')}", width=80),
+                            ft.Image(f"{shop.get('logo')}", width=100),
                             ft.Text(f"Bienvenue | {shop.get("name").capitalize()}", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE),
                             ft.Text("Connectez-vous pour continuer à gérer efficacement votre stock et suivre vos performances.", size=16, font_family="Poppins", color=ft.Colors.ON_SURFACE),
                             email_field,
