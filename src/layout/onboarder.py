@@ -25,7 +25,7 @@ def onboarder(content, illustration=None) -> ft.Control:
 
             bgcolor=ft.Colors.SURFACE,
             border_radius=ft.BorderRadius.all(10),
-            padding=ft.Padding.all(50),
+            padding=ft.Padding.symmetric(vertical=30, horizontal=20),
             
 
         ),

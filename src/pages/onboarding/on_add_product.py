@@ -28,7 +28,7 @@ def on_add_product(page) -> ft.Control:
 
     product_description_field = ft.TextField(hint_text="*Description Produit", multiline=True, min_lines=3, max_lines=3, border_radius=10, expand=1)
 
-    product_category_dropdown = ft.Dropdown(hint_text="Sélectionner une catégorie", options=dropdown_categories(), on_select=on_category_select, expand=True, border_radius=10)
+    product_category_dropdown = ft.Dropdown(hint_text="Sélectionnez une catégorie", options=dropdown_categories(), on_select=on_category_select, expand=True, border_radius=10)
 
     product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1,)
     

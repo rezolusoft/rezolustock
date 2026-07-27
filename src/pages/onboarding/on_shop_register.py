@@ -234,7 +234,7 @@ def on_shop_register(page) -> ft.Control:
     shop_register_container = ft.Container(ft.Column(
         expand=True,
         controls=[
-            ft.Row([ft.Text("Enregistrer Votre Boutique", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE, )]),
+            ft.Row([ft.Text("Enregistrez Votre Boutique", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE, )]),
             ft.Row([shop_name_field]),
             ft.Row([email_field, phone_field]),
             ft.Row([adress_field]),
