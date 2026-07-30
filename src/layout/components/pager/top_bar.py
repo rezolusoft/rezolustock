@@ -1,5 +1,8 @@
 import flet as ft
 from core.state import RstockState
+from core.store import RStockStore
+from core.auth import RstockAuthentication
+
 
 def search_bar() -> ft.Control:
 
@@ -113,17 +116,66 @@ def settings_button() -> ft.Control:
 
 def profile_button(page) -> ft.Control:
     state = RstockState(page)
+    store = RStockStore()
+
+
+    authenticator = RstockAuthentication(state, store)
+
+    async def logout():
+        await authenticator.logout()
+        page.update()
+
+
     user = state.get_user()
     avatar = user["avatar"]
 
     if avatar is None:
         avatar = "/img/user.png"
-    profile_button = ft.Container(
+
+    profile_button = ft.SubmenuButton(
+        content=ft.Container(
                 content=ft.Row([ft.Image(f"{avatar}", width=22)]),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=5,
-            )
+            ),
+            style=ft.ButtonStyle(
+                overlay_color="transparent",
+            ),
+            menu_style=ft.MenuStyle(
+                alignment=ft.Alignment.CENTER_LEFT, 
+                bgcolor=ft.Colors.SURFACE,
+                
+                padding=ft.Padding.all(10),
+                ),
+            controls=[
+                ft.MenuItemButton(
+                    content= ft.Container(
+                        ft.Row(
+                        [
+                            ft.Container(content=ft.Image(f"{avatar}", width=48)),
+                            ft.Column(
+                            [
+                            ft.Text(f"{user["first_name"]} {user["last_name"]}", font_family="PoppinsSemiBold", color=ft.Colors.ON_SURFACE),
+                            ft.Text(f"{user["account_type"]}".capitalize(), color=ft.Colors.ON_SURFACE)
+                            ],
+                            spacing=3
+                            )
+                        ]
+                    ),
+                    margin=ft.Margin.symmetric(vertical=10),
+                    padding=10,
+                    border_radius=10,
+                    bgcolor=ft.Colors.GREY_100
+                    )
+                ),
+
+                ft.MenuItemButton(ft.Row([ft.Icon(ft.Icons.PERSON_2_ROUNDED, color=ft.Colors.ON_SURFACE), ft.Text("Mon Profile", color=ft.Colors.ON_SURFACE)])),
+                ft.MenuItemButton(ft.Row([ft.Icon(ft.Icons.SETTINGS_OUTLINED, color=ft.Colors.ON_SURFACE), ft.Text("Paramètres", color=ft.Colors.ON_SURFACE)])),
+                ft.MenuItemButton(ft.Row([ft.Icon(ft.Icons.LOGOUT_OUTLINED, color=ft.Colors.RED_500), ft.Text("Déconnexion", color=ft.Colors.RED_500)]), on_click=logout)
+            ]
+
+    )
     
     return profile_button
 
@@ -145,7 +197,7 @@ def top_bar(page)->ft.Control:
                 fulscreen_button(),
                 cashier_button(),
                 daily_sales_button(),
-                settings_button(),
+                # settings_button(),
                 profile_button(page)
             ]
         )
