@@ -11,7 +11,8 @@ def welcome_bar():
         width=260,
         expand=True,
         menu_style=ft.MenuStyle(
-            alignment=ft.Alignment.BOTTOM_CENTER, side=ft.BorderSide(1),
+            alignment=ft.Alignment.BOTTOM_LEFT, 
+            bgcolor=ft.Colors.WHITE,
 
         ),
         style=ft.ButtonStyle(
