@@ -9,7 +9,18 @@ from components.notification import rstocknotif
 
 class RstockAuthentication():
 
-    
+    ##################################################################
+    ############################## AUTH ##############################
+    ##################################################################
+    #                                                                #
+    #       Classe centralisant les fonctionnatité du système        #
+    #      d'authentification, il gère notament l'inscription, la    # 
+    #  connexion, la déconnexion et la récupération de mot de passe  #
+    #                                                                #
+    ##################################################################
+    ############################## AUTH ##############################
+    ##################################################################
+
     def __init__(self, state, store):
         self.state = state
         self.store = store
@@ -17,7 +28,7 @@ class RstockAuthentication():
 
 
     def _make_password(self, password:str)->str:
-        # create and return a password
+        # create and return a password hashed password
         hasher = PasswordHasher()
         
         return hasher.hash(password)
@@ -25,13 +36,13 @@ class RstockAuthentication():
 
 
     def _check_password(self, hash, password)->bool:
-        # check a password 
+        # verify if a password is correct with the hash
         return PasswordHasher().verify(hash, password)
     
 
     
     def _user_exist(self, email):
-        
+        # check if there is an  existing user with this email
         try:
             user = User.get(User.email==email)
             
@@ -74,7 +85,7 @@ class RstockAuthentication():
 
 
     async def login(self, login, password, persist=False) -> bool:
-        
+        # loigin process
         user = self._user_exist(login)
 
         try:
@@ -128,5 +139,6 @@ class RstockAuthentication():
     async def logout(self):
         self.state.clear_user()
         await self.store.clear_user()
+        await self.state.page.push_route("/login") # add a notification to say goodbye :) to the user
 
-    
+        

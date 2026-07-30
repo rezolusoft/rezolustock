@@ -20,7 +20,8 @@ async def login(page) -> ft.Control:
     persist_session = ft.Checkbox(label="Se souvenir de moi", value=False, label_style=ft.TextStyle(color=ft.Colors.PRIMARY))
 
     async def form_handler():
-        
+        email_field.error = ""
+        password_field.error = ""
         email = email_field.value.strip()
         password = password_field.value.strip()
         persist = persist_session.value
@@ -31,7 +32,7 @@ async def login(page) -> ft.Control:
             if user:
                 notif = rstocknotif("Succès ✅", "Accès autorisé. Chargement de votre espace…", [])
                 page.show_dialog(notif)
-                await asyncio.sleep(1.7)
+                await asyncio.sleep(2.3)
                 page.pop_dialog()
                 await page.push_route("/dashboard")
             
