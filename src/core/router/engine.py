@@ -51,3 +51,8 @@ class RouterEngine():
             "content" : content
         }
 
+
+
+async def push(page, destination):
+    await page.push_route(destination)
+
