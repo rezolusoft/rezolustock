@@ -1,7 +1,7 @@
 import flet as ft
 import asyncio
-from core.store import RStockStore
-from core.state import RstockState
+from core.context.store import RStockStore
+from core.context.state import RstockState
 from utils.validators import is_valid_email
 from core.auth import RstockAuthentication
 from components.notification import rstocknotif
