@@ -1,8 +1,9 @@
 import flet as ft
+from core.state import RstockState
 
 
 
-def welcome_bar():
+def welcome_bar(page):
 
 
     rstock_date_picker = ft.SubmenuButton(
@@ -51,19 +52,26 @@ def welcome_bar():
         ]
     )
 
+
+    
+
     reload = ft.Container(
                 content=ft.Icon(ft.Icons.REPLAY_OUTLINED, color=ft.Colors.PRIMARY),
                 padding=5,
                 border_radius=5,
                 border=ft.Border.all(1)
             )
-    
+
+
+    state = RstockState(page)
+    user = state.get_user()
+
     return ft.Container(
         ft.Row([
             ft.Column([
 
-                ft.Text("👋 Bonjour Abiodoun", color=ft.Colors.PRIMARY, font_family="PoppinsBold"),
-                ft.Text("Quoi de neuf chez rezolusoft aujourd'hui ?", color=ft.Colors.PRIMARY, font_family="PoppinsMedium"),
+                ft.Text(f"👋 Bonjour {user['first_name']}", color=ft.Colors.PRIMARY, font_family="PoppinsBold"),
+                ft.Text(f"Quoi de neuf chez {user['shop']['name']} aujourd'hui ?", color=ft.Colors.PRIMARY, font_family="PoppinsMedium"),
                 
                 ]
             ),
