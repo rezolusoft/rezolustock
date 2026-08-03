@@ -41,9 +41,9 @@ class RouterEngine():
 
         else:
             if route.is_async:
-                content = await view()
+                content = await view(self.page)
             else:
-                content = view()
+                content = view(self.page)
 
         return {
             "type" : "view",
