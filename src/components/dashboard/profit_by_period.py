@@ -32,7 +32,7 @@ def profit_by_period(period=None):
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN
             ),
        
-       bgcolor=ft.Colors.WHITE,
+       bgcolor=ft.Colors.SURFACE,
        expand=3,
        padding=ft.Padding.all(10),
        border_radius=ft.BorderRadius.all(5)

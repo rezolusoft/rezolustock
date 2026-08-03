@@ -63,7 +63,7 @@ def sales_chart():
         ),
 
         expand=3,
-        bgcolor= ft.Colors.WHITE,
+        bgcolor=ft.Colors.SURFACE,
         padding=10,
         border_radius=5,
       
