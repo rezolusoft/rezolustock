@@ -64,14 +64,14 @@ def welcome_bar(page):
 
 
     state = RstockState(page)
-    user = state.get_user()
+    user = state.get_current_user()
 
     return ft.Container(
         ft.Row([
             ft.Column([
 
-                ft.Text(f"👋 Bonjour {user['first_name']}", color=ft.Colors.PRIMARY, font_family="PoppinsBold"),
-                ft.Text(f"Quoi de neuf chez {user['shop']['name']} aujourd'hui ?", color=ft.Colors.PRIMARY, font_family="PoppinsMedium"),
+                ft.Text(f"👋 Bonjour {user.first_name}", color=ft.Colors.PRIMARY, font_family="PoppinsBold"),
+                ft.Text(f"Quoi de neuf chez {user.shop_name} aujourd'hui ?", color=ft.Colors.PRIMARY, font_family="PoppinsMedium"),
                 
                 ]
             ),
