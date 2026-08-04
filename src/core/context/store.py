@@ -1,7 +1,7 @@
 import flet as ft
 from utils.types import ShopType, UserType
 import json
-from core.serializers import rstore_serializer
+from utils.serializers import rstore_serializer
 
 
 

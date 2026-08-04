@@ -1,7 +1,6 @@
 import flet as ft
 from argon2 import PasswordHasher
 from models.user import User
-from utils.types import UserType
 from datetime import datetime
 from components.notification import rstocknotif
 
@@ -105,7 +104,7 @@ class RstockAuthentication():
                     "phone": user.phone,
                     "account_type": user.account_type,
                     "last_seen": user.last_seen,
-                    "shop": shop
+                    "shop": shop,
                 }
 
                 self.state.set_user(user_data)

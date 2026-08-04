@@ -1,6 +1,6 @@
 import flet as ft
-from core.state import RstockState
-from core.store import RStockStore
+from core.context.state import RstockState
+from core.context.store import RStockStore
 from core.auth import RstockAuthentication
 
 
@@ -28,8 +28,8 @@ def new_button() -> ft.Control:
 
 def pos_button(page) -> ft.Control:
     state = RstockState(page)
-    user = state.get_user()
-    shop = user["shop"]
+    user = state.get_current_user()
+    shop = user.shop
 
     async def push(e):
         await e.page.push_route('/dashboard')
@@ -126,8 +126,8 @@ def profile_button(page) -> ft.Control:
         page.update()
 
 
-    user = state.get_user()
-    avatar = user["avatar"]
+    user = state.get_current_user()
+    avatar = user.avatar
 
     if avatar is None:
         avatar = "/img/user.png"
@@ -156,8 +156,8 @@ def profile_button(page) -> ft.Control:
                             ft.Container(content=ft.Image(f"{avatar}", width=48)),
                             ft.Column(
                             [
-                            ft.Text(f"{user["first_name"]} {user["last_name"]}", font_family="PoppinsSemiBold", color=ft.Colors.ON_SURFACE),
-                            ft.Text(f"{user["account_type"]}".capitalize(), color=ft.Colors.ON_SURFACE)
+                            ft.Text(f"{user.full_name}", font_family="PoppinsSemiBold", color=ft.Colors.ON_SURFACE),
+                            ft.Text(f"{user.account_type}".capitalize(), color=ft.Colors.ON_SURFACE)
                             ],
                             spacing=3
                             )
