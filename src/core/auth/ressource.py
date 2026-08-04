@@ -54,7 +54,7 @@ PRODUCT = ProductResource("product")
 class UserResource(Resource):
     @property
     def block(self):
-        return Permission(self.name, 'refund')
+        return Permission(self.name, 'block')
     
 USER = UserResource("user")
 
