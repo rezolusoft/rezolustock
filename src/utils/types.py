@@ -1,5 +1,6 @@
 from typing import TypedDict, NotRequired
 from datetime import datetime
+from core.auth.BasePermission import Permission
 
 
 
@@ -28,4 +29,5 @@ class UserType(TypedDict):
     phone : str
     account_type : str
     last_seen : datetime | None
-    shop : NotRequired[ShopType] 
+    shop : NotRequired[ShopType]
+    permissions : set[Permission]
