@@ -1,5 +1,5 @@
 from models.rezolustock import RstockObject
-from utils.enums import AccountTypeEnums
+from utils.enums import AccountTypeEnums as account
 from peewee import *
 
 
@@ -14,7 +14,7 @@ class User(RstockObject):
     email = CharField(max_length=100, null=False, unique=True, index=True)
     phone = CharField(max_length=50, null=False, unique=True, index=True)
     password = CharField(max_length=500)
-    account_type = CharField(max_length=10, choices=AccountTypeEnums.items(), default=AccountTypeEnums.SELLER.value)
+    account_type = CharField(max_length=10, choices=account.items(), default=account.SELLER.value)
     last_seen = DateTimeField(null=True)
 
 
@@ -23,7 +23,8 @@ class User(RstockObject):
         return f"{self.first_name} {self.last_name}"
     
     
-    
+
+
     
 
 
