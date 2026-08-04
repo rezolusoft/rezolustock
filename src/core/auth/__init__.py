@@ -1,1 +1,1 @@
-from .auth import RstockAuthentication
+from .authentication import RstockAuthentication
