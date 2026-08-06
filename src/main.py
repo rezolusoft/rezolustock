@@ -15,6 +15,7 @@ async def main(page: ft.Page):
     
     # Initialiser une instance du state
     state = RstockState(page)
+  
     
     # Initialiser une instance du routeur
     onboarding_step = await store.get_onboarding_step()
