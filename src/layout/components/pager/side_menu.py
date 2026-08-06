@@ -89,8 +89,8 @@ def side_menu(page)->ft.Control:
             side_menu_button(title="Dépenses", icon="MONEY_OFF_OUTLINED", destination="/expenses", page=page),
 
             menu_title("Rapports"),
-            side_menu_button(title="Rapport des ventes", icon="DATA_EXPLORATION_OUTLINED", destination="/sale_report", page=page),
-            side_menu_button(title="Rapport d'inventaire", icon="TABLE_CHART_OUTLINED", destination="/inventory_report", page=page),
+            side_menu_button(title="Ventes", icon="DATA_EXPLORATION_OUTLINED", destination="/sale_report", page=page),
+            side_menu_button(title="Inventaire", icon="TABLE_CHART_OUTLINED", destination="/inventory_report", page=page),
             side_menu_button(title="Bénéfices & Pertes", icon="BUBBLE_CHART_OUTLINED", destination="/profit_loss", page=page),
 
             menu_title("Paramètres"),
