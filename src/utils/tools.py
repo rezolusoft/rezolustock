@@ -2,7 +2,7 @@ import uuid
 import os
 import shutil
 import re
-
+import random
 
 
 def id_generator()->uuid:
@@ -40,6 +40,16 @@ def invoice_code_generator()->str:
     return f"INVOICE-{rand_code.upper()}"
 
 
+def avatar_color():
+    """
+    Génère un code couleur aléatoire pour les avatars
+    On fixera le seuil des couleur RGB à 150 pour générer
+    de préférence des couleur sombre pour du texte blanc par 
+    dessus.
+    """
+    return "#{:02x}{:02x}{:02x}".format(random.randint(0, 150), random.randint(0, 150), random.randint(0,150))
+
+
 def local_file_uploader(_file, _dir="img"):
 
     if not getattr(_file, "path", None):
@@ -66,7 +76,7 @@ def local_file_uploader(_file, _dir="img"):
     return dest
 
 
-#def local_file_uploader(_file, _dir="img"):
+def local_file_uploader(_file, _dir="img"):
     media_dir = os.path.join(os.getcwd(), 'media')
     os.makedirs(media_dir, exist_ok=True)
     file = _file.path
