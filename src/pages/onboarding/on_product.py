@@ -2,7 +2,7 @@ import flet as ft
 from layout.components.onboarder import previous, next
 
 
-def on_product() -> ft.Control:
+def on_product(page) -> ft.Control:
 
 
     product_container = ft.Container(ft.Column(

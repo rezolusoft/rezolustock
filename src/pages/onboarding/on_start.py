@@ -2,7 +2,7 @@ import flet as ft
 from layout.components.onboarder import next
 
 
-def on_start() -> ft.Control:
+def on_start(page) -> ft.Control:
 
 
     start_container = ft.Container(ft.Column(

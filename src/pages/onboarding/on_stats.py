@@ -2,7 +2,7 @@ import flet as ft
 from layout.components.onboarder import previous, next
 
 
-def on_stats() -> ft.Control:
+def on_stats(page) -> ft.Control:
 
 
     stats_container = ft.Container(ft.Column(
