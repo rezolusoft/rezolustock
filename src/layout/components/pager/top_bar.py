@@ -2,6 +2,7 @@ import flet as ft
 from core.context.state import RstockState
 from core.context.store import RStockStore
 from core.auth import RstockAuthentication
+from utils.tools import avatar_color
 
 
 def search_bar() -> ft.Control:
@@ -128,14 +129,14 @@ def profile_button(page) -> ft.Control:
 
     user = state.get_current_user()
     avatar = user.avatar
+    acolor = avatar_color()
 
-    if avatar is None:
-        avatar = "/img/user.png"
+    
 
     profile_button = ft.SubmenuButton(
         content=ft.Container(
-                content=ft.Row([ft.Image(f"{avatar}", width=22)]),
-                bgcolor=ft.Colors.GREY_100,
+                content=ft.Row([ft.Container(content=ft.CircleAvatar( bgcolor=acolor, content=avatar), width=28)]),
+               
                 padding=5,
                 border_radius=5,
             ),
@@ -153,7 +154,7 @@ def profile_button(page) -> ft.Control:
                     content= ft.Container(
                         ft.Row(
                         [
-                            ft.Container(content=ft.Image(f"{avatar}", width=48)),
+                            ft.Container(content=ft.CircleAvatar(foreground_image_src=avatar, bgcolor=acolor, content=avatar), width=48),
                             ft.Column(
                             [
                             ft.Text(f"{user.full_name}", font_family="PoppinsSemiBold", color=ft.Colors.ON_SURFACE),
