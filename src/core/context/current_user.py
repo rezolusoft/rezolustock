@@ -2,6 +2,7 @@ from utils.types import UserType
 from core.auth.authorization import AuthorizationService
 from core.auth.BasePermission import Permission
 from utils.enums import AccountTypeEnums as account
+import flet as ft
 
 
 class CurrentUser():
@@ -21,7 +22,13 @@ class CurrentUser():
 
     @property
     def avatar(self):
-        return self._data.get("avatar")
+        avatar = self._data.get("avatar")
+        if avatar:
+            avatar_content = ft.Image(avatar)
+        else:
+            avatar_content = ft.Text(self.initials, color=ft.Colors.SURFACE)
+
+        return avatar_content
 
 
     @property
@@ -69,7 +76,7 @@ class CurrentUser():
 
     @property
     def initials(self):
-        return f'{self.first_name[0]}{self.last_name[0]}'
+        return f'{self.first_name[0]}{self.last_name[0]}'.upper()
 
     @property
     def full_name(self):
