@@ -76,7 +76,7 @@ def local_file_uploader(_file, _dir="img"):
     return dest
 
 
-def local_file_uploader(_file, _dir="img"):
+""" def local_file_uploader(_file, _dir="img"):
     media_dir = os.path.join(os.getcwd(), 'media')
     os.makedirs(media_dir, exist_ok=True)
     file = _file.path
@@ -88,4 +88,4 @@ def local_file_uploader(_file, _dir="img"):
     dest = os.path.join(dest, name)
     shutil.copy(file, dest)
 
-    return dest
+    return dest """
