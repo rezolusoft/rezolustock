@@ -54,16 +54,6 @@ def on_shop_register(page) -> ft.Control:
             )
             page.update()
 
-
-        else:
-            select_logo.content = "Vous devez ajouter un logo !"
-            select_logo.color = ft.Colors.WHITE
-            select_logo.style = ft.ButtonStyle(
-                padding=ft.Padding.symmetric(vertical=15),
-                bgcolor=ft.Colors.RED_600,
-                shape=ft.RoundedRectangleBorder(radius=5),
-            )
-            page.update()
         
 
     # SELECTEUR DE FICHIER
@@ -71,7 +61,7 @@ def on_shop_register(page) -> ft.Control:
     
     # BOUTON DECLENCHEUR DU SELECTEUR DE FICHIER
     select_logo = ft.Button(
-        "Ajouter votre logo",
+        "Ajouter votre logo (Optionnel)",
         icon=ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
         color=ft.Colors.SURFACE,
         expand=1,
@@ -157,16 +147,25 @@ def on_shop_register(page) -> ft.Control:
             shop["last_name"].border_color = ft.Colors.GREEN_400
             valid=True
 
+        #if not logo_file_state["file"]:
+        #    select_logo.content = "Vous devez ajouter un logo !"
+        #    select_logo.color = ft.Colors.RED_500
+        #    select_logo.style = ft.ButtonStyle(
+        #        padding=ft.Padding.symmetric(vertical=15),
+        #        bgcolor=ft.Colors.PRIMARY,
+        #        shape=ft.RoundedRectangleBorder(radius=5),
+        #    )
+        #    valid=False
+
         if not logo_file_state["file"]:
-            select_logo.content = "Vous devez ajouter un logo !"
-            select_logo.color = ft.Colors.RED_500
+            select_logo.content = "Ajoutez votre logo (optionnel)"
+            select_logo.color = ft.Colors.SURFACE
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
                 shape=ft.RoundedRectangleBorder(radius=5),
             )
-            valid=False
-
+            valid=True
         else:
             logo_file_state["error"].value = None
             valid = True
@@ -181,8 +180,14 @@ def on_shop_register(page) -> ft.Control:
 
         if form_is_valid() :
 
-            # RECUPERER ET UPLOADER LOGO
-            logo_dest = local_file_uploader(logo_file_state["file"])
+            #Si aucun logo n'est selectionné, on met un logo par defaut
+            if not logo_file_state["file"]:
+                logo_dest = "assets/img/mini_logo.png"
+
+            else:
+
+                # RECUPERER ET UPLOADER LOGO
+                logo_dest = local_file_uploader(logo_file_state["file"])
             
             # Recuperer les infos de la boutique
             shop = {
@@ -195,7 +200,7 @@ def on_shop_register(page) -> ft.Control:
                 "first_name": owner_firstname_field.value.strip(),
                 "last_name": owner_lastname_field.value.strip(),
                 "logo": logo_dest
-                }
+            }
 
             # ENREGISTRER INFOS BOUTIQUE ET ETAT
             store = RStockStore()
