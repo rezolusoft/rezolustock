@@ -147,16 +147,6 @@ def on_shop_register(page) -> ft.Control:
             shop["last_name"].border_color = ft.Colors.GREEN_400
             valid=True
 
-        #if not logo_file_state["file"]:
-        #    select_logo.content = "Vous devez ajouter un logo !"
-        #    select_logo.color = ft.Colors.RED_500
-        #    select_logo.style = ft.ButtonStyle(
-        #        padding=ft.Padding.symmetric(vertical=15),
-        #        bgcolor=ft.Colors.PRIMARY,
-        #        shape=ft.RoundedRectangleBorder(radius=5),
-        #    )
-        #    valid=False
-
         if not logo_file_state["file"]:
             select_logo.content = "Ajoutez votre logo (optionnel)"
             select_logo.color = ft.Colors.SURFACE
@@ -246,7 +236,6 @@ def on_shop_register(page) -> ft.Control:
             ft.Row([rccm_field, ifu_field]),
             ft.Row([owner_lastname_field, owner_firstname_field]),
             ft.Row([select_logo]),
-            # ft.Row([ft.Container(logo_file_state["error"], margin=ft.Margin.only(top=-16, left=15, bottom=-20))]),
             ft.Row([save_shop_info])
         ],
         alignment=ft.MainAxisAlignment.CENTER,

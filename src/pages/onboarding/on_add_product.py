@@ -32,7 +32,7 @@ def on_add_product(page) -> ft.Control:
 
     product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*\.?[0-9]*"))
     
-    product_cost_field = ft.TextField(hint_text="*Prix de revient", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[[0-9]*\.?[0-9]*"))
+    product_cost_field = ft.TextField(hint_text="*Prix de revient", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*\.?[0-9]*"))
 
     product_quantity_field = ft.TextField(hint_text="*Quantité", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*"))
     product_quantity_alert_field = ft.TextField(hint_text="*Seuil Critique stock", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*"))
@@ -119,7 +119,7 @@ def on_add_product(page) -> ft.Control:
             qty = float(qty) if qty else -1
         except ValueError:
             qty = -1
-        if qty <= 0:
+        if qty < 0:
             product["price"].error = "Veuillez renseigner un prix pour votre produit"
             valid = False
         else:
@@ -132,7 +132,7 @@ def on_add_product(page) -> ft.Control:
             qty1 = float(qty1) if qty1 else -1
         except ValueError:
             qty1 = -1
-        if qty1 <= 0:
+        if qty1 < 0:
             product["cost"].error = "Veuillez renseigner un prix de revient pour votre produit"
             valid = False
         else:
@@ -145,7 +145,7 @@ def on_add_product(page) -> ft.Control:
             qty2 = int(qty2) if qty2 else -1
         except ValueError:
             qty2 = -1
-        if qty2 <= 0:
+        if qty2 < 0:
             product["quantity"].error = "Veuillez rensiegner une quantité de produit"
             valid=False
         else:
@@ -158,7 +158,7 @@ def on_add_product(page) -> ft.Control:
             qty3 = int(qty3) if qty3 else -1
         except ValueError:
             qty3 = -1
-        if qty3 <= 0:
+        if qty3 < 0:
             product["quantity_alert"].error = "Veuillez rensiegner une seuil de stock"
             valid=False
         else:
