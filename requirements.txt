@@ -1,10 +1,12 @@
 # CORE
 flet[all]==0.84.0
 flet_datatable2==0.84.0
+flet_charts==0.84.0
 
 # DATABASE AND ORM
 peewee==3.18.2
 peewee-migrate==1.13.0
+pw_migrate==1.4.0
 
 # CRYPTO AND SECURITY
 argon2-cffi

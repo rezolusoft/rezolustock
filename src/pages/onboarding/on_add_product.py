@@ -30,12 +30,12 @@ def on_add_product(page) -> ft.Control:
 
     product_category_dropdown = ft.Dropdown(hint_text="Sélectionnez une catégorie", options=dropdown_categories(), on_select=on_category_select, expand=True, border_radius=10)
 
-    product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1,)
+    product_price_field = ft.TextField(hint_text="*Prix de vente", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*\.?[0-9]*"))
     
-    product_cost_field = ft.TextField(hint_text="*Prix de revient", border_radius=10, expand=1)
+    product_cost_field = ft.TextField(hint_text="*Prix de revient", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*\.?[0-9]*"))
 
-    product_quantity_field = ft.TextField(hint_text="*Quantité", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]"))
-    product_quantity_alert_field = ft.TextField(hint_text="*Seuil Critique stock", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]"))
+    product_quantity_field = ft.TextField(hint_text="*Quantité", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*"))
+    product_quantity_alert_field = ft.TextField(hint_text="*Seuil Critique stock", border_radius=10, expand=1, keyboard_type=ft.KeyboardType.NUMBER, input_filter=ft.InputFilter(allow=True, regex_string="[0-9]*"))
 
 
     product_image_state = {
@@ -89,6 +89,7 @@ def on_add_product(page) -> ft.Control:
 
         valid = True
 
+        #Traitement des champs texte
         if not product["name"].value.strip():
             product["name"].error = "Veuillez renseigner un nom pour votre produit"
             valid = False
@@ -111,8 +112,14 @@ def on_add_product(page) -> ft.Control:
             product["description"].error = None
             product["description"].border_color = ft.Colors.GREEN_400
             valid = True
-        
-        if not product["price"].value.strip():
+
+        #Traitement des champs numériques
+        qty = (product["quantity"].value or "").strip()
+        try:
+            qty = float(qty) if qty else -1
+        except ValueError:
+            qty = -1
+        if qty < 0:
             product["price"].error = "Veuillez renseigner un prix pour votre produit"
             valid = False
         else:
@@ -120,16 +127,25 @@ def on_add_product(page) -> ft.Control:
             product["price"].border_color = ft.Colors.GREEN_400
             valid = True
         
-        
-        if not product["cost"].value.strip():
+        qty1 = (product["cost"].value or "").strip()
+        try:
+            qty1 = float(qty1) if qty1 else -1
+        except ValueError:
+            qty1 = -1
+        if qty1 < 0:
             product["cost"].error = "Veuillez renseigner un prix de revient pour votre produit"
             valid = False
         else:
             product["cost"].error = None
             product["cost"].border_color = ft.Colors.GREEN_400
             valid = True
-        
-        if not product["quantity"].value.strip():
+
+        qty2 = (product["quantity"].value or "").strip()
+        try:
+            qty2 = int(qty2) if qty2 else -1
+        except ValueError:
+            qty2 = -1
+        if qty2 < 0:
             product["quantity"].error = "Veuillez rensiegner une quantité de produit"
             valid=False
         else:
@@ -137,8 +153,12 @@ def on_add_product(page) -> ft.Control:
             product["quantity"].border_color = ft.Colors.GREEN_400
             valid = True
         
-
-        if not product["quantity_alert"].value.strip():
+        qty3 = (product["quantity_alert"].value or "").strip()
+        try:
+            qty3 = int(qty3) if qty3 else -1
+        except ValueError:
+            qty3 = -1
+        if qty3 < 0:
             product["quantity_alert"].error = "Veuillez rensiegner une seuil de stock"
             valid=False
         else:
