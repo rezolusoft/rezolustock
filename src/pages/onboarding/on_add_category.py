@@ -18,39 +18,39 @@ def on_add_category(page) -> ft.Control:
     category_name_field = ft.TextField(hint_text="*Nom Catégorie", border_radius=10, expand=1)
     category_description_field = ft.TextField(hint_text="*Description Catégorie", multiline=True, min_lines=3, max_lines=3, border_radius=10, expand=1)
     
-    category_image_state = {
-        "file" : None,
-        "error" : ft.Text("", color=ft.Colors.ERROR, size=12)
-    }
+    #category_image_state = {
+    #    "file" : None,
+    #    "error" : ft.Text("", color=ft.Colors.ERROR, size=12)
+    #}
 
-    async def on_category_image_selected(e: ft.Event[ft.Button]):
-        
-        files = await ft.FilePicker().pick_files(allow_multiple=False, initial_directory=f"{Path.home()/"Pictures"}", file_type=ft.FilePickerFileType.IMAGE)
-        if files:
-            category_image.content = f"Image Catégorie -> {files[0].name}"
-            category_image_state["file"] = files[0]
-            category_image.color = ft.Colors.SURFACE
-            category_image.style = ft.ButtonStyle(
-                padding=ft.Padding.symmetric(vertical=15),
-                bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(radius=5),
-            )
-            page.update()
+    #async def on_category_image_selected(e: ft.Event[ft.Button]):
+    #    
+    #    files = await ft.FilePicker().pick_files(allow_multiple=False, initial_directory=f"{Path.home()/"Pictures"}", file_type=ft.FilePickerFileType.IMAGE)
+    #    if files:
+    #        category_image.content = f"Image Catégorie -> {files[0].name}"
+    #        category_image_state["file"] = files[0]
+    #        category_image.color = ft.Colors.SURFACE
+    #        category_image.style = ft.ButtonStyle(
+    #            padding=ft.Padding.symmetric(vertical=15),
+    #            bgcolor=ft.Colors.GREEN_600,
+    #            shape=ft.RoundedRectangleBorder(radius=5),
+    #        )
+    #        page.update()
              
     
 
-    category_image = ft.Button(
-        "Ajouter une image descriptive",
-        icon = ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
-        color = ft.Colors.SURFACE,
-        expand=1,
-        style=ft.ButtonStyle(
-            padding=ft.Padding.symmetric(vertical=15),
-            bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(radius=5),
-        ),
-        on_click= on_category_image_selected
-    )
+    #category_image = ft.Button(
+    #    "Ajouter une image descriptive",
+    #    icon = ft.Icons.ARROW_CIRCLE_UP_OUTLINED,
+    #    color = ft.Colors.SURFACE,
+    #    expand=1,
+    #    style=ft.ButtonStyle(
+    #        padding=ft.Padding.symmetric(vertical=15),
+    #        bgcolor=ft.Colors.PRIMARY,
+    #        shape=ft.RoundedRectangleBorder(radius=5),
+    #    ),
+    #    on_click= on_category_image_selected
+    #)
 
     page.update()
 
@@ -81,12 +81,12 @@ def on_add_category(page) -> ft.Control:
     
     async def form_handler(e) :
         if form_is_valid():
-            image_dest = local_file_uploader(category_image_state["file"])
+            #image_dest = local_file_uploader(category_image_state["file"])
             
             new_category = Category(
                 name = category_name_field.value.strip(),
-                description = category_description_field.value.strip(),
-                image = image_dest
+                description = category_description_field.value.strip()
+                #image = image_dest
             )
             new_category.save()
 
@@ -129,7 +129,7 @@ def on_add_category(page) -> ft.Control:
                             ft.Row([ft.Text("Ajouter Une Catégorie Produit", size=25, font_family="PoppinsBold",  color=ft.Colors.ON_SURFACE)]),
                             category_name_field,
                             category_description_field,
-                            ft.Row(controls=[category_image], expand=True),
+                            #ft.Row(controls=[category_image], expand=True),
                             ft.Row(controls=[save_category], expand=True)
 
                     ],
