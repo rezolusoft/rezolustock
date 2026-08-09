@@ -52,7 +52,7 @@ def on_add_product(page) -> ft.Control:
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(radius=5),
+                shape=ft.RoundedRectangleBorder(radius=10),
             )
 
             page.update()
@@ -67,7 +67,7 @@ def on_add_product(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
         ),
         on_click= on_product_image_selected
       )
@@ -172,7 +172,7 @@ def on_add_product(page) -> ft.Control:
             product_image.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(radius=5),
+                shape=ft.RoundedRectangleBorder(radius=10),
             )
             valid=False
         else:
@@ -220,7 +220,7 @@ def on_add_product(page) -> ft.Control:
     save_product = ft.Button(
         "Enregistrer Produit",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

@@ -23,7 +23,7 @@ def on_done(page) -> ft.Control:
                     content = ft.Text("Démarrer"),                              
             
                       style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(radius=5),
+                          shape=ft.RoundedRectangleBorder(radius=10),
                           padding=10,
                           bgcolor=ft.Colors.SECONDARY,
                           text_style=ft.TextStyle(

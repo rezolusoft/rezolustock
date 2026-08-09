@@ -30,7 +30,7 @@ def pager(page, content)->ft.Control:
                 ),
                 # image=ft.DecorationImage("img/3.jpg", fit=ft.ImageFit.COVER),
                 expand=True,
-                border_radius=ft.BorderRadius.all(5),
+                border_radius=ft.BorderRadius.all(10),
                 padding=ft.Padding.all(5),
                 # bgcolor=page.theme.color_scheme.background
             )

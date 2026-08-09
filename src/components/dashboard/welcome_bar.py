@@ -58,7 +58,7 @@ def welcome_bar(page):
     reload = ft.Container(
                 content=ft.Icon(ft.Icons.REPLAY_OUTLINED, color=ft.Colors.PRIMARY),
                 padding=5,
-                border_radius=5,
+                border_radius=10,
                 border=ft.Border.all(1)
             )
 
@@ -88,7 +88,7 @@ def welcome_bar(page):
         alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         ),
         bgcolor=ft.Colors.SURFACE,
-        border_radius=5,
+        border_radius=10,
         padding=10,
         
     )

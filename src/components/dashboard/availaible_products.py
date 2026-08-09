@@ -35,6 +35,6 @@ def available_products():
        bgcolor=ft.Colors.PRIMARY,
        expand=2,
         padding=ft.Padding.all(15),
-       border_radius=ft.BorderRadius.all(5)
+       border_radius=ft.BorderRadius.all(10)
        
     )

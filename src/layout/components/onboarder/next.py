@@ -16,7 +16,7 @@ def next(route, name="Suivant"):
                     
                     bgcolor=ft.Colors.SECONDARY,
                       style=ft.ButtonStyle(
-                          shape=ft.RoundedRectangleBorder(radius=5),
+                          shape=ft.RoundedRectangleBorder(radius=10),
                           padding=10,
                           color=ft.Colors.WHITE,
                           

@@ -24,5 +24,5 @@ def dashboard(page)->ft.Control:
         )
     
     )
-    dashboard.border_radius = ft.BorderRadius.all(5)
+    dashboard.border_radius = ft.BorderRadius.all(10)
     return dashboard

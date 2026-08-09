@@ -71,7 +71,7 @@ def on_add_category(page) -> ft.Control:
     save_category = ft.Button(
         "Enregistrer Category",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(

@@ -49,7 +49,7 @@ def top_sales():
         bgcolor=ft.Colors.SURFACE,
         expand=2,
         padding=10,
-        border_radius=5
+        border_radius=10
 
     )
 

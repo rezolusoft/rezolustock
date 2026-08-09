@@ -13,21 +13,21 @@ from core.context.store import RStockStore
 def on_shop_register(page) -> ft.Control:
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
-    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    shop_name_field = ft.TextField(hint_text="*Nom boutique", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    email_field = ft.TextField(hint_text="*Email", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    email_field = ft.TextField(hint_text="*Email", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    phone_field = ft.TextField(hint_text="*Téléphone", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    adress_field = ft.TextField(hint_text="*Adresse boutique", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    rccm_field = ft.TextField(hint_text="RCCM", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    rccm_field = ft.TextField(hint_text="RCCM", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    ifu_field = ft.TextField(hint_text="Numéro IFU", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire", border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    owner_firstname_field = ft.TextField(hint_text="*Prénoms du Propriétaire", border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
-    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=5, color=ft.Colors.PRIMARY, expand=1)
+    owner_lastname_field = ft.TextField(hint_text="*Nom du Propriétaire",border_radius=10, color=ft.Colors.PRIMARY, expand=1)
 
     # CHAMPS DU FORMULAIRE D'ENREGISTREMENT D'UNE BOUTIQUE
     
@@ -50,7 +50,7 @@ def on_shop_register(page) -> ft.Control:
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.GREEN_600,
-                shape=ft.RoundedRectangleBorder(radius=5),
+                shape=ft.RoundedRectangleBorder(radius=10),
             )
             page.update()
 
@@ -68,7 +68,7 @@ def on_shop_register(page) -> ft.Control:
         style=ft.ButtonStyle(
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.PRIMARY,
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
         ),
         on_click=on_logo_selected,
       )
@@ -153,7 +153,7 @@ def on_shop_register(page) -> ft.Control:
             select_logo.style = ft.ButtonStyle(
                 padding=ft.Padding.symmetric(vertical=15),
                 bgcolor=ft.Colors.PRIMARY,
-                shape=ft.RoundedRectangleBorder(radius=5),
+                shape=ft.RoundedRectangleBorder(radius=10),
             )
             valid=True
         else:
@@ -170,14 +170,13 @@ def on_shop_register(page) -> ft.Control:
 
         if form_is_valid() :
 
-            #Si aucun logo n'est selectionné, on met un logo par defaut
-            if not logo_file_state["file"]:
-                logo_dest = "assets/img/mini_logo.png"
-
-            else:
-
+            if logo_file_state["file"]:
                 # RECUPERER ET UPLOADER LOGO
                 logo_dest = local_file_uploader(logo_file_state["file"])
+            else:
+                #Si aucun logo n'est selectionné, on met un logo par defaut
+                logo_dest = "assets/img/mini_logo.png"
+                
             
             # Recuperer les infos de la boutique
             shop = {
@@ -212,7 +211,7 @@ def on_shop_register(page) -> ft.Control:
     save_shop_info = ft.Button(
         "Enregistrer boutique",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
