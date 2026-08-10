@@ -175,7 +175,7 @@ def on_shop_register(page) -> ft.Control:
                 logo_dest = local_file_uploader(logo_file_state["file"])
             else:
                 #Si aucun logo n'est selectionné, on met un logo par defaut
-                logo_dest = "assets/img/mini_logo.png"
+                logo_dest = "img/mini_logo.png"
                 
             
             # Recuperer les infos de la boutique
