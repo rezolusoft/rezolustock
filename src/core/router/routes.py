@@ -8,7 +8,7 @@ routes = {
 
     # Main
     "/dashboard": Route(path="/dashboard", module="pages.dashboard", view="dashboard", layout="main", requires_auth=True),
-    "/inventory": Route(path="/inventory", module="pages.inventory", view="inventory", layout="main", requires_auth=True),
+    "/inventory": Route(path="/inventory", module="pages.inventory.inventory", view="inventory", layout="main", requires_auth=True),
     "/product": Route(path="/product", module="pages.product.product", view="product", layout="main", requires_auth=True),
     "/category": Route(path="/category", module="pages.category.category", view="category", layout="main", requires_auth=True),
 
