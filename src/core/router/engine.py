@@ -50,6 +50,9 @@ class RouterEngine():
 
 
 
-async def push(page, destination):
-    await page.push_route(destination)
+async def push(page, path):
+    await page.push_route(path)
+
+async def go_home(e):
+    await e.page.push_route('/dashboard')
 
