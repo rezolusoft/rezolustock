@@ -10,10 +10,14 @@ authors = [
 
 ]
 dependencies = [
-  "flet[all]==0.84.0",
-  "flet_datatable2>=0.84.0",
+  "flet[all]==0.86.5",
+  "flet_charts==0.86.5",
+  "flet_datatable2==0.86.5",
+  "flet-lottie==0.86.5",
+  
   "peewee==3.18.2",
   "peewee-migrate==1.13.0",
+  
   "argon2-cffi>=25.1.0",
 ]
 
@@ -21,7 +25,7 @@ dependencies = [
 org = "com.rezolusoft"
 product = "RezoluStock"
 company = "Rezolusoft"
-copyright = "Copyright (C) 2025 Proudly made with ❤️ by Rezolusoft - Ajdarra, Benin"
+copyright = "Copyright (C) 2026 Proudly Built with ❤️ by Rezolusoft - Ajdarra, Benin"
 
 [tool.flet.app]
 path = "src"
