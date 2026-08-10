@@ -1,4 +1,5 @@
 from .routes import routes
+from pages.errors import notFoundError
 
 class RouterEngine():
     
@@ -12,7 +13,7 @@ class RouterEngine():
         route = routes.get(path)
         
         if not route:
-            return {"type":"error", "content": "Page introuvable"}
+            return {"type":"error", "content": notFoundError()}
         
 
         # S'assurer du fait que l'utilisateur a fait le onboarding
@@ -33,17 +34,13 @@ class RouterEngine():
 
         
 
-        if route.requires_page:
-            if route.is_async:
-                content = await view(page=self.page)
-            else:
-                content = view(page=self.page)
-
+       
+        if route.is_async:
+            content = await view(self.page)
         else:
-            if route.is_async:
-                content = await view(self.page)
-            else:
-                content = view(self.page)
+            content = view(self.page)
+
+     
 
         return {
             "type" : "view",
