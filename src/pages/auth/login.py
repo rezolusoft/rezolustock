@@ -14,8 +14,8 @@ async def login(page) -> ft.Control:
     state = RstockState(page)
     shop = await store.get_shop()
 
-    email_field = ft.TextField(hint_text="Email de connexion", border_radius=5, expand=1, color=ft.Colors.PRIMARY)
-    password_field = ft.TextField(hint_text="Votre mot de passe", border_radius=5, password=True, can_reveal_password=True, expand=1, color=ft.Colors.PRIMARY)
+    email_field = ft.TextField(hint_text="Email de connexion", border_radius=10, expand=1, color=ft.Colors.PRIMARY)
+    password_field = ft.TextField(hint_text="Votre mot de passe", border_radius=10, password=True, can_reveal_password=True, expand=1, color=ft.Colors.PRIMARY)
 
     persist_session = ft.Checkbox(label="Se souvenir de moi", value=False, label_style=ft.TextStyle(color=ft.Colors.PRIMARY))
 
@@ -49,7 +49,7 @@ async def login(page) -> ft.Control:
     login_button = ft.Button(
         "Connexion",
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=5),
+            shape=ft.RoundedRectangleBorder(radius=10),
             padding=ft.Padding.symmetric(vertical=15),
             bgcolor=ft.Colors.SECONDARY,
             text_style=ft.TextStyle(
