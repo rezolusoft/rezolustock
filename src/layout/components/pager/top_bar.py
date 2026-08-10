@@ -3,11 +3,12 @@ from core.context.state import RstockState
 from core.context.store import RStockStore
 from core.auth import RstockAuthentication
 from utils.tools import avatar_color
+from core.router.engine import go_home
 
 
 def search_bar() -> ft.Control:
 
-    search_bar = ft.Container(ft.TextField(hint_text="Rechercher...", prefix_icon=ft.Icons.SEARCH_OUTLINED, dense=True, text_size=14, width=220,))
+    search_bar = ft.Container(ft.TextField(hint_text="Rechercher...", suffix_icon=ft.Icons.SEARCH_OUTLINED, dense=True, text_size=14, width=220, border_radius=10))
     search_bar.margin = ft.Margin.symmetric(horizontal=10)
 
     return search_bar
@@ -19,10 +20,11 @@ def new_button() -> ft.Control:
                                
                                style=ft.ButtonStyle(bgcolor=ft.Colors.SECONDARY,
                                                     color=ft.Colors.WHITE,
-                                                    shape=ft.RoundedRectangleBorder(radius=5),
+                                                    shape=ft.RoundedRectangleBorder(radius=10),
+                                                    padding=10,
                                                     text_style=ft.TextStyle(font_family="PoppinsSemiBold")
                                                     ),
-                                icon=ft.Icons.ADD_CIRCLE_OUTLINE_OUTLINED
+                                icon=ft.Icons.ADD_CIRCLE_OUTLINE_OUTLINED,
                             )
 
     return new_button
@@ -32,8 +34,6 @@ def pos_button(page) -> ft.Control:
     user = state.get_current_user()
     shop = user.shop
 
-    async def push(e):
-        await e.page.push_route('/dashboard')
 
     pos_button = ft.Container(
     content=ft.Row([
@@ -41,14 +41,14 @@ def pos_button(page) -> ft.Control:
             content=ft.Image(f"{shop['logo']}", width=16, height=16),
             bgcolor=ft.Colors.WHITE,
             padding=2,
-            border_radius=5,
+            border_radius=10,
         ),
         ft.Text(shop["name"], color=ft.Colors.WHITE, font_family="PoppinsSemiBold")
     ]),
     bgcolor=ft.Colors.PRIMARY,
-    padding=5,
-    border_radius=5,
-    on_click= push
+    padding=ft.Padding.symmetric(vertical=5, horizontal=10),
+    border_radius=10,
+    on_click= go_home
     )
 
     return pos_button
@@ -59,19 +59,19 @@ def calc_button() -> ft.Control:
                 content=ft.Icon(ft.Icons.CALCULATE_OUTLINED, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             )
 
     return calc_button
 
 
-def fulscreen_button() -> ft.Control:
+def fullscreen_button() -> ft.Control:
 
     fulscreen_button = ft.Container(
                 content=ft.Icon(ft.Icons.FULLSCREEN_OUTLINED, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             )
 
     return fulscreen_button
@@ -83,7 +83,7 @@ def cashier_button() -> ft.Control:
                 content=ft.Icon(ft.Icons.POINT_OF_SALE_OUTLINED, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             )
 
     return cashier_button
@@ -95,7 +95,7 @@ def daily_sales_button() -> ft.Control:
                 content=ft.Icon(ft.Icons.MONETIZATION_ON, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             )
 
     return daily_sales_button
@@ -108,7 +108,7 @@ def settings_button() -> ft.Control:
                 content=ft.Icon(ft.Icons.SETTINGS_OUTLINED, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             )
 
     return settings_button
@@ -116,6 +116,7 @@ def settings_button() -> ft.Control:
 
 
 def profile_button(page) -> ft.Control:
+
     state = RstockState(page)
     store = RStockStore()
 
@@ -138,7 +139,7 @@ def profile_button(page) -> ft.Control:
                 content=ft.Row([ft.Container(content=ft.CircleAvatar( bgcolor=acolor, content=avatar), width=28)]),
                
                 padding=5,
-                border_radius=5,
+                border_radius=10,
             ),
             style=ft.ButtonStyle(
                 overlay_color="transparent",
@@ -146,8 +147,8 @@ def profile_button(page) -> ft.Control:
             menu_style=ft.MenuStyle(
                 alignment=ft.Alignment.CENTER_LEFT, 
                 bgcolor=ft.Colors.SURFACE,
-                
                 padding=ft.Padding.all(10),
+                shape = ft.RoundedRectangleBorder(radius=10)
                 ),
             controls=[
                 ft.MenuItemButton(
@@ -195,7 +196,7 @@ def top_bar(page)->ft.Control:
                 pos_button(page),
                 new_button(),
                 calc_button(),
-                fulscreen_button(),
+                fullscreen_button(),
                 cashier_button(),
                 daily_sales_button(),
                 # settings_button(),
@@ -210,7 +211,7 @@ def top_bar(page)->ft.Control:
 
 )
 
-    top_bar.border_radius = ft.BorderRadius.all(5)
+    top_bar.border_radius = ft.BorderRadius.all(10)
     top_bar.padding = ft.Padding.all(10)
     
     return top_bar
