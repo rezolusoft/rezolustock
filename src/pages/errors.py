@@ -29,3 +29,19 @@ def notFoundError():
         expand=1,
         align=ft.Alignment.CENTER
     )
+
+
+def emptyError():
+
+    return  ft.Container(
+        ft.Column(
+                [
+                    ft.Container(ftl.Lottie(src="lotties/404.json", reverse=False, animate=True, error_content=ft.Text("Erreur")), width=148, align=ft.Alignment.CENTER),
+                    ft.Text("Oups ! Il semble que tout est vide ici... Commencez par créer en cliquant sur nouveau !", font_family='PoppinsMedium', size=16, color=ft.Colors.PRIMARY, text_align=ft.TextAlign.CENTER, align=ft.Alignment.CENTER),
+                   
+                ],
+                alignment=ft.CrossAxisAlignment.CENTER
+            ),
+            alignment = ft.Alignment.CENTER
+
+    )
