@@ -4,30 +4,11 @@ from core.context.store import RStockStore
 from core.auth import RstockAuthentication
 from utils.tools import avatar_color
 from core.router.engine import go_home
+from components.shared import new_button
 
 
-def search_bar() -> ft.Control:
-
-    search_bar = ft.Container(ft.TextField(hint_text="Rechercher...", suffix_icon=ft.Icons.SEARCH_OUTLINED, dense=True, text_size=14, width=220, border_radius=10))
-    search_bar.margin = ft.Margin.symmetric(horizontal=10)
-
-    return search_bar
 
 
-def new_button() -> ft.Control:
-    
-    new_button = ft.TextButton(content="Nouveau", 
-                               
-                               style=ft.ButtonStyle(bgcolor=ft.Colors.SECONDARY,
-                                                    color=ft.Colors.WHITE,
-                                                    shape=ft.RoundedRectangleBorder(radius=10),
-                                                    padding=10,
-                                                    text_style=ft.TextStyle(font_family="PoppinsSemiBold")
-                                                    ),
-                                icon=ft.Icons.ADD_CIRCLE_OUTLINE_OUTLINED,
-                            )
-
-    return new_button
 
 def pos_button(page) -> ft.Control:
     state = RstockState(page)
@@ -40,7 +21,7 @@ def pos_button(page) -> ft.Control:
         ft.Container(
             content=ft.Image(f"{shop['logo']}", width=16, height=16),
             bgcolor=ft.Colors.WHITE,
-            padding=2,
+            padding=5,
             border_radius=10,
         ),
         ft.Text(shop["name"], color=ft.Colors.WHITE, font_family="PoppinsSemiBold")
@@ -56,7 +37,7 @@ def pos_button(page) -> ft.Control:
 def calc_button() -> ft.Control:
 
     calc_button = ft.Container(
-                content=ft.Icon(ft.Icons.CALCULATE_OUTLINED, size=22, color=ft.Colors.PRIMARY),
+                content=ft.Icon(ft.Icons.CALCULATE_ROUNDED, size=22, color=ft.Colors.PRIMARY),
                 bgcolor=ft.Colors.GREY_100,
                 padding=5,
                 border_radius=10,
@@ -182,6 +163,14 @@ def profile_button(page) -> ft.Control:
     return profile_button
 
 
+def new_button():
+    return ft.Container(
+                content=ft.Icon(ft.Icons.ADD_CIRCLE_OUTLINE_OUTLINED, size=22, color=ft.Colors.SURFACE),
+                bgcolor=ft.Colors.SECONDARY,
+                padding=5,
+                border_radius=10,
+            )
+
 def top_bar(page)->ft.Control:
     top_bar = ft.Container(
     bgcolor=ft.Colors.SURFACE,
@@ -189,11 +178,11 @@ def top_bar(page)->ft.Control:
     content=ft.Row(controls=[
         
         
-        search_bar(),
+        pos_button(page),
         
         ft.Row(
             controls=[
-                pos_button(page),
+
                 new_button(),
                 calc_button(),
                 fullscreen_button(),
